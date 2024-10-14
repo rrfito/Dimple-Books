@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.refitoo"
+    namespace = "com.example.dimplebooks"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.refitoo"
+        applicationId = "com.example.dimplebooks"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

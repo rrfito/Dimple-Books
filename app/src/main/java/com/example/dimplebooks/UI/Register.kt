@@ -1,4 +1,4 @@
-package com.example.refitoo
+package com.example.dimplebooks.UI
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.dimplebooks.R
 import com.google.android.material.snackbar.Snackbar
 
 class Register : AppCompatActivity() {

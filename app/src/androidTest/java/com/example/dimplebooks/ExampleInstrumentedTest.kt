@@ -1,4 +1,4 @@
-package com.example.refitoo
+package com.example.dimplebooks
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

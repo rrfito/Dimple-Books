@@ -1,9 +1,8 @@
-package com.example.refitoo
+package com.example.dimplebooks.UI
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -12,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.dimplebooks.R
 
 class Login : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -29,7 +29,7 @@ class Login : AppCompatActivity() {
         val Loginn = findViewById<Button>(R.id.Loginn)
 
         val buatAccount = findViewById<TextView>(R.id.buatAccount)
-        val intent = Intent(this,Register::class.java)
+        val intent = Intent(this, Register::class.java)
 
         buatAccount.setOnClickListener(){
             startActivity(intent)
@@ -45,7 +45,7 @@ class Login : AppCompatActivity() {
             val userVal = shared.getString("username",null)
             val passVal = shared.getString("password",null)
             if (inputPassword==passVal && inputUsername==userVal){
-                val dashboard = Intent(this,Dashboard::class.java)
+                val dashboard = Intent(this, Account::class.java)
                 dashboard.putExtra("EXTRA_MESSAGE", "Hello fito")
                 startActivity(dashboard)
                 finish()
