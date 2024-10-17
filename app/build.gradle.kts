@@ -16,7 +16,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+buildFeatures{
+    viewBinding = true
+}
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -36,6 +38,8 @@ android {
 }
 
 dependencies {
+    //rounded material
+    implementation("com.google.android.material:material:<latest_version>")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
