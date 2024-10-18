@@ -8,7 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.dimplebooks.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GetStarted : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -21,12 +24,12 @@ class GetStarted : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        val getStarted = findViewById<Button>(R.id.getstarted)
-//        val intentt = Intent(this, Login::class.java)
-//
-//        getStarted.setOnClickListener(){
-//            startActivity(intentt)
-
+        lifecycleScope.launch {
+            delay(2000)
+            val intent = Intent(this@GetStarted, Login::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
+}

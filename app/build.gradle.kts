@@ -39,6 +39,7 @@ buildFeatures{
 
 dependencies {
     //rounded material
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.android.material:material:<latest_version>")
 
     implementation(libs.androidx.core.ktx)

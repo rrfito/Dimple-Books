@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.dimplebooks.R
@@ -27,6 +28,7 @@ class Register : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
 
         val regisUser = findViewById<EditText>(R.id.InputUsername)
         val regisPas = findViewById<EditText>(R.id.InputPassword)

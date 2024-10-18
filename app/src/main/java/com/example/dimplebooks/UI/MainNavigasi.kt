@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.dimplebooks.R
+import com.example.dimplebooks.UI.fragment.Account
 import com.example.dimplebooks.UI.fragment.Library
 import com.example.dimplebooks.UI.fragment.History
 import com.example.dimplebooks.databinding.ActivityMainBinding
@@ -48,6 +49,10 @@ class MainNavigasi : AppCompatActivity() {
                 }
                 R.id.libraryButton -> {
                     loadHFragment(Library())
+                    true
+                }
+                R.id.accountButton ->{
+                    loadHFragment(Account())
                     true
                 }
                 else -> false
