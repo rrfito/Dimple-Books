@@ -20,22 +20,20 @@
         android:theme="@style/Theme.Refitoo"
         tools:targetApi="31">
         <activity
-            android:name=".UI.MainNavigasi"
+            android:name=".UI.detailBook"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".UI.History"
-            android:exported="false">
 
         </activity>
         <activity
-            android:name=".UI.Search"
-            android:exported="false"/>
+            android:name=".UI.MainNavigasi"
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".UI.SplashScreen"
             android:exported="false" />

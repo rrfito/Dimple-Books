@@ -39,9 +39,9 @@ class Library : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_history, container, false)
+        val view = inflater.inflate(R.layout.fragment_library, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_history)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         val booklist = ArrayList<RecycleViewBook>()
