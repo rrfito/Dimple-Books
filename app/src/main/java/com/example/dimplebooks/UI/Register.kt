@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -30,21 +31,26 @@ class Register : AppCompatActivity() {
         }
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
 
-        val regisUser = findViewById<EditText>(R.id.InputUsername)
-        val regisPas = findViewById<EditText>(R.id.InputPassword)
-        val regisConfirmPas = findViewById<EditText>(R.id.ConfirmPassowrd)
+        val regisUser = findViewById<EditText>(R.id.InputUsernameRegister)
+        val regisPas = findViewById<EditText>(R.id.InputPasswordRegister)
+        val regisConfirmPas = findViewById<EditText>(R.id.inputConfirmPasswordRegister)
         val shared: SharedPreferences = getSharedPreferences("userpref", Context.MODE_PRIVATE)
-        val WrongPassowrd = findViewById<TextView>(R.id.ConfirmpassowrdValid)
-        val WrongPassowrd2 = findViewById<TextView>(R.id.passowrdValid)
-        val buttRegis = findViewById<Button>(R.id.Register)
+        val buttRegis = findViewById<Button>(R.id.registerButton)
+
+        val backArrow = findViewById<ImageView>(R.id.backArrow)
+
+        backArrow.setOnClickListener(){
+            val loginBack = Intent(this, Login::class.java)
+            startActivity(loginBack)
+            finish()
+        }
+
+
 
         buttRegis.setOnClickListener() {
             val inputUsername = regisUser.text.toString()
             val inputPassword = regisPas.text.toString()
             val inputConfirmPassword = regisConfirmPas.text.toString()
-
-
-
             if (inputPassword.isNotEmpty() && inputUsername.isNotEmpty()) {
                 if (inputPassword == inputConfirmPassword) {
                     val editor = shared.edit()
@@ -52,11 +58,10 @@ class Register : AppCompatActivity() {
                     editor.putString("password", inputPassword)
                     editor.apply()
 
-                    val dashboard = Intent(this, Login::class.java)
-                    startActivity(dashboard)
+                    val LoginBack = Intent(this, Login::class.java)
+                    startActivity(LoginBack)
                 } else {
-                    WrongPassowrd.text = "Password Berbeda"
-                    WrongPassowrd2.text = "Password Berbeda"
+
                     Toast.makeText(
                         this,
                         "Password dan Konfirmasi Password tidak sama",
