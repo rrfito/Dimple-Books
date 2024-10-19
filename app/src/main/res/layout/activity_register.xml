@@ -21,7 +21,7 @@
             android:id="@+id/backArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="30dp"
+            android:padding="@dimen/_20sdp"
             android:src="@drawable/baseline_arrow_back_ios_24" />
 
         <ImageView
@@ -36,12 +36,12 @@
             android:id="@+id/NameLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/_20sdp"
 
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
             android:text="Dimple Books"
-            android:textSize="35dp"
+            android:textSize="@dimen/_35sdp"
             app:layout_constraintTop_toBottomOf="@+id/Logo" />
 
         <View
@@ -63,35 +63,32 @@
 
             </ImageView>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/quicksandbold"
-                        android:padding="5dp"
+
                         android:text="Register"
                         android:textColor="@color/black"
-                        android:textSize="30dp" />
+                        android:textSize="@dimen/_25sdp" />
 
                     <TextView
                         android:id="@+id/Username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/quicksandregular"
                         android:text="Username"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.11"
                         app:layout_constraintStart_toStartOf="parent"
@@ -111,10 +108,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/quicksandregular"
                         android:text="Password"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.11"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop="4dp"
+
 
                         android:ems="10"
 
@@ -139,10 +136,10 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/quicksandregular"
                         android:text="Confirm Password"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/_15sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.11"
                         app:layout_constraintStart_toStartOf="parent"
@@ -153,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop="4dp"
+
 
                         android:ems="10"
 
@@ -165,14 +162,14 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/registerButton"
-                        android:layout_width="334dp"
-                        android:layout_height="58dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_width="@dimen/_280sdp"
+                        android:layout_height="@dimen/_48sdp"
+                        android:layout_marginTop="@dimen/_24sdp"
                         android:backgroundTint="@color/orange_white"
                         android:fontFamily="@font/quicksandbold"
                         android:text="Register"
                         android:textColor="@color/black"
-                        app:cornerRadius="15dp"
+                        app:cornerRadius="@dimen/_15sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -182,7 +179,6 @@
                 </LinearLayout>
 
 
-            </ScrollView>
 
 
         </FrameLayout>

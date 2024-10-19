@@ -12,11 +12,10 @@ import com.example.dimplebooks.UI.fragment.Account
 import com.example.dimplebooks.UI.fragment.Library
 import com.example.dimplebooks.UI.fragment.History
 import com.example.dimplebooks.databinding.ActivityMainBinding
+import com.example.dimplebooks.databinding.ActivityMainNavigasiBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainNavigasi : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

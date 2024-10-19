@@ -39,6 +39,7 @@ buildFeatures{
 
 dependencies {
     //rounded material
+    implementation ("com.intuit.sdp:sdp-android:1.0.6")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.android.material:material:<latest_version>")
 
