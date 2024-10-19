@@ -43,7 +43,6 @@ class Account : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val accountView = inflater.inflate(R.layout.fragment_account, container, false)
-
         //log out
         val logout = accountView.findViewById<Button>(R.id.logoutButton)
         val shared: SharedPreferences = requireContext().getSharedPreferences("userpref", Context.MODE_PRIVATE)
@@ -59,7 +58,7 @@ class Account : Fragment() {
                 Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
                 val editorr = shared.edit()
-                editorr.putString("isLogin", null)
+                editorr.clear()
                 editorr.apply()
                 val logoutIntent = Intent(requireContext(),Login::class.java)
                 logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -77,6 +76,8 @@ class Account : Fragment() {
         aboutUsButton.setOnClickListener(){
             val aboutIntent = Intent(requireContext(),aboutUs::class.java)
             startActivity(aboutIntent)
+
+
 
 
         }

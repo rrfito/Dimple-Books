@@ -30,9 +30,9 @@ class Login : AppCompatActivity() {
             insets
         }
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-        val usernamee = findViewById<EditText>(R.id.InputUsernamee)
-        val passwordd = findViewById<EditText>(R.id.InputPasswordd)
-        val Loginn = findViewById<Button>(R.id.Loginn)
+        val usernamee = findViewById<EditText>(R.id.InputUsernameLogin)
+        val passwordd = findViewById<EditText>(R.id.InputPasswordLogin)
+        val Loginn = findViewById<Button>(R.id.loginButton)
 
         val buatAccount = findViewById<TextView>(R.id.buatAccount)
 

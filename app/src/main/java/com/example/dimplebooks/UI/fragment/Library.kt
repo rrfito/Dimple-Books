@@ -1,16 +1,30 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SearchView
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
+import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
+import com.example.dimplebooks.UI.detailBook
+import com.example.dimplebooks.model.BookResponse
 import com.example.dimplebooks.model.RecycleViewBook
+import com.example.dimplebooks.retrofit.libraryService
+import retrofit2.Response
+import retrofit2.Callback
+import retrofit2.Call
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -22,6 +36,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Library : Fragment() {
+
+    private lateinit var adapter: bookAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,6 +52,7 @@ class Library : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,24 +60,50 @@ class Library : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_library, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+         searchView = view.findViewById<SearchView>(R.id.search)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        val booklist = ArrayList<RecycleViewBook>()
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book1))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book2))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book1))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book2))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book1))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book2))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book1))
-        booklist.add(RecycleViewBook("The Joker felix", "Suzan Hasanna", 5.5, R.drawable.book2))
-
-        val adapter = bookAdapter(booklist)
+      //  adapter = bookAdapter(arrayListOf())
         recyclerView.adapter = adapter
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    loadBooks(query)
+                }
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Optional: handle real-time search
+                return false
+            }
+        })
         return view
     }
+
+    private fun loadBooks(query: String) {
+        libraryService
+            .api
+            .getBooks(query,apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU")
+            .enqueue(object : Callback<BookResponse> {
+            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
+                if (response.isSuccessful) {
+                    val books = response.body()?.items ?: emptyList()
+                     //adapter.setBooks(books)
+                }
+            }
+
+                override fun onFailure(call: Call<BookResponse>, t: Throwable) {
+
+                }
+
+                //override fun onFailure(call: Call<BookResponse>, t: Throwable) {
+                // Handle API error
+            //}
+        })
+    }
+
 
     companion object {
         /**

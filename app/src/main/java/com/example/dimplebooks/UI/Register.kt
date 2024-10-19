@@ -60,6 +60,7 @@ class Register : AppCompatActivity() {
 
                     val LoginBack = Intent(this, Login::class.java)
                     startActivity(LoginBack)
+                    finish()
                 } else {
 
                     Toast.makeText(

@@ -9,15 +9,28 @@
     tools:context=".UI.Login">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_20sdp"
+             />
 
         <ImageView
             android:id="@+id/Logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+
             android:layout_gravity="center"
             app:srcCompat="@drawable/logoo" />
 
@@ -25,66 +38,66 @@
             android:id="@+id/NameLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksandbold"
+
 
             android:gravity="center"
-            android:padding="20dp"
-            android:fontFamily="@font/quicksandbold"
+            android:padding="10dp"
             android:text="Dimple Books"
-            android:textSize="35dp"
+            android:textSize="@dimen/_35sdp"
             app:layout_constraintTop_toBottomOf="@+id/Logo" />
+    </LinearLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/Card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"  >
-
-            <ImageView
-                android:id="@+id/Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/card_loginregis" >
-
-
-
-
-            </ImageView>
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
+                android:padding="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                >
+
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SIGN UP"
                     android:fontFamily="@font/quicksandbold"
-                    android:textSize="30dp"
+
+                    android:text="Sign In"
                     android:textColor="@color/black"
-                    android:padding="5dp" />
+                    android:textSize="@dimen/_25sdp" />
 
                 <TextView
                     android:id="@+id/Username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/quicksandregular"
                     android:text="Username"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/_15sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.11"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
 
                 <EditText
-                    android:id="@+id/InputUsernamee"
+                    android:id="@+id/InputUsernameLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -93,25 +106,24 @@
                     app:layout_constraintHorizontal_bias="0.194"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
+
                 <TextView
-                    android:id="@+id/Password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/quicksandregular"
                     android:text="Password"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/_15sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.11"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
 
                 <EditText
-                    android:id="@+id/InputPasswordd"
+                    android:id="@+id/InputPasswordLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="4dp"
 
                     android:ems="10"
 
@@ -121,24 +133,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Password" />
 
+
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/Loginn"
-                    android:layout_width="334dp"
-                    android:layout_height="58dp"
-                    android:layout_marginTop="24dp"
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_24sdp"
                     android:backgroundTint="@color/orange_white"
                     android:fontFamily="@font/quicksandbold"
-                    android:text="Login"
+                    android:text="Log in"
                     android:textColor="@color/black"
-                    app:cornerRadius="15dp"
+                    app:cornerRadius="@dimen/_15sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/InputPasswordd"
                     app:layout_constraintVertical_bias="0.168" />
 
-
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" >
@@ -151,7 +165,7 @@
                         android:fontFamily="@font/quicksandregular"
                         android:text="Tidak Mempunyai account?"
                         android:textSize="15dp"
-                         />
+                        />
 
                     <TextView
                         android:id="@+id/buatAccount"
@@ -162,21 +176,14 @@
 
                         android:text="Buat Account"
                         android:textSize="15dp"
-                       />
+                        />
 
                 </LinearLayout>
-
 
             </LinearLayout>
 
 
-
-        </FrameLayout>
-
-
-
-
-    </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
 
@@ -184,6 +191,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
