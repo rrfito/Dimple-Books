@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:clipToOutline="true"
-            android:src="@drawable/book1" />
+             />
 
 
     </androidx.cardview.widget.CardView>
@@ -40,32 +40,29 @@ android:textStyle="bold" />
 android:id="@+id/author"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:layout_marginTop="4dp"
+
 android:fontFamily="@font/quicksandbold"
 android:text="Megan Houl"
 android:textColor="@color/grey" />
 
-<FrameLayout
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginTop="4dp">
+        <TextView
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scaleType="centerCrop"
-    android:src="@drawable/rating" />
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-<TextView
-    android:id="@+id/rating"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginStart="3dp"
-    android:padding="2dp"
-    android:text="4.4"
-    android:textColor="@android:color/white"
-    android:textSize="12sp" />
-</FrameLayout>
+            android:fontFamily="@font/quicksandbold"
+            android:text="Rp2500,000"
+            android:textColor="@color/orange_white"
+            android:textSize="13sp" />
+
+
+
+
+
+
+
+
+
 
     </LinearLayout>
