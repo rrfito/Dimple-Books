@@ -1,10 +1,6 @@
 package com.example.dimplebooks.model
 
-data class BookResponse(
-    val kind: String,
-    val totalItems: Int,
-    val items: List<bookModel>?
-)
+
 
 data class bookModel(
     val title: String,

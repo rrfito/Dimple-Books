@@ -2,7 +2,7 @@ package com.example.dimplebooks.retrofit
 
 import retrofit2.http.GET
 import retrofit2.Call
-import com.example.dimplebooks.model.bookResponse
+import com.example.dimplebooks.model.BookResponse
 import retrofit2.http.Query
 
 interface bookApi {
@@ -12,5 +12,5 @@ interface bookApi {
     @Query("q") query: String,
     @Query("key") apiKey: String,
         @Query("maxResults") maxResults: Int
-    ): Call<bookResponse>
+    ): Call<BookResponse>
 }

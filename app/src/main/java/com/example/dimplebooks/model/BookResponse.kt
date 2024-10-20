@@ -1,6 +1,6 @@
 package com.example.dimplebooks.model
 
-data class bookResponse(
+data class BookResponse(
     val items: List<BookItem>
 )
 
@@ -30,4 +30,3 @@ data class ImageLinks(
 data class Price(
     val amount: Double
 )
-

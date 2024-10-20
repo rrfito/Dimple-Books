@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.model.bookModel
-
-import com.example.dimplebooks.model.bookResponse
+import com.example.dimplebooks.model.BookResponse
 import com.example.dimplebooks.retrofit.bookApi
 import retrofit2.Retrofit
 import retrofit2.Call
@@ -51,7 +50,7 @@ class Library : Fragment() {
         recyclerView.adapter = adapter
 
         // Panggil fungsi untuk mencari buku
-        searchBookss(" programming")
+        searchBookss(" jawa")
 
         return view
     }
@@ -65,8 +64,8 @@ class Library : Fragment() {
         val bookApi = retrofit.create(bookApi::class.java)
         val call = bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",maxResults = 30)
 
-        call.enqueue(object : Callback<bookResponse> {
-            override fun onResponse(call: Call<bookResponse>, response: Response<bookResponse>) {
+        call.enqueue(object : Callback<BookResponse> {
+            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
                 if (response.isSuccessful) {
                     val bookResponse = response.body()
                     bookResponse?.items?.let {
@@ -87,7 +86,7 @@ class Library : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<bookResponse>, t: Throwable) {
+            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
                 Log.e("Library", "Error fetching books", t)
             }
         })
