@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +35,7 @@ class Library : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var bookList: ArrayList<bookModel>
     private lateinit var adapter: bookAdapter
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +51,22 @@ class Library : Fragment() {
         adapter = bookAdapter(bookList)
         recyclerView.adapter = adapter
 
-        // Panggil fungsi untuk mencari buku
-        searchBookss(" jawa")
+
+        searchView = view.findViewById(R.id.search)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    searchBookss(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return false
+            }
+        })
+
 
         return view
     }
@@ -62,7 +78,7 @@ class Library : Fragment() {
             .build()
 
         val bookApi = retrofit.create(bookApi::class.java)
-        val call = bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",maxResults = 30)
+        val call = bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",maxResults = 35)
 
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
@@ -75,12 +91,17 @@ class Library : Fragment() {
                                 authors = item.volumeInfo.authors ?: listOf("Unknown Author"),
                                 publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
                                 price = item.saleInfo.listPrice?.amount?.toInt(),
-                                imageUrl = item.volumeInfo.imageLinks?.thumbnail ?: "",
+
+                                imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "").replace("http:", "https:")
+                                    .replace("&edge=curl", "")
+                                    .replace("zoom=1", "zoom=0"),
+
                                 description = item.volumeInfo.description ?: "No description",
                                 categories = item.volumeInfo.categories ?: listOf("Unknown"),
                                 saleability = item.saleInfo.saleability
                             )
                         }
+
                         updateBookList(books)
                     }
                 }

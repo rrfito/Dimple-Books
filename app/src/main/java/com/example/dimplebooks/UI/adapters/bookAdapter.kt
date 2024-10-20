@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.dimplebooks.R
 import com.example.dimplebooks.model.RecycleViewBook
 import com.example.dimplebooks.model.bookModel
@@ -34,13 +35,22 @@ class bookAdapter(private val bookList: ArrayList<bookModel>) : RecyclerView.Ada
             "FOR_SALE" -> "Rp ${currentBook.price}"
             else -> "NOT FOR SALE"
         }
+        if(priceText == "NOT FOR SALE"){
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.red))
+        }else{
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
+        }
         holder.price.text = priceText
 
 
+        Log.d("BookAdapter", "Image URL: ${currentBook.imageUrl}")
         Glide.with(holder.itemView.context)
             .load(currentBook.imageUrl)
+            .fitCenter()
+            .placeholder(R.drawable.loading)
+            .error(R.drawable.error)
             .into(holder.bookImage)
-        Log.d("BookAdapter", "Image URL: ${currentBook.imageUrl}")
+
 
 
     }
