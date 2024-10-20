@@ -1,5 +1,6 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
+import com.example.dimplebooks.UI.detailBook
 import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.model.BookResponse
 import com.example.dimplebooks.retrofit.bookApi
@@ -31,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Library.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Library : Fragment() {
+class Library : Fragment(),bookAdapter.OnItemClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var bookList: ArrayList<bookModel>
     private lateinit var adapter: bookAdapter
@@ -48,7 +50,7 @@ class Library : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
         bookList = ArrayList()
-        adapter = bookAdapter(bookList)
+        adapter = bookAdapter(bookList,this)
         recyclerView.adapter = adapter
 
 
@@ -70,6 +72,26 @@ class Library : Fragment() {
 
         return view
     }
+    override fun onItemClick(book: bookModel) {
+        val intent = Intent(requireContext(), detailBook::class.java)
+        intent.putExtra("book_title", book.title)
+        intent.putExtra("book_image", book.imageUrl)
+        intent.putExtra("book_authors", book.authors.joinToString(", "))
+        intent.putExtra("book_publisher", book.publisher)
+        intent.putExtra("book_publishedDate", book.publishedDate)
+        intent.putExtra("book_pageCount", book.pageCount)
+        intent.putExtra("book_language", book.language)
+        intent.putExtra("book_categories", book.categories.joinToString(", "))
+        intent.putExtra("book_description", book.description)
+        intent.putExtra("book_price", book.price)
+        intent.putExtra("book_saleability", book.saleability)
+        intent.putExtra("buyLink", book.buyLink)
+        Log.d("IntentData", " Title: ${book.title}, price : ${book.price}, buylink : ${book.buyLink}")
+
+
+
+        startActivity(intent)
+    }
 
     private fun searchBookss(query: String) {
         val retrofit = Retrofit.Builder()
@@ -87,18 +109,30 @@ class Library : Fragment() {
                     bookResponse?.items?.let {
                         val books = it.map { item ->
                             bookModel(
+                                id = item.id,
                                 title = item.volumeInfo.title,
                                 authors = item.volumeInfo.authors ?: listOf("Unknown Author"),
                                 publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
                                 price = item.saleInfo.listPrice?.amount?.toInt(),
 
-                                imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "").replace("http:", "https:")
+
+                                imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
+                                    .replace("http:", "https:")
                                     .replace("&edge=curl", "")
                                     .replace("zoom=1", "zoom=0"),
 
                                 description = item.volumeInfo.description ?: "No description",
                                 categories = item.volumeInfo.categories ?: listOf("Unknown"),
-                                saleability = item.saleInfo.saleability
+                                saleability = item.saleInfo.saleability,
+                                publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
+                                pageCount = item.volumeInfo.pageCount ?: 0,
+                                language = (item.volumeInfo.language ?: "Unknown")
+                                    .replace("en","English")
+                                    .replace("id","Indonesia"),
+                                buyLink = item.saleInfo.buyLink ?: "No buy link"
+
+
+
                             )
                         }
 
@@ -118,4 +152,5 @@ class Library : Fragment() {
         bookList.addAll(books)
         adapter.notifyDataSetChanged()
     }
+
 }

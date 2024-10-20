@@ -7,12 +7,19 @@
     android:background="@color/white_grey"
     tools:context=".UI.fragment.Account">
 
-
     <ImageView
         android:id="@+id/imageView8"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/background" />
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -13,8 +13,14 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.model.RecycleViewBook
 import com.example.dimplebooks.model.bookModel
 
-class bookAdapter(private val bookList: ArrayList<bookModel>) : RecyclerView.Adapter<bookAdapter.ViewHolder>() {
+class bookAdapter(
+    private val bookList: ArrayList<bookModel>,
+    private val listener: OnItemClickListener) : RecyclerView.Adapter<bookAdapter.ViewHolder>() {
 
+
+    interface OnItemClickListener {
+        fun onItemClick(book: bookModel)
+    }
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val bookImage: ImageView = itemView.findViewById(R.id.image)
         val bookName: TextView = itemView.findViewById(R.id.bookName)
@@ -51,6 +57,9 @@ class bookAdapter(private val bookList: ArrayList<bookModel>) : RecyclerView.Ada
             .error(R.drawable.error)
             .into(holder.bookImage)
 
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(currentBook)
+        }
 
 
     }

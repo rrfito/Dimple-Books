@@ -5,6 +5,7 @@ data class BookResponse(
 )
 
 data class BookItem(
+    val id: String,
     val volumeInfo: VolumeInfo,
     val saleInfo: SaleInfo
 )
@@ -15,12 +16,17 @@ data class VolumeInfo(
     val publisher: String?,
     val imageLinks: ImageLinks?,
     val description: String?,
+    val publishedDate: String?,
+    val pageCount: Int?,
+    val language: String?,
     val categories: List<String>?
 )
 
 data class SaleInfo(
     val listPrice: Price?,
-    val saleability: String
+    val saleability: String,
+    val buyLink : String?
+
 )
 
 data class ImageLinks(

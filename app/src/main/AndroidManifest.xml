@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <supports-screens
@@ -23,6 +22,10 @@
         android:theme="@style/Theme.Refitoo"
         tools:targetApi="31">
         <activity
+            android:name=".UI.buyItem"
+            android:exported="false" />
+
+        <activity
             android:name=".UI.aboutUs"
             android:exported="false" />
         <activity
@@ -31,7 +34,6 @@
         <activity
             android:name=".UI.MainNavigasi"
             android:exported="false" />
-
         <activity
             android:name=".UI.GetStarted"
             android:exported="true">
