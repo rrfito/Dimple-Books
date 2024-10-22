@@ -13,4 +13,12 @@ interface bookApi {
     @Query("key") apiKey: String,
         @Query("maxResults") maxResults: Int
     ): Call<BookResponse>
+
+    @GET("volumes")
+    fun newestBooks(
+        @Query("q") query: String,
+        @Query("key") apiKey: String,
+        @Query("orderBy") orderBy: String,
+        @Query("maxResults") maxResults: Int
+    ): Call<BookResponse>
 }

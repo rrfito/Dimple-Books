@@ -10,7 +10,8 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.model.RecycleViewBookHistory
 
 
-class bookHistoryAdapter(private val HistorybookList: ArrayList<RecycleViewBookHistory>) : RecyclerView.Adapter<bookHistoryAdapter.ViewHolder>() {
+class bookHistoryAdapter(private val HistorybookList: ArrayList<RecycleViewBookHistory>)
+    : RecyclerView.Adapter<bookHistoryAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val historyBookImage: ImageView = itemView.findViewById(R.id.bookImage)
         val historyBookName: TextView = itemView.findViewById(R.id.bookName)

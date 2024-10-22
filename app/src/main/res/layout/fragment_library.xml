@@ -18,7 +18,7 @@
         android:background="@drawable/search_bar"
         android:backgroundTint="#F6F6F6"
         android:iconifiedByDefault="false"
-        android:queryHint="Cari buku"
+        android:queryHint="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,8 +82,34 @@
             android:text="History" />
     </LinearLayout>
 
+    <ImageView
 
-    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/findbookimage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/iconsearchn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/findbook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksandregular"
+        android:gravity="center"
+        android:text="find the book you want "
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findbookimage"
+        app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"

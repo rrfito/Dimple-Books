@@ -71,7 +71,7 @@
             android:gravity="center"
             android:fontFamily="@font/quicksandbold"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="15sp" />
         <TextView
             android:padding="5dp"
             android:id="@+id/authorDetail"
@@ -80,7 +80,7 @@
             android:text="Antonio Montana"
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
-            android:textSize="15dp" />
+            android:textSize="10sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -108,10 +108,11 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="4.4"
+                        android:layout_gravity="center"
 
                         android:fontFamily="@font/quicksandbold"
                         android:textColor="@color/navy_blue_white"
-                        android:textSize="13dp"
+                        android:textSize="10sp"
                         android:gravity="center"/>
                     <TextView
                         android:id="@+id/pageCountDetail"
@@ -119,9 +120,10 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="253"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/quicksandbold"
                         android:textColor="@color/navy_blue_white"
-                        android:textSize="13dp"
+                        android:textSize="10sp"
                         android:gravity="center"/>
                     <TextView
                         android:id="@+id/LanguageDetail"
@@ -131,17 +133,18 @@
                         android:text="English"
                         android:fontFamily="@font/quicksandbold"
                         android:textColor="@color/navy_blue_white"
-                        android:textSize="13dp"
+                        android:textSize="10sp"
+                        android:layout_gravity="center"
                         android:gravity="center"/>
                     <TextView
                         android:id="@+id/CategoriesDetail"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Action"
+                        android:text="qwdqdqwdwqqwdqd"
                         android:fontFamily="@font/quicksandbold"
                         android:textColor="@color/navy_blue_white"
-                        android:textSize="13dp"
+                        android:textSize="10sp"
                         android:gravity="center"/>
 
 
@@ -155,10 +158,10 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Released Date"
+                        android:text="Released"
                         android:fontFamily="@font/quicksandbold"
 
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
@@ -167,7 +170,7 @@
                         android:text="Pages"
                         android:fontFamily="@font/quicksandbold"
 
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
@@ -176,7 +179,7 @@
                         android:text="Language"
                         android:fontFamily="@font/quicksandbold"
 
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
@@ -184,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:text="Categories"
                         android:fontFamily="@font/quicksandbold"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:gravity="center"/>
 
 
@@ -203,7 +206,7 @@
             android:layout_height="wrap_content"
             android:text="description"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/quicksandbold"
             android:textColor="@color/black" />
@@ -236,6 +239,9 @@
             android:textSize="13sp" />
 
     </ScrollView>
+
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buy"

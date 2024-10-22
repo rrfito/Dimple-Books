@@ -67,6 +67,11 @@ class bookAdapter(
     override fun getItemCount(): Int {
         return bookList.size
     }
+    fun updateBookList(newBooks: List<bookModel>) {
+        bookList.clear()
+        bookList.addAll(newBooks)
+        notifyDataSetChanged()
+    }
 }
 
 

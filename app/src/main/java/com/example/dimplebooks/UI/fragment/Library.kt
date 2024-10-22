@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
@@ -16,7 +19,9 @@ import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.UI.detailBook
 import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.model.BookResponse
+import com.example.dimplebooks.retrofit.apiService
 import com.example.dimplebooks.retrofit.bookApi
+import com.example.dimplebooks.viewModel.BookViewModel
 import retrofit2.Retrofit
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,12 +43,15 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
     private lateinit var bookList: ArrayList<bookModel>
     private lateinit var adapter: bookAdapter
     private lateinit var searchView: SearchView
+    private lateinit var viewModel: BookViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_library, container, false)
+        val findbookText : TextView = view.findViewById(R.id.findbook)
+        val findbookImage : ImageView = view.findViewById(R.id.findbookimage)
 
         // Inisialisasi RecyclerView dan Adapter
         recyclerView = view.findViewById(R.id.recycler_view)
@@ -54,13 +62,27 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
         recyclerView.adapter = adapter
 
 
+        // Inisialisasi ViewModel
+        viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+
+        // Observasi data dari ViewModel
+        viewModel.searchBooks.observe(viewLifecycleOwner) { books ->
+            adapter.updateBookList(books)
+        }
+
+        findbookImage.visibility = if (viewModel.isImageVisible) View.VISIBLE else View.GONE
+        findbookText.visibility = if (viewModel.isTextVisible) View.VISIBLE else View.GONE
+        //search
         searchView = view.findViewById(R.id.search)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
-                    searchBookss(query)
+                    viewModel.setVisibility(false, false)
+                    findbookText.visibility = View.GONE
+                    findbookImage.visibility = View.GONE
+                    viewModel.searchBooks(query)
                 }
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -68,6 +90,7 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
                 return false
             }
         })
+
 
 
         return view
@@ -93,64 +116,7 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
         startActivity(intent)
     }
 
-    private fun searchBookss(query: String) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.googleapis.com/books/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val bookApi = retrofit.create(bookApi::class.java)
-        val call = bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",maxResults = 35)
-
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val bookResponse = response.body()
-                    bookResponse?.items?.let {
-                        val books = it.map { item ->
-                            bookModel(
-                                id = item.id,
-                                title = item.volumeInfo.title,
-                                authors = item.volumeInfo.authors ?: listOf("Unknown Author"),
-                                publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                                price = item.saleInfo.listPrice?.amount?.toInt(),
 
 
-                                imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                    .replace("http:", "https:")
-                                    .replace("&edge=curl", "")
-                                    .replace("zoom=1", "zoom=0"),
-
-                                description = item.volumeInfo.description ?: "No description",
-                                categories = item.volumeInfo.categories ?: listOf("Unknown"),
-                                saleability = item.saleInfo.saleability,
-                                publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                                pageCount = item.volumeInfo.pageCount ?: 0,
-                                language = (item.volumeInfo.language ?: "Unknown")
-                                    .replace("en","English")
-                                    .replace("id","Indonesia"),
-                                buyLink = item.saleInfo.buyLink ?: "No buy link"
-
-
-
-                            )
-                        }
-
-                        updateBookList(books)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("Library", "Error fetching books", t)
-            }
-        })
-    }
-
-    private fun updateBookList(books: List<bookModel>) {
-        bookList.clear()
-        bookList.addAll(books)
-        adapter.notifyDataSetChanged()
-    }
 
 }
