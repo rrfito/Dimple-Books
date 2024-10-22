@@ -8,21 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.viewpager2.widget.ViewPager2
+import bookHistoryViewModel
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
+import com.example.dimplebooks.data.AppDatabase
+import com.example.dimplebooks.data.entity.bookHistory
 import com.example.dimplebooks.model.BookResponse
-import com.example.dimplebooks.model.RecycleViewBookHistory
+
 import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.retrofit.apiService
 import com.example.dimplebooks.viewModel.BookViewModel
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +48,12 @@ class History : Fragment() {
     private var param2: String? = null
 
     private lateinit var newestBookList: ArrayList<bookModel>
+    private lateinit var historyBookList: ArrayList<bookHistory>
     private lateinit var adapterr : newestBookAdapter
     private lateinit var viewModel: BookViewModel
+    private lateinit var viewModelHistory: bookHistoryViewModel
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,30 +67,57 @@ class History : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_history, container, false)
-
+        //image banner
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
         val imageList = listOf(R.drawable.banner, R.drawable.banner, R.drawable.banner)
         val adapterrr = BannerAdapter(imageList)
         viewPager.adapter = adapterrr
 
+
         //newest book recycleview
         val recycleViewNew = view.findViewById<RecyclerView>(R.id.Released)
         recycleViewNew.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
          newestBookList = ArrayList()
+
+
          adapterr = newestBookAdapter(newestBookList)
         recycleViewNew.adapter = adapterr
 
-
-        Log.d("adapter","${adapterr.itemCount}")
-
+        //viewmodel newewst book
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
         viewModel.newestBooks.observe(viewLifecycleOwner) { books ->
             adapterr.updateBookList(books)
         }
         viewModel.getNewestBooks()
 
+
+        //history recycleview
+        val recycleViewHistory = view.findViewById<RecyclerView>(R.id.recycleviewHistory)
+
+        recycleViewHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        historyBookList = ArrayList()
+        val adapter = bookHistoryAdapter(historyBookList)
+        recycleViewHistory.adapter = adapter
+        Log.d("GetStartedFragment", "Adapter set with ${historyBookList.size} items")
+
+        //view model history book database
+        viewModelHistory = ViewModelProvider(requireActivity()).get(bookHistoryViewModel::class.java)
+        Log.d("GetStartedFragment", "ViewModel initialized")
+        viewModelHistory.bookHistory.observe(viewLifecycleOwner) { history ->
+            Log.d("GetStartedFragment", "Data observed from ViewModel")
+            historyBookList.clear()
+            historyBookList.addAll(history)
+            Log.d("GetStartedFragment", "HistoryBookList updated: ${historyBookList?.size} items")
+            adapter.notifyDataSetChanged()
+            Log.d("GetStartedFragment", "Adapter notified of data change")
+        }
+        Log.d("GetStartedFragment", "Fetching book history from database")
+        viewModelHistory.getBookHistory()
 
         return view
     }

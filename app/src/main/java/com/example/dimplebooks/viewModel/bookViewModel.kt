@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import com.example.dimplebooks.data.entity.bookHistory
 import com.example.dimplebooks.model.BookResponse
 
 class BookViewModel : ViewModel() {
@@ -17,7 +18,6 @@ class BookViewModel : ViewModel() {
 
     private val _searchBooks = MutableLiveData<List<bookModel>>()
     val searchBooks: LiveData<List<bookModel>> get() = _searchBooks
-
     private val _newestBooks = MutableLiveData<List<bookModel>>()
     val newestBooks: LiveData<List<bookModel>> get() = _newestBooks
 
@@ -99,4 +99,6 @@ class BookViewModel : ViewModel() {
         isImageVisible = imageVisible
         isTextVisible = textVisible
     }
-}
+    }
+
+

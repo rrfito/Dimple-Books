@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter.ViewHolder
-import com.example.dimplebooks.model.RecycleViewBookHistory
+
 import com.example.dimplebooks.model.bookModel
 
 class newestBookAdapter( private val newestBookList: ArrayList<bookModel>)

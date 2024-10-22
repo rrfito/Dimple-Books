@@ -39,14 +39,30 @@ buildFeatures{
 }
 
 dependencies {
-    //rounded material
+    //glide untuk gambar
     implementation ("com.github.bumptech.glide:glide:4.16.0" )
-
+    //retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //sdp
     implementation ("com.intuit.sdp:sdp-android:1.0.6")
+    //material circle image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.android.material:material:<latest_version>")
+    //room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    implementation ("androidx.room:room-ktx:2.5.0") // KTX extension for Room
+
+    // Lifecycle
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
+
+    // Coroutine
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3") // Versi terbaru
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

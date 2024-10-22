@@ -15,7 +15,7 @@
         app:cardElevation="2dp">
 
         <ImageView
-            android:id="@+id/bookImage"
+            android:id="@+id/bookImageHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
@@ -31,7 +31,7 @@
 
         <!-- Book Name -->
         <TextView
-            android:id="@+id/bookName"
+            android:id="@+id/bookNameHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -42,13 +42,10 @@
             android:textColor="@android:color/black" />
 
         <!-- Author and Publisher Information -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+
 
             <TextView
-                android:id="@+id/authorInfo"
+                android:id="@+id/authorHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksandbold"
@@ -56,28 +53,13 @@
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/wd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="|" />
 
-            <TextView
-                android:id="@+id/publisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/quicksandbold"
-                android:text="CEO, DPC"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
 
-        </LinearLayout>
+
 
         <!-- Genre -->
         <TextView
-            android:id="@+id/genre"
+            android:id="@+id/genreHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -88,12 +70,12 @@
 
         <!-- Number of Pages -->
         <TextView
-            android:id="@+id/pageCount"
+            android:id="@+id/readHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:fontFamily="@font/quicksandbold"
-            android:text="200 Pages"
+            android:text="2 hari yang lalu"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray" />
 

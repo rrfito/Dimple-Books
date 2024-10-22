@@ -9,24 +9,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import bookHistoryViewModel
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.UI.detailBook
+import com.example.dimplebooks.data.AppDatabase
+import com.example.dimplebooks.data.entity.bookHistory
 import com.example.dimplebooks.model.bookModel
-import com.example.dimplebooks.model.BookResponse
-import com.example.dimplebooks.retrofit.apiService
-import com.example.dimplebooks.retrofit.bookApi
 import com.example.dimplebooks.viewModel.BookViewModel
-import retrofit2.Retrofit
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +40,7 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
     private lateinit var adapter: bookAdapter
     private lateinit var searchView: SearchView
     private lateinit var viewModel: BookViewModel
+    private lateinit var viewModelHistory: bookHistoryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,6 +93,32 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
         return view
     }
     override fun onItemClick(book: bookModel) {
+
+        val db = AppDatabase.getDatabase(requireContext())
+
+        val bookHistory = bookHistory(
+            title = book.title,
+            authors = book.authors,
+            publisher = book.publisher,
+            price = book.price,
+            imageUrl = book.imageUrl,
+            description = book.description,
+            categories = book.categories,
+            saleability = book.saleability,
+            publishedDate = book.publishedDate,
+            pageCount = book.pageCount,
+            language = book.language,
+            buyLink = book.buyLink,
+            openedAt = System.currentTimeMillis()
+        )
+
+
+        lifecycleScope.launch {
+            // Menyimpan bookHistory ke database
+            db.bookHistoryDao().insertBookHistory(bookHistory)
+            Log.d("HistoryFragment", "Book history inserted: $bookHistory")
+            viewModelHistory.getBookHistory()
+        }
         val intent = Intent(requireContext(), detailBook::class.java)
         intent.putExtra("book_title", book.title)
         intent.putExtra("book_image", book.imageUrl)
