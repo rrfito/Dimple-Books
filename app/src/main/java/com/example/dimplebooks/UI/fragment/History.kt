@@ -1,36 +1,27 @@
 package com.example.dimplebooks.UI.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.viewpager2.widget.ViewPager2
-import bookHistoryViewModel
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
 import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.entity.bookHistory
-import com.example.dimplebooks.model.BookResponse
+import com.example.dimplebooks.data.entity.bookHistoryEntity
 
 import com.example.dimplebooks.model.bookModel
-import com.example.dimplebooks.retrofit.apiService
 import com.example.dimplebooks.viewModel.BookViewModel
-
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.dimplebooks.viewModel.historyBookViewModel
+import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,10 +39,11 @@ class History : Fragment() {
     private var param2: String? = null
 
     private lateinit var newestBookList: ArrayList<bookModel>
-    private lateinit var historyBookList: ArrayList<bookHistory>
+    private lateinit var historyBookList: ArrayList<bookHistoryEntity>
     private lateinit var adapterr : newestBookAdapter
+    private lateinit var historyAdapter: bookHistoryAdapter
     private lateinit var viewModel: BookViewModel
-    private lateinit var viewModelHistory: bookHistoryViewModel
+    private lateinit var viewModelHistory: historyBookViewModel
 
 
 
@@ -94,31 +86,26 @@ class History : Fragment() {
         viewModel.getNewestBooks()
 
 
-        //history recycleview
+       // History RecyclerView
         val recycleViewHistory = view.findViewById<RecyclerView>(R.id.recycleviewHistory)
-
         recycleViewHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-
         historyBookList = ArrayList()
-        val adapter = bookHistoryAdapter(historyBookList)
-        recycleViewHistory.adapter = adapter
-        Log.d("GetStartedFragment", "Adapter set with ${historyBookList.size} items")
+        historyAdapter = bookHistoryAdapter(historyBookList)
+        recycleViewHistory.adapter = historyAdapter
 
-        //view model history book database
-        viewModelHistory = ViewModelProvider(requireActivity()).get(bookHistoryViewModel::class.java)
-        Log.d("GetStartedFragment", "ViewModel initialized")
-        viewModelHistory.bookHistory.observe(viewLifecycleOwner) { history ->
-            Log.d("GetStartedFragment", "Data observed from ViewModel")
-            historyBookList.clear()
-            historyBookList.addAll(history)
-            Log.d("GetStartedFragment", "HistoryBookList updated: ${historyBookList?.size} items")
-            adapter.notifyDataSetChanged()
-            Log.d("GetStartedFragment", "Adapter notified of data change")
+
+        val database = AppDatabase.getDatabase(requireContext())
+        val bookHistoryDao = database.bookHistoryDao()
+        viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModelHistory.allHistoryBooks.collect { books ->
+                historyBookList.clear()
+                historyBookList.addAll(books)
+                historyAdapter.notifyDataSetChanged()
+            }
         }
-        Log.d("GetStartedFragment", "Fetching book history from database")
-        viewModelHistory.getBookHistory()
-
         return view
     }
 

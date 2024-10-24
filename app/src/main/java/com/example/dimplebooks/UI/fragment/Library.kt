@@ -11,18 +11,17 @@ import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import bookHistoryViewModel
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.UI.detailBook
 import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.entity.bookHistory
+import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.viewModel.BookViewModel
-import kotlinx.coroutines.launch
+import com.example.dimplebooks.viewModel.historyBookViewModel
+import com.example.dimplebooks.viewModel.historyBookViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +39,8 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
     private lateinit var adapter: bookAdapter
     private lateinit var searchView: SearchView
     private lateinit var viewModel: BookViewModel
-    private lateinit var viewModelHistory: bookHistoryViewModel
+    private lateinit var viewModelHistory: historyBookViewModel
+    private lateinit var bookHistoryDao: bookHistoryDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +61,6 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
 
         // Inisialisasi ViewModel
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
-
         // Observasi data dari ViewModel
         viewModel.searchBooks.observe(viewLifecycleOwner) { books ->
             adapter.updateBookList(books)
@@ -93,32 +92,15 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
         return view
     }
     override fun onItemClick(book: bookModel) {
+        val database = AppDatabase.getDatabase(requireContext())
+        bookHistoryDao = database.bookHistoryDao()
+        val factory = historyBookViewModelFactory(bookHistoryDao)
+        viewModelHistory = ViewModelProvider(this, factory).get(historyBookViewModel::class.java)
 
-        val db = AppDatabase.getDatabase(requireContext())
-
-        val bookHistory = bookHistory(
-            title = book.title,
-            authors = book.authors,
-            publisher = book.publisher,
-            price = book.price,
-            imageUrl = book.imageUrl,
-            description = book.description,
-            categories = book.categories,
-            saleability = book.saleability,
-            publishedDate = book.publishedDate,
-            pageCount = book.pageCount,
-            language = book.language,
-            buyLink = book.buyLink,
-            openedAt = System.currentTimeMillis()
-        )
+        viewModelHistory.addBookToHistory(book)
 
 
-        lifecycleScope.launch {
-            // Menyimpan bookHistory ke database
-            db.bookHistoryDao().insertBookHistory(bookHistory)
-            Log.d("HistoryFragment", "Book history inserted: $bookHistory")
-            viewModelHistory.getBookHistory()
-        }
+
         val intent = Intent(requireContext(), detailBook::class.java)
         intent.putExtra("book_title", book.title)
         intent.putExtra("book_image", book.imageUrl)

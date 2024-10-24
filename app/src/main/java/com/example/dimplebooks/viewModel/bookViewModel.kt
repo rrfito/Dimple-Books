@@ -9,8 +9,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
-import com.example.dimplebooks.data.entity.bookHistory
+import androidx.lifecycle.viewModelScope
+import com.example.dimplebooks.data.dao.bookHistoryDao
+import com.example.dimplebooks.data.entity.bookHistoryEntity
 import com.example.dimplebooks.model.BookResponse
+import kotlinx.coroutines.launch
 
 class BookViewModel : ViewModel() {
     var isImageVisible: Boolean = true
@@ -30,7 +33,7 @@ class BookViewModel : ViewModel() {
                         bookModel(
                             id = item.id,
                             title = item.volumeInfo.title,
-                            authors = item.volumeInfo.authors ?: listOf("Unknown Author"),
+                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
                             publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
                             price = item.saleInfo.listPrice?.amount?.toInt(),
                             imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
@@ -38,7 +41,7 @@ class BookViewModel : ViewModel() {
                                 .replace("&edge=curl", "")
                                 .replace("zoom=1", "zoom=0"),
                             description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories ?: listOf("Unknown"),
+                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
                             saleability = item.saleInfo.saleability,
                             publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
                             pageCount = item.volumeInfo.pageCount ?: 0,
@@ -68,7 +71,7 @@ class BookViewModel : ViewModel() {
                         bookModel(
                             id = item.id,
                             title = item.volumeInfo.title,
-                            authors = item.volumeInfo.authors ?: listOf("Unknown Author"),
+                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
                             publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
                             price = item.saleInfo.listPrice?.amount?.toInt(),
                             imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
@@ -76,7 +79,7 @@ class BookViewModel : ViewModel() {
                                 .replace("&edge=curl", "")
                                 .replace("zoom=1", "zoom=0"),
                             description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories ?: listOf("Unknown"),
+                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
                             saleability = item.saleInfo.saleability,
                             publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
                             pageCount = item.volumeInfo.pageCount ?: 0,
@@ -99,6 +102,10 @@ class BookViewModel : ViewModel() {
         isImageVisible = imageVisible
         isTextVisible = textVisible
     }
+
+
     }
+
+
 
 

@@ -5,14 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    >
 
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="120dp"
         app:cardCornerRadius="10dp"
         android:layout_marginEnd="15dp"
-        app:cardElevation="2dp">
+        app:cardElevation="6dp">
 
         <ImageView
             android:id="@+id/bookImageHistory"
@@ -38,7 +39,7 @@
             android:text="The Prominence"
             android:textStyle="bold"
             android:fontFamily="@font/quicksandbold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="@android:color/black" />
 
         <!-- Author and Publisher Information -->
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksandbold"
                 android:text="Lazarus"
-                android:textSize="14sp"
+                android:textSize="10sp"
                 android:textColor="@android:color/darker_gray" />
 
 
@@ -65,7 +66,7 @@
 
             android:fontFamily="@font/quicksandbold"
             android:text="Action"
-            android:textSize="14sp"
+            android:textSize="10sp"
             android:textColor="@android:color/darker_gray" />
 
         <!-- Number of Pages -->
@@ -76,7 +77,7 @@
 
             android:fontFamily="@font/quicksandbold"
             android:text="2 hari yang lalu"
-            android:textSize="14sp"
+            android:textSize="10sp"
             android:textColor="@android:color/darker_gray" />
 
     </LinearLayout>

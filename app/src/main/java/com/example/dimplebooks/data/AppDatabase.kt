@@ -6,9 +6,8 @@ import androidx.room.RoomDatabase
 import android.content.Context
 import androidx.room.TypeConverters
 import com.example.dimplebooks.data.dao.bookHistoryDao
-import com.example.dimplebooks.data.entity.bookHistory
-@TypeConverters(Converters::class)
-@Database(entities = [bookHistory::class], version = 1)
+import com.example.dimplebooks.data.entity.bookHistoryEntity
+@Database(entities = [bookHistoryEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookHistoryDao(): bookHistoryDao
 
@@ -21,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "book_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }
