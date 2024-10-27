@@ -21,9 +21,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:id="@+id/usernameProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hi , Refito"
+        android:text=""
         android:textSize="30sp"
         android:padding="30dp"
         android:textColor="@color/white" />
@@ -37,6 +38,7 @@
         android:layout_gravity="end"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
+
 
         app:civ_border_color="@color/white_grey" />
     <LinearLayout

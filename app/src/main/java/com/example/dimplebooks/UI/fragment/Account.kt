@@ -1,21 +1,23 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.Login
 import com.example.dimplebooks.UI.aboutUs
 import com.google.android.material.snackbar.Snackbar
 
@@ -38,12 +40,17 @@ class Account : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val accountView = inflater.inflate(R.layout.fragment_account, container, false)
 
+//        val usernameProfile = accountView.findViewById<TextView>(R.id.usernameProfile)
+//        val bundleUsername = arguments?.getString("username")
+//        usernameProfile.text = bundleUsername
+//        Log.d("AccountFragment", "Username: $bundleUsername")
         //log out
         val logout = accountView.findViewById<Button>(R.id.logoutButton)
         val shared: SharedPreferences = requireContext().getSharedPreferences("userpref", Context.MODE_PRIVATE)

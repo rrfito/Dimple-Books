@@ -9,12 +9,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.dimplebooks.R
+import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookAdapter
+import com.example.dimplebooks.UI.adapters.categoriesAdapter
 import com.example.dimplebooks.UI.detailBook
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
@@ -33,22 +38,41 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Library.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Library : Fragment(),bookAdapter.OnItemClickListener {
+class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnCategoryClickListener {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewCategories: RecyclerView
     private lateinit var bookList: ArrayList<bookModel>
     private lateinit var adapter: bookAdapter
     private lateinit var searchView: SearchView
     private lateinit var viewModel: BookViewModel
     private lateinit var viewModelHistory: historyBookViewModel
     private lateinit var bookHistoryDao: bookHistoryDao
+    private val categories = listOf("Science", "Comics",
+        "Fantasy", "Biography", "Finance", "Education", "Art",
+        "Literature", "Travel", "Cooking", "Politics", "Sociology")
+    private lateinit var findbookText : TextView
+    private lateinit var findbookImage : ImageView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_library, container, false)
-        val findbookText : TextView = view.findViewById(R.id.findbook)
-        val findbookImage : ImageView = view.findViewById(R.id.findbookimage)
+        findbookText = view.findViewById(R.id.findbook)
+        findbookImage  = view.findViewById(R.id.findbookimage)
+        viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+
+
+        //recycle view categories
+        recyclerViewCategories = view.findViewById(R.id.recycleviewCategories)
+        recyclerViewCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val adapterCategories = categoriesAdapter(categories,this)
+        recyclerViewCategories.adapter = adapterCategories
+        viewModel.categoriesBooks.observe(viewLifecycleOwner) { books ->
+            adapter.updateBookList(books)
+        }
+
 
         // Inisialisasi RecyclerView dan Adapter
         recyclerView = view.findViewById(R.id.recycler_view)
@@ -59,8 +83,9 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
         recyclerView.adapter = adapter
 
 
-        // Inisialisasi ViewModel
-        viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+
+
+
         // Observasi data dari ViewModel
         viewModel.searchBooks.observe(viewLifecycleOwner) { books ->
             adapter.updateBookList(books)
@@ -89,8 +114,11 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
 
 
 
+
         return view
     }
+
+
     override fun onItemClick(book: bookModel) {
         val database = AppDatabase.getDatabase(requireContext())
         bookHistoryDao = database.bookHistoryDao()
@@ -120,6 +148,13 @@ class Library : Fragment(),bookAdapter.OnItemClickListener {
 
         startActivity(intent)
     }
+    override fun onCategoryClick(category: String) {
+        viewModel.CategoriesBooks(category)
+        viewModel.setVisibility(false, false)
+        findbookText.visibility = View.GONE
+        findbookImage.visibility = View.GONE
+    }
+
 
 
 

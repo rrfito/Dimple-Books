@@ -1,5 +1,6 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.viewModel.BookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,6 +57,7 @@ class History : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,9 +67,11 @@ class History : Fragment() {
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         //image banner
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
+        val dotsBanner = view.findViewById<DotsIndicator>(R.id.dotsbanner)
         val imageList = listOf(R.drawable.banner, R.drawable.banner, R.drawable.banner)
         val adapterrr = BannerAdapter(imageList)
         viewPager.adapter = adapterrr
+        dotsBanner.attachTo(viewPager)
 
 
         //newest book recycleview

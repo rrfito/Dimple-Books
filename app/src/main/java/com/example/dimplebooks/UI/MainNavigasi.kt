@@ -34,12 +34,11 @@ class MainNavigasi : AppCompatActivity() {
 
 
 
-        // Set the initial fragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, History())
             .commit()
 
-        // Handle bottom navigation item selection
+
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.historyButton -> {

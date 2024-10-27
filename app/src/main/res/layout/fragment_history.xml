@@ -10,32 +10,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+
+        <FrameLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="150dp"
             android:layout_margin="16dp"
-            android:background="@drawable/navbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:elevation="4dp"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotsbanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="65dp"
+                android:elevation="4dp"
+
+                app:dotsColor="@color/navy_blue_white"
+                app:dotsSize="10dp"
+                app:dotsSpacing="1dp"
+                app:selectedDotColor="#6270FD" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="@drawable/navbar"
+                 />
+
+
+        </FrameLayout>
 
         <TextView
+
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/quicksandbold"
             android:text="Newly Released"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewPager"
-            app:layout_constraintVertical_bias="0.047" />
+            app:layout_constraintTop_toBottomOf="@+id/frame" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Released"

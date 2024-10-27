@@ -7,13 +7,12 @@
     tools:context=".UI.fragment.Library">
 
 
-
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/search_bar"
         android:backgroundTint="#F6F6F6"
@@ -25,62 +24,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
-
-        android:id="@+id/linearLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleviewCategories"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:fontFamily="@font/quicksandbold"
-            android:textColor="@color/black"
-            android:text="All Genres" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:fontFamily="@font/quicksandbold"
-            android:textColor="@color/black"
-            android:text="Fiction" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksandbold"
-            android:text="Mystery" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksandbold"
-            android:text="Action" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/quicksandbold"
-            android:text="History" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <ImageView
 
@@ -119,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@id/recycleviewCategories" />
 
 
 

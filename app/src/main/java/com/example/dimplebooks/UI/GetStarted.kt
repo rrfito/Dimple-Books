@@ -26,7 +26,7 @@ class GetStarted : AppCompatActivity() {
         }
         lifecycleScope.launch {
             delay(2000)
-            val intent = Intent(this@GetStarted, Login::class.java)
+            val intent = Intent(this@GetStarted, mainWelcomeScreen::class.java)
             startActivity(intent)
             finish()
         }
