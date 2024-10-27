@@ -71,7 +71,7 @@
             android:gravity="center"
             android:fontFamily="@font/quicksandbold"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
         <TextView
             android:padding="5dp"
             android:id="@+id/authorDetail"
@@ -80,7 +80,7 @@
             android:text="Antonio Montana"
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -206,7 +206,7 @@
             android:layout_height="wrap_content"
             android:text="description"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/quicksandbold"
             android:textColor="@color/black" />
@@ -236,7 +236,7 @@
             android:text="Dalam sebuah desa kecil yang terisolasi, kehidupan sehari-hari berjalan lambat dan monoton. Cerita dimulai ketika Rina, seorang pemuda berjiwa petualang, menemukan sebuah peta tua yang menunjukkan lokasi sebuah harta karun yang hilang. Dengan semangat membara, Rina memutuskan untuk meninggalkan desanya dan mencari harta karun tersebut, yang konon dapat mengubah nasib siapa pun yang menemukannya.\n\nDi tengah perjalanannya, Rina bertemu dengan Dani, seorang penjelajah berpengalaman yang juga mengejar harta karun tersebut. Meskipun awalnya mereka bersaing, keduanya segera menyadari bahwa mereka memiliki tujuan yang sama dan memutuskan untuk bekerja sama. Dalam perjalanan yang penuh tantangan, mereka harus menghadapi berbagai rintangan, termasuk hutan lebat, cuaca ekstrem, dan jebakan yang dipasang oleh penjelajah sebelumnya."
 
             android:textColor="@color/black"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
 
     </ScrollView>
 

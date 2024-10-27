@@ -34,8 +34,16 @@ class bookAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentBook = bookList[position]
-        holder.bookName.text = currentBook.title
-        holder.authorName.text = currentBook.authors.joinToString(",")
+        holder.bookName.text = if (currentBook.title.length > 10) {
+            currentBook.title.take(15) + "..."
+        } else {
+            currentBook.title
+        }
+        holder.authorName.text = if(currentBook.authors.joinToString(",").length > 10){
+            currentBook.authors.joinToString(",").take(15) + "..."
+        }else{
+            currentBook.authors.joinToString(",")
+        }
         val priceText = when (currentBook.saleability) {
             "FOR_SALE" -> "Rp ${currentBook.price}"
             else -> "NOT FOR SALE"
