@@ -19,4 +19,12 @@
     <color name="orange_white">#fa9314</color>
     <color name="black_white">#2d2525</color>
     <color name="blue_secondary">#6270FD</color>
+
+    <color name="background">#f7f9f7</color>
+    <color name="primary">#7ca274</color>
+    <color name="secondary">#b1cdab</color>
+    <color name="accent">#8cbd82</color>
+    <color name="text">#050605</color>
+    <color name="card">#EFF1EF</color>
+
 </resources>

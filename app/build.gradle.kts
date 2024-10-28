@@ -55,7 +55,6 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
 
     // Lifecycle
-
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
@@ -66,6 +65,10 @@ dependencies {
 
     //dot
     implementation("com.tbuonomo:dotsindicator:4.3")
+
+    
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

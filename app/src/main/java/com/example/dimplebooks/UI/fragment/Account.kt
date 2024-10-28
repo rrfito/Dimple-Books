@@ -52,41 +52,41 @@ class Account : Fragment() {
 //        usernameProfile.text = bundleUsername
 //        Log.d("AccountFragment", "Username: $bundleUsername")
         //log out
-        val logout = accountView.findViewById<Button>(R.id.logoutButton)
-        val shared: SharedPreferences = requireContext().getSharedPreferences("userpref", Context.MODE_PRIVATE)
-        val isLogin = shared.getString("isLogin",null)
-
-
-        logout.setOnClickListener {
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Konfirmasi Logout")
-            builder.setMessage("Apakah Anda yakin ingin logout?")
-
-            builder.setPositiveButton("Yes") { dialog, _ ->
-                Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-                val editorr = shared.edit()
-                editorr.putString("isLogin", null)
-                editorr.apply()
-                val logoutIntent = Intent(requireContext(),Login::class.java)
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(logoutIntent)
-                requireActivity().finish()
-            }
-
-            builder.setNegativeButton("No") { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            builder.show()
-        }
-        val aboutUsButton : ImageView = accountView.findViewById(R.id.aboutUsAccount)
-        aboutUsButton.setOnClickListener(){
-            val aboutIntent = Intent(requireContext(),aboutUs::class.java)
-            startActivity(aboutIntent)
-
-
-        }
+//        val logout = accountView.findViewById<Button>(R.id.logoutButton)
+//        val shared: SharedPreferences = requireContext().getSharedPreferences("userpref", Context.MODE_PRIVATE)
+//        val isLogin = shared.getString("isLogin",null)
+//
+//
+//        logout.setOnClickListener {
+//            val builder = AlertDialog.Builder(requireContext())
+//            builder.setTitle("Konfirmasi Logout")
+//            builder.setMessage("Apakah Anda yakin ingin logout?")
+//
+//            builder.setPositiveButton("Yes") { dialog, _ ->
+//                Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_SHORT).show()
+//                dialog.dismiss()
+//                val editorr = shared.edit()
+//                editorr.putString("isLogin", null)
+//                editorr.apply()
+//                val logoutIntent = Intent(requireContext(),Login::class.java)
+//                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                startActivity(logoutIntent)
+//                requireActivity().finish()
+//            }
+//
+//            builder.setNegativeButton("No") { dialog, _ ->
+//                dialog.dismiss()
+//            }
+//
+//            builder.show()
+//        }
+//        val aboutUsButton : ImageView = accountView.findViewById(R.id.aboutUsAccount)
+//        aboutUsButton.setOnClickListener(){
+//            val aboutIntent = Intent(requireContext(),aboutUs::class.java)
+//            startActivity(aboutIntent)
+//
+//
+//        }
         
 
 
