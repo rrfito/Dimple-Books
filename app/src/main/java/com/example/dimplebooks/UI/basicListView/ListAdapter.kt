@@ -20,12 +20,10 @@ class ListAdapter(
         val menuItem = getItem(position)
         val imageView = view.findViewById<ImageView>(R.id.imageView)
         val nameView = view.findViewById<TextView>(R.id.textName)
-        val textDesc = view.findViewById<TextView>(R.id.textView)
 
         menuItem?.let {
             imageView.setImageResource(it.imageResId)
             nameView.text = it.name
-            textDesc.text = it.name
         }
         return view
     }

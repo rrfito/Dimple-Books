@@ -20,27 +20,26 @@ class ListViewActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val listview : ListView = findViewById(R.id.ListView)
-        val menulist = listOf(
-            ListModel("menu1","deskripsi item 1",R.drawable.history),
-            ListModel("menu2","deskripsi item 2",R.drawable.account),
-            ListModel("menu3","deskripsi item 3",R.drawable.library),
-            ListModel("menu4","deskripsi item 4",R.drawable.icon_library),
-            ListModel("menu5","deskripsi item 5",R.drawable.book1),
-            ListModel("menu6","deskripsi item 6",R.drawable.book2),
-        )
+//        val listview : ListView = findViewById(R.id.ListView)
+//        val menulist = listOf(
+//            ListModel("Username",R.drawable.account),
+//            ListModel("Email",R.drawable.baseline_alternate_email_24),
+//            ListModel("Password",R.drawable.baseline_security_24),
+//            ListModel("Log Out",R.drawable.baseline_logout_24),
+//
+//        )
 
 
-        val adapter = ListAdapter(this,menulist)
-        listview.adapter = adapter
-
-        listview.setOnItemClickListener{ parent,view,position,id ->
-            val selectedItem = menulist[position]
-            if(selectedItem.name == "Menu5"){
-                Toast.makeText(this, "ini adlah menu 5", Toast.LENGTH_SHORT).show()
-            }
-
-        }
+//        val adapter = ListAdapter(this,menulist)
+//        listview.adapter = adapter
+//
+//        listview.setOnItemClickListener{ parent,view,position,id ->
+//            val selectedItem = menulist[position]
+//            if(selectedItem.name == "Menu5"){
+//                Toast.makeText(this, "ini adlah menu 5", Toast.LENGTH_SHORT).show()
+//            }
+//
+//        }
     }
 
 }

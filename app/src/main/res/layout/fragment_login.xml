@@ -116,7 +116,7 @@
                         android:fontFamily="@font/quicksandregular"
                         android:text="not have an account?"
                         android:textSize="15dp"
-                        android:layout_marginStart="30dp"
+                        android:layout_marginStart="15dp"
 
                         />
 

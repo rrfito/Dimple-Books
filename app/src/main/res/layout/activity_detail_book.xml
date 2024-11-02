@@ -110,7 +110,7 @@
                         android:text="4.4"
                         android:layout_gravity="center"
 
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/navy_blue_white"
                         android:textSize="10sp"
                         android:gravity="center"/>
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:text="253"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/navy_blue_white"
                         android:textSize="10sp"
                         android:gravity="center"/>
@@ -131,7 +131,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="English"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/navy_blue_white"
                         android:textSize="10sp"
                         android:layout_gravity="center"
@@ -142,7 +142,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="qwdqdqwdwqqwdqd"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
                         android:textColor="@color/navy_blue_white"
                         android:textSize="10sp"
                         android:gravity="center"/>
@@ -159,35 +159,35 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Released"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
 
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Pages"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
 
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Language"
-                        android:fontFamily="@font/quicksandbold"
+                        android:fontFamily="@font/poppinsmedium"
 
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Categories"
-                        android:fontFamily="@font/quicksandbold"
-                        android:textSize="12sp"
+                        android:fontFamily="@font/poppinsmedium"
+                        android:textSize="11sp"
                         android:gravity="center"/>
 
 
@@ -236,7 +236,7 @@
             android:text="Dalam sebuah desa kecil yang terisolasi, kehidupan sehari-hari berjalan lambat dan monoton. Cerita dimulai ketika Rina, seorang pemuda berjiwa petualang, menemukan sebuah peta tua yang menunjukkan lokasi sebuah harta karun yang hilang. Dengan semangat membara, Rina memutuskan untuk meninggalkan desanya dan mencari harta karun tersebut, yang konon dapat mengubah nasib siapa pun yang menemukannya.\n\nDi tengah perjalanannya, Rina bertemu dengan Dani, seorang penjelajah berpengalaman yang juga mengejar harta karun tersebut. Meskipun awalnya mereka bersaing, keduanya segera menyadari bahwa mereka memiliki tujuan yang sama dan memutuskan untuk bekerja sama. Dalam perjalanan yang penuh tantangan, mereka harus menghadapi berbagai rintangan, termasuk hutan lebat, cuaca ekstrem, dan jebakan yang dipasang oleh penjelajah sebelumnya."
 
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
 
     </ScrollView>
 

@@ -1,8 +1,13 @@
 package com.example.dimplebooks.data.dao
 
-import androidx.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 import kotlinx.coroutines.flow.Flow
+
 
 @Dao
 interface bookHistoryDao {
@@ -14,8 +19,12 @@ interface bookHistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(bookHistoryEntity: bookHistoryEntity)
 
-    @Query("DELETE FROM book_history") // Replace with your actual table name
+    @Query("DELETE FROM book_history")
     suspend fun deleteAllBooks()
+
+    @Query("SELECT COUNT(*) FROM book_history")
+    fun getHistorybookCount(): LiveData<Int?>?
+
 
     }
 

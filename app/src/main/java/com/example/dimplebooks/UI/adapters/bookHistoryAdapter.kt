@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
+import com.example.dimplebooks.UI.adapters.bookAdapter.OnItemClickListener
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
 
-class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntity>)
+class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntity>,
+    private val listener: OnItemClickListener)
     : RecyclerView.Adapter<bookHistoryAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val historyBookImage: ImageView = itemView.findViewById(R.id.bookImageHistory)
@@ -20,6 +22,9 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
         val historyAuthorName: TextView = itemView.findViewById(R.id.authorHistory)
         val historyGenre: TextView = itemView.findViewById(R.id.genreHistory)
         var historyRead: TextView = itemView.findViewById(R.id.readHistory)
+    }
+    interface OnItemClickListener {
+        fun onItemClick(book: bookHistoryEntity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): bookHistoryAdapter.ViewHolder {
@@ -36,6 +41,10 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
         Glide.with(holder.itemView.context)
             .load(currentBook.imageUrl)
             .into(holder.historyBookImage)
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(currentBook)
+        }
     }
 
     override fun getItemCount(): Int {

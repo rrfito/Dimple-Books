@@ -67,6 +67,7 @@ class Register : Fragment() {
             if (inputPassword.isNotEmpty() && inputUsername.isNotEmpty()) {
                 if (inputPassword == inputConfirmPassword) {
                     val editor = sharedPreferences.edit()
+                    editor.putString("isLogin", "1")
                     editor.putString("username", inputUsername)
                     editor.putString("password", inputPassword)
                     editor.apply()

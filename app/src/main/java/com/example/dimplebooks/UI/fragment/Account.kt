@@ -1,24 +1,24 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.aboutUs
+import com.example.dimplebooks.UI.basicListView.ListAdapter
+import com.example.dimplebooks.UI.basicListView.ListModel
+import com.example.dimplebooks.data.AppDatabase
+import com.example.dimplebooks.data.dao.bookHistoryDao
+import com.example.dimplebooks.viewModel.BookViewModel
+import com.example.dimplebooks.viewModel.historyBookViewModel
+import com.example.dimplebooks.viewModel.historyBookViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -29,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
 class Account : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var viewModelHistory: historyBookViewModel
 
    
 
@@ -47,48 +48,49 @@ class Account : Fragment() {
     ): View? {
         val accountView = inflater.inflate(R.layout.fragment_account, container, false)
 
-//        val usernameProfile = accountView.findViewById<TextView>(R.id.usernameProfile)
-//        val bundleUsername = arguments?.getString("username")
-//        usernameProfile.text = bundleUsername
-//        Log.d("AccountFragment", "Username: $bundleUsername")
-        //log out
-//        val logout = accountView.findViewById<Button>(R.id.logoutButton)
-//        val shared: SharedPreferences = requireContext().getSharedPreferences("userpref", Context.MODE_PRIVATE)
-//        val isLogin = shared.getString("isLogin",null)
-//
-//
-//        logout.setOnClickListener {
-//            val builder = AlertDialog.Builder(requireContext())
-//            builder.setTitle("Konfirmasi Logout")
-//            builder.setMessage("Apakah Anda yakin ingin logout?")
-//
-//            builder.setPositiveButton("Yes") { dialog, _ ->
-//                Toast.makeText(requireContext(), "Logout berhasil!", Toast.LENGTH_SHORT).show()
-//                dialog.dismiss()
-//                val editorr = shared.edit()
-//                editorr.putString("isLogin", null)
-//                editorr.apply()
-//                val logoutIntent = Intent(requireContext(),Login::class.java)
-//                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                startActivity(logoutIntent)
-//                requireActivity().finish()
-//            }
-//
-//            builder.setNegativeButton("No") { dialog, _ ->
-//                dialog.dismiss()
-//            }
-//
-//            builder.show()
-//        }
-//        val aboutUsButton : ImageView = accountView.findViewById(R.id.aboutUsAccount)
-//        aboutUsButton.setOnClickListener(){
-//            val aboutIntent = Intent(requireContext(),aboutUs::class.java)
-//            startActivity(aboutIntent)
-//
-//
-//        }
-        
+        val progressBar = accountView.findViewById<ProgressBar>(R.id.customProgressBar)
+        val countbook = accountView.findViewById<TextView>(R.id.countbook)
 
+        val database = AppDatabase.getDatabase(requireContext())
+        val bookHistoryDao = database.bookHistoryDao()
+        viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
+
+        viewModelHistory.getHistorybookCount()?.observe(viewLifecycleOwner) { count ->
+            countbook.text = count.toString() ?: "0"
+            progressBar.progress = count ?: 0
+        }
+
+//        (bookHistoryDao as historyBookViewModel).getHistorybookCount()
+//            ?.observe(viewLifecycleOwner) { count ->
+//                countbook.text = count.toString() ?: "0"
+//                progressBar.progress = count ?: 0
+//            }
+
+
+
+
+
+        val listview : ListView = accountView.findViewById(R.id.ListAccountMenu)
+        val menulist = listOf(
+            ListModel("Username",R.drawable.account),
+            ListModel("Email",R.drawable.baseline_alternate_email_24),
+            ListModel("Password",R.drawable.baseline_security_24),
+            ListModel("About Us",R.drawable.baseline_handshake_24),
+            ListModel("Log Out",R.drawable.baseline_logout_24),
+
+            )
+
+
+        val adapter = ListAdapter(requireContext(),menulist)
+        listview.adapter = adapter
+
+        listview.setOnItemClickListener{ parent,view,position,id ->
+            val selectedItem = menulist[position]
+            if(selectedItem.name == "Menu5"){
+
+            }
+
+        }
 
 
 

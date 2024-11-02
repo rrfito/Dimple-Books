@@ -10,7 +10,8 @@ import com.example.dimplebooks.model.bookModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel() {
+class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel(),
+    bookHistoryDao {
     val allHistoryBooks: Flow<List<bookHistoryEntity>> = bookHistoryDao.getAllHistorySortedByDate()
     fun addBookToHistory(bookModel: bookModel) {
         val bookHistoryEntity = bookHistoryEntity(
@@ -33,9 +34,26 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
         viewModelScope.launch {
             bookHistoryDao.insertBook(bookHistoryEntity)
         }
-    }fun deleteAllBooks() {
+    }
+
+    override suspend fun deleteAllBooks() {
         viewModelScope.launch {
             bookHistoryDao.deleteAllBooks()
         }
     }
+
+
+
+    override fun getAllHistorySortedByDate(): Flow<List<bookHistoryEntity>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertBook(bookHistoryEntity: bookHistoryEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getHistorybookCount(): LiveData<Int?>? {
+        return bookHistoryDao.getHistorybookCount()
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,7 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
+import com.example.dimplebooks.UI.detailBook
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
@@ -35,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [History.newInstance] factory method to
  * create an instance of this fragment.
  */
-class History : Fragment() {
+class History : Fragment(),bookHistoryAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -95,7 +98,7 @@ class History : Fragment() {
         val recycleViewHistory = view.findViewById<RecyclerView>(R.id.recycleviewHistory)
         recycleViewHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         historyBookList = ArrayList()
-        historyAdapter = bookHistoryAdapter(historyBookList)
+        historyAdapter = bookHistoryAdapter(historyBookList,this)
         recycleViewHistory.adapter = historyAdapter
 
 
@@ -113,5 +116,26 @@ class History : Fragment() {
         }
         return view
     }
+
+    override fun onItemClick(book: bookHistoryEntity) {
+        val intent = Intent(requireContext(), detailBook::class.java)
+        intent.putExtra("book_title", book.title)
+        intent.putExtra("book_image", book.imageUrl)
+        intent.putExtra("book_authors", book.authors)
+        intent.putExtra("book_publisher", book.publisher)
+        intent.putExtra("book_publishedDate", book.publishedDate)
+        intent.putExtra("book_pageCount", book.pageCount)
+        intent.putExtra("book_language", book.language)
+        intent.putExtra("book_categories", book.categories)
+        intent.putExtra("book_description", book.description)
+        intent.putExtra("book_price", book.price)
+        intent.putExtra("book_saleability", book.saleability)
+        intent.putExtra("buyLink", book.buyLink)
+
+
+
+        startActivity(intent)
+    }
+
 
 }

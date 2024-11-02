@@ -51,12 +51,12 @@ class Login : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
 
 
-//        // Cek apakah user sudah login
-//        val isLogin = sharedPreferences.getString("isLogin", null)
-//        if (isLogin == "1") {
-//            navigateTo(MainNavigasi::class.java)
-//
-//        }
+        // Cek apakah user sudah login
+        val isLogin = sharedPreferences.getString("isLogin", null)
+        if (isLogin == "1") {
+            navigateTo(MainNavigasi::class.java)
+
+        }
 
         val bundleUsername = arguments?.getString("username")
         val bundlePassword = arguments?.getString("password")
