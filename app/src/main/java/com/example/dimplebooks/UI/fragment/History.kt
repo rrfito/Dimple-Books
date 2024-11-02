@@ -19,6 +19,7 @@ import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
 import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.data.AppDatabase
+import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
 import com.example.dimplebooks.model.bookModel
@@ -49,6 +50,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
     private lateinit var historyAdapter: bookHistoryAdapter
     private lateinit var viewModel: BookViewModel
     private lateinit var viewModelHistory: historyBookViewModel
+    private lateinit var bookHistoryDao : bookHistoryDao
 
 
 
@@ -144,6 +146,13 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
     }
 
     override fun onItemClick(book: bookModel) {
+        val database = AppDatabase.getDatabase(requireContext())
+        bookHistoryDao = database.bookHistoryDao()
+        val factory = historyBookViewModelFactory(bookHistoryDao)
+        viewModelHistory = ViewModelProvider(this, factory).get(historyBookViewModel::class.java)
+        val shared = requireActivity().getSharedPreferences("userpref",Context.MODE_PRIVATE)
+        viewModelHistory.addBookToHistory(book,shared.getInt("activeUserId",-1))
+
         val intent = Intent(requireContext(), detailBook::class.java)
         intent.putExtra("book_title", book.title)
         intent.putExtra("book_image", book.imageUrl)

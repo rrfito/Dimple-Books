@@ -61,7 +61,7 @@ class BookViewModel : ViewModel() {
     }
 
     fun getNewestBooks() {
-        val call = apiService.bookApi.newestBooks("proramming", "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
+        val call = apiService.bookApi.newestBooks("a", "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
                 if (response.isSuccessful) {
