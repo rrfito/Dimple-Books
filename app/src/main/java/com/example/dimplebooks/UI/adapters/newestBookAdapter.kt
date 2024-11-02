@@ -9,13 +9,19 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.adapters.bookHistoryAdapter.ViewHolder
+import com.example.dimplebooks.UI.fragment.History
 
 import com.example.dimplebooks.model.bookModel
 
-class newestBookAdapter( private val newestBookList: ArrayList<bookModel>)
+class newestBookAdapter(private val newestBookList: ArrayList<bookModel>,
+                        private val itemclick: OnItemClickListener
+)
     : RecyclerView.Adapter<newestBookAdapter.ViewHolder>() {
 
+
+        interface  OnItemClickListener{
+            fun onItemClick(book: bookModel)
+        }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newImage : ImageView = itemView.findViewById(R.id.newestBookImage)
@@ -38,7 +44,11 @@ class newestBookAdapter( private val newestBookList: ArrayList<bookModel>)
             .placeholder(R.drawable.loading)
             .error(R.drawable.error)
             .into(holder.newImage)
-        holder.newBookName.text=currentBook.title
+        holder.newBookName.text = if (currentBook.title.length > 39) {
+            currentBook.title.take(39) + "..."
+        }else{
+            currentBook.title
+        }
         val priceText = when (currentBook.saleability) {
             "FOR_SALE" -> "FOR SALE"
             else -> "NOT FOR SALE"
@@ -50,6 +60,10 @@ class newestBookAdapter( private val newestBookList: ArrayList<bookModel>)
             holder.card.setCardBackgroundColor(holder.itemView.context.getColor(R.color.orange))
         }
         holder.price.text = priceText
+
+        holder.itemView.setOnClickListener {
+            itemclick.onItemClick(currentBook)
+        }
     }
 
     override fun getItemCount(): Int {

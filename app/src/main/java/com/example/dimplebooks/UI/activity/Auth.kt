@@ -1,4 +1,4 @@
-package com.example.dimplebooks.UI
+package com.example.dimplebooks.UI.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.fragment.History
 import com.example.dimplebooks.UI.fragment.Login
 
 class Auth : AppCompatActivity() {

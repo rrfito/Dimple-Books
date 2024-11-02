@@ -1,5 +1,6 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,12 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.Auth
+import com.example.dimplebooks.UI.activity.Auth
+import com.example.dimplebooks.data.AppDatabase
+import com.example.dimplebooks.data.entity.UserEntity
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,12 +35,13 @@ class Register : Fragment() {
 
     private lateinit var regisUser: EditText
     private lateinit var regisPas: EditText
-    private lateinit var regisConfirmPas: EditText
+    private lateinit var regisEmail: EditText
     private lateinit var buttRegis: Button
 //    private lateinit var backArrow: ImageView
     private lateinit var sharedPreferences: SharedPreferences
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,8 +50,8 @@ class Register : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
         regisUser = view.findViewById(R.id.InputUsernameRegister)
-        regisPas = view.findViewById(R.id.InputPasswordRegister)
-        regisConfirmPas = view.findViewById(R.id.inputConfirmPasswordRegister)
+        regisPas = view.findViewById(R.id.inputpassword)
+        regisEmail = view.findViewById(R.id.inputemail)
         buttRegis = view.findViewById(R.id.registerButton)
 
         sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
@@ -63,33 +68,29 @@ class Register : Fragment() {
         buttRegis.setOnClickListener { view ->
             val inputUsername = regisUser.text.toString()
             val inputPassword = regisPas.text.toString()
-            val inputConfirmPassword = regisConfirmPas.text.toString()
+            val inputEmail = regisEmail.text.toString()
             if (inputPassword.isNotEmpty() && inputUsername.isNotEmpty()) {
-                if (inputPassword == inputConfirmPassword) {
-                    val editor = sharedPreferences.edit()
-                    editor.putString("isLogin", "1")
-                    editor.putString("username", inputUsername)
-                    editor.putString("password", inputPassword)
-                    editor.apply()
-
-                    val loginfragment = Login()
-                    val bundle = Bundle().apply {
-                        putString("username", inputUsername)
-                        putString("password", inputPassword)
-                    }
-                    loginfragment.arguments = bundle
-                    Log.d("RegisterFragment", "$bundle")
-
-                    (activity as? Auth)?.ReplaceFragment(loginfragment)
-
-
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Password dan Konfirmasi Password tidak sama",
-                        Toast.LENGTH_LONG
-                    ).show()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    addUser(inputUsername,inputPassword,inputEmail)
                 }
+
+                val editor = sharedPreferences.edit()
+                editor.putString("isLogin", "1")
+                editor.putString("username", inputUsername)
+                editor.putString("password", inputPassword)
+
+
+                val loginfragment = Login()
+                val bundle = Bundle().apply {
+                    putString("username", inputUsername)
+                    putString("password", inputPassword)
+                }
+                loginfragment.arguments = bundle
+                Log.d("RegisterFragment", "$bundle")
+
+                (activity as? Auth)?.ReplaceFragment(loginfragment)
+
+
             } else {
                 Snackbar.make(view, "Username dan Password jangan kosong", Snackbar.LENGTH_LONG)
                     .setAction("Undo") {
@@ -97,8 +98,8 @@ class Register : Fragment() {
                     }
                     .show()
             }
-        }
 
+        }
 
         return view
     }
@@ -109,6 +110,12 @@ class Register : Fragment() {
         Log.d("LoginFragmentt", "Username: $username")
 
     }
+     suspend fun addUser(userName: String, password: String, email: String) {
+         val db = AppDatabase.getDatabase(requireContext())
+        val user = UserEntity(username = userName,password = password, email = email)
+        val userId = db.userEntitiyDao().insertUser(user)
+    }
+
 }
 
 

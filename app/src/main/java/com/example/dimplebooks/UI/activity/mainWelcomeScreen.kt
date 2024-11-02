@@ -1,8 +1,7 @@
-package com.example.dimplebooks.UI
+package com.example.dimplebooks.UI.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -67,7 +66,7 @@ class mainWelcomeScreen : AppCompatActivity() {
 
     }
     private fun FinishWelcomeScreen(){
-        startActivity(Intent(this,Auth::class.java))
+        startActivity(Intent(this, Auth::class.java))
         finish()
     }
     }

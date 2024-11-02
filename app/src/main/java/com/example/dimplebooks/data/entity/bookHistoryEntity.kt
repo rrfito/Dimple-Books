@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "book_history")
 data class bookHistoryEntity(
     @PrimaryKey val bookId: String,
+    val userid: Int,
     val title: String,
     val authors: String,
     val publisher: String?,
@@ -18,7 +19,7 @@ data class bookHistoryEntity(
     val pageCount: Int?,
     val language: String?,
     val buyLink: String?,
-    val timestamp: Long // New field for date-time
+    val timestamp: Long
 ) {
 
 }

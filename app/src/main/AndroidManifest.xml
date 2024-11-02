@@ -25,26 +25,26 @@
             android:name=".UI.basicListView.ListViewActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.Auth"
+            android:name=".UI.activity.Auth"
             android:exported="false" />
         <activity
-            android:name=".UI.mainWelcomeScreen"
+            android:name=".UI.activity.mainWelcomeScreen"
             android:exported="false" />
         <activity
-            android:name=".UI.buyItem"
+            android:name=".UI.activity.buyItem"
             android:exported="false" />
         <activity
-            android:name=".UI.aboutUs"
+            android:name=".UI.activity.aboutUs"
             android:exported="false" />
         <activity
-            android:name=".UI.detailBook"
+            android:name=".UI.activity.detailBook"
             android:exported="false" />
         <activity
-            android:name=".UI.MainNavigasi"
+            android:name=".UI.activity.MainNavigasi"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".UI.GetStarted"
+            android:name=".UI.activity.GetStarted"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

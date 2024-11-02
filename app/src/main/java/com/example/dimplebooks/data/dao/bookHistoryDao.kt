@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface bookHistoryDao {
 
-    @Query("SELECT * FROM book_history ORDER BY timestamp DESC")
-    fun getAllHistorySortedByDate(): Flow<List<bookHistoryEntity>>
+    @Query("SELECT * FROM book_history WHERE userid = :userid ORDER BY timestamp DESC")
+    fun getAllHistorySortedByDate(userid: Int): Flow<List<bookHistoryEntity>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

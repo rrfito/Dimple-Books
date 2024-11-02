@@ -1,4 +1,4 @@
-package com.example.dimplebooks.UI.basicListView
+package com.example.dimplebooks.UI.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.dimplebooks.R
+import com.example.dimplebooks.model.ListModel
 
 class ListAdapter(
     context: Context,

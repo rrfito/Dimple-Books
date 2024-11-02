@@ -1,7 +1,6 @@
-package com.example.dimplebooks.UI
+package com.example.dimplebooks.UI.activity
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -12,7 +11,6 @@ import com.example.dimplebooks.UI.fragment.Account
 import com.example.dimplebooks.UI.fragment.Library
 import com.example.dimplebooks.UI.fragment.History
 
-import com.example.dimplebooks.databinding.ActivityMainNavigasiBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainNavigasi : AppCompatActivity() {

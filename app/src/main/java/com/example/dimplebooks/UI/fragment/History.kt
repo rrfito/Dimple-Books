@@ -1,9 +1,9 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
-import com.example.dimplebooks.UI.detailBook
+import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
@@ -38,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [History.newInstance] factory method to
  * create an instance of this fragment.
  */
-class History : Fragment(),bookHistoryAdapter.OnItemClickListener {
+class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -83,7 +83,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener {
          newestBookList = ArrayList()
 
 
-         adapterr = newestBookAdapter(newestBookList)
+         adapterr = newestBookAdapter(newestBookList,this)
         recycleViewNew.adapter = adapterr
 
         //viewmodel newewst book
@@ -105,15 +105,21 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener {
         val database = AppDatabase.getDatabase(requireContext())
         val bookHistoryDao = database.bookHistoryDao()
         viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
+        val sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("activeUserId", -1)
 
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModelHistory.allHistoryBooks.collect { books ->
-                historyBookList.clear()
-                historyBookList.addAll(books)
-                historyAdapter.notifyDataSetChanged()
+        if (userId != -1) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
+                    historyBookList.clear()
+                    historyBookList.addAll(books)
+                    historyAdapter.notifyDataSetChanged()
+                }
             }
+        } else {
+           //
         }
+
         return view
     }
 
@@ -127,6 +133,26 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener {
         intent.putExtra("book_pageCount", book.pageCount)
         intent.putExtra("book_language", book.language)
         intent.putExtra("book_categories", book.categories)
+        intent.putExtra("book_description", book.description)
+        intent.putExtra("book_price", book.price)
+        intent.putExtra("book_saleability", book.saleability)
+        intent.putExtra("buyLink", book.buyLink)
+
+
+
+        startActivity(intent)
+    }
+
+    override fun onItemClick(book: bookModel) {
+        val intent = Intent(requireContext(), detailBook::class.java)
+        intent.putExtra("book_title", book.title)
+        intent.putExtra("book_image", book.imageUrl)
+        intent.putExtra("book_authors", book.authors.joinToString(", "))
+        intent.putExtra("book_publisher", book.publisher)
+        intent.putExtra("book_publishedDate", book.publishedDate)
+        intent.putExtra("book_pageCount", book.pageCount)
+        intent.putExtra("book_language", book.language)
+        intent.putExtra("book_categories", book.categories.joinToString { "," })
         intent.putExtra("book_description", book.description)
         intent.putExtra("book_price", book.price)
         intent.putExtra("book_saleability", book.saleability)

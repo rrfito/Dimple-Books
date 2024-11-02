@@ -1,4 +1,4 @@
-package com.example.dimplebooks.UI
+package com.example.dimplebooks.UI.activity
 
 import android.os.Bundle
 import android.util.Log

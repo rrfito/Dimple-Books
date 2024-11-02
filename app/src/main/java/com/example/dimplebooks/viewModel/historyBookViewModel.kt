@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
 
 class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel(),
     bookHistoryDao {
-    val allHistoryBooks: Flow<List<bookHistoryEntity>> = bookHistoryDao.getAllHistorySortedByDate()
-    fun addBookToHistory(bookModel: bookModel) {
+    fun addBookToHistory(bookModel: bookModel,userid : Int) {
         val bookHistoryEntity = bookHistoryEntity(
             bookId = bookModel.id,
             title = bookModel.title,
@@ -28,7 +27,8 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
             pageCount = bookModel.pageCount,
             language = bookModel.language,
             buyLink = bookModel.buyLink,
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            userid = userid
         )
 
         viewModelScope.launch {
@@ -42,10 +42,8 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
         }
     }
 
-
-
-    override fun getAllHistorySortedByDate(): Flow<List<bookHistoryEntity>> {
-        TODO("Not yet implemented")
+    override fun getAllHistorySortedByDate(userid: Int): Flow<List<bookHistoryEntity>> {
+        return bookHistoryDao.getAllHistorySortedByDate(userid)
     }
 
     override suspend fun insertBook(bookHistoryEntity: bookHistoryEntity) {

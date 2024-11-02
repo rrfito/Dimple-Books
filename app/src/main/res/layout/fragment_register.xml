@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/quicksandregular"
-            android:text="Password"
+            android:text="Email"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.11"
@@ -64,27 +64,23 @@
             app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
 
         <EditText
-            android:id="@+id/InputPasswordRegister"
+            android:id="@+id/inputemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:ems="10"
             android:textSize="10dp"
-
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.184"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Password" />
 
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/quicksandregular"
-            android:text="Confirm Password"
+            android:text="Password"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.11"
@@ -92,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
 
         <EditText
-            android:id="@+id/inputConfirmPasswordRegister"
+            android:id="@+id/inputpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

@@ -1,4 +1,4 @@
-package com.example.dimplebooks.UI.basicListView
+package com.example.dimplebooks.model
 
 class ListModel (
     val name : String,

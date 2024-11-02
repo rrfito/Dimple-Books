@@ -1,6 +1,7 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +13,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.basicListView.ListAdapter
-import com.example.dimplebooks.UI.basicListView.ListModel
+import com.example.dimplebooks.UI.adapters.ListAdapter
+import com.example.dimplebooks.model.ListModel
 import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.dao.bookHistoryDao
-import com.example.dimplebooks.viewModel.BookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -86,7 +85,10 @@ class Account : Fragment() {
 
         listview.setOnItemClickListener{ parent,view,position,id ->
             val selectedItem = menulist[position]
-            if(selectedItem.name == "Menu5"){
+            if(selectedItem.name == "Log Out"){
+                val shared = requireContext().getSharedPreferences("activeUserId", Context.MODE_PRIVATE)
+                val exit =shared.edit().remove("activeUserId").apply()
+                requireActivity().finish()
 
             }
 

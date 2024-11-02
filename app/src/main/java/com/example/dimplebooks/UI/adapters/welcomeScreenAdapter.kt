@@ -2,7 +2,7 @@ package com.example.dimplebooks.UI.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.dimplebooks.UI.mainWelcomeScreen
+import com.example.dimplebooks.UI.activity.mainWelcomeScreen
 
 class welcomeScreenAdapter(activity : mainWelcomeScreen,
                            private val fragments:List<Fragment> )

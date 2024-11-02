@@ -1,6 +1,8 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,18 +11,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.UI.adapters.categoriesAdapter
-import com.example.dimplebooks.UI.detailBook
+import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.model.bookModel
@@ -125,7 +124,9 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         val factory = historyBookViewModelFactory(bookHistoryDao)
         viewModelHistory = ViewModelProvider(this, factory).get(historyBookViewModel::class.java)
 
-        viewModelHistory.addBookToHistory(book)
+
+        val shared = requireActivity().getSharedPreferences("userpref",Context.MODE_PRIVATE)
+        viewModelHistory.addBookToHistory(book,shared.getInt("activeUserId",-1))
 
 
 
