@@ -1,4 +1,4 @@
-package com.example.dimplebooks.UI.activity
+package com.example.dimplebooks.UI.activity.accountActivity
 
 import android.os.Bundle
 import android.view.MenuItem

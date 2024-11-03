@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -30,21 +30,22 @@
     </androidx.cardview.widget.CardView>
 
 
-<TextView
-android:id="@+id/bookName"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginTop="4dp"
-android:fontFamily="@font/quicksandbold"
-android:text="The Psychology"
-android:textColor="@color/black"
-android:textStyle="bold" />
+    <TextView
+        android:id="@+id/bookName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/quicksandbold"
+        android:text="The Psychology"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
-<TextView
+    <TextView
 android:id="@+id/author"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-
+android:textSize="12sp"
 android:fontFamily="@font/quicksandbold"
 android:text="Megan Houl"
 android:textColor="@color/grey" />
@@ -55,10 +56,10 @@ android:textColor="@color/grey" />
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:fontFamily="@font/quicksandbold"
+            android:fontFamily="@font/poppinsextrabold"
             android:text="Rp2500,000"
             android:textColor="@color/orange_white"
-            android:textSize="13sp" />
+            android:textSize="10sp" />
 
 
 

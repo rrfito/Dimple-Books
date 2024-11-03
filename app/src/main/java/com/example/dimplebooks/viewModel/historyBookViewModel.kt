@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel(),
     bookHistoryDao {
+        var maxbookCount = 1800
     fun addBookToHistory(bookModel: bookModel,userid : Int) {
         val bookHistoryEntity = bookHistoryEntity(
             bookId = bookModel.id,
@@ -51,6 +52,7 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
     }
 
     override fun getHistorybookCount(): LiveData<Int?>? {
+
         return bookHistoryDao.getHistorybookCount()
     }
 

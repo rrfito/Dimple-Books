@@ -22,6 +22,12 @@
         android:theme="@style/Theme.Refitoo"
         tools:targetApi="31">
         <activity
+            android:name=".UI.activity.accountActivity.versionInformation"
+            android:exported="false" />
+        <activity
+            android:name=".UI.activity.accountActivity.settings"
+            android:exported="false" />
+        <activity
             android:name=".UI.basicListView.ListViewActivity"
             android:exported="false" />
         <activity
@@ -34,7 +40,7 @@
             android:name=".UI.activity.buyItem"
             android:exported="false" />
         <activity
-            android:name=".UI.activity.aboutUs"
+            android:name=".UI.activity.accountActivity.aboutUs"
             android:exported="false" />
         <activity
             android:name=".UI.activity.detailBook"

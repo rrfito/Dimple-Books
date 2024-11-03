@@ -113,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"
+                    android:textSize="13dp"
                     android:fontFamily="@font/quicksandregular"
                     android:text="You've read" />
 
@@ -121,7 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="4dp"
-                    android:fontFamily="@font/quicksandregular"
+                    android:textSize="13dp"
+                    android:fontFamily="@font/quicksandbold"
                     android:text="9" />
 
                 <TextView
@@ -129,18 +131,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="4dp"
+                    android:textSize="13dp"
                     android:fontFamily="@font/quicksandregular"
                     android:text="books" />
 
+
                 <TextView
+                    android:id="@+id/maxbook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                   android:gravity="end"
+                    android:textSize="13dp"
+                    android:gravity="end"
+
                     android:layout_marginEnd="20dp"
-
-
                     android:fontFamily="@font/quicksandregular"
-                    android:text="1785 books left" />
+                    android:text=" 1789 left" />
 
 
             </LinearLayout>
@@ -157,11 +162,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="25dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

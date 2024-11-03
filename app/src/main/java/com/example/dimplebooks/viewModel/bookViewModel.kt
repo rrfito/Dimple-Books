@@ -61,7 +61,8 @@ class BookViewModel : ViewModel() {
     }
 
     fun getNewestBooks() {
-        val call = apiService.bookApi.newestBooks("a", "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
+        val randomLetter = getRandomLetter()
+        val call = apiService.bookApi.newestBooks(randomLetter, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
                 if (response.isSuccessful) {
@@ -101,6 +102,7 @@ class BookViewModel : ViewModel() {
         isTextVisible = textVisible
     }
     fun CategoriesBooks(query: String) {
+
         val call = apiService.bookApi.searchBooks("Subject: $query","AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxResults = 40)
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
@@ -137,10 +139,15 @@ class BookViewModel : ViewModel() {
             }
         })
     }
-
-
-
+    fun getRandomLetter(): String {
+        val chars = ('a'..'z') + ('A'..'Z')
+        return chars.random().toString()
     }
+
+
+
+
+}
 
 
 

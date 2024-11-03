@@ -1,9 +1,13 @@
 package com.example.dimplebooks.UI.adapters
 
+import android.annotation.SuppressLint
 import android.text.format.DateUtils
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +36,7 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
         return ViewHolder(view)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: bookHistoryAdapter.ViewHolder, position: Int) {
         val currentBook = HistorybookList[position]
         holder.historyBookName.text = currentBook.title
@@ -44,6 +49,34 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(currentBook)
+        }
+
+        val gestureDetector = GestureDetector(holder.itemView.context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                listener.onItemClick(currentBook)
+                return true
+            }
+            override fun onDown(e: MotionEvent): Boolean {
+                zoomIn(holder.historyBookImage)
+                return true
+            }
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                zoomOut(holder.historyBookImage)
+                return super.onSingleTapUp(e)
+            }
+        })
+
+        holder.historyBookImage.setOnTouchListener { v, event ->
+            gestureDetector.onTouchEvent(event)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    zoomIn(holder.historyBookImage)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    zoomOut(holder.historyBookImage)
+                }
+            }
+            true
         }
     }
 
@@ -82,5 +115,27 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
                 "$years tahun yang lalu"
             }
         }
+    }private fun zoomIn(view: View) {
+        val zoomIn = ScaleAnimation(
+            1.0f, 1.5f,
+            1.0f, 1.5f,
+            ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
+            ScaleAnimation.RELATIVE_TO_SELF, 0.5f
+        )
+        zoomIn.fillAfter = true
+        zoomIn.duration = 300
+        view.startAnimation(zoomIn)
+    }
+
+    private fun zoomOut(view: View) {
+        val zoomOut = ScaleAnimation(
+            1.5f, 1.0f,
+            1.5f, 1.0f,
+            ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
+            ScaleAnimation.RELATIVE_TO_SELF, 0.5f
+        )
+        zoomOut.fillAfter = true
+        zoomOut.duration = 300
+        view.startAnimation(zoomOut)
     }
 }

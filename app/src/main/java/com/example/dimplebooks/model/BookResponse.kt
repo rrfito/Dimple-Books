@@ -3,7 +3,6 @@ package com.example.dimplebooks.model
 data class BookResponse(
     val items: List<BookItem>
 )
-
 data class BookItem(
     val id: String,
     val volumeInfo: VolumeInfo,
@@ -21,12 +20,10 @@ data class VolumeInfo(
     val language: String?,
     val categories: List<String>?
 )
-
 data class SaleInfo(
     val listPrice: Price?,
     val saleability: String,
     val buyLink : String?
-
 )
 
 data class ImageLinks(

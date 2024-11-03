@@ -20,7 +20,7 @@ data class bookHistoryEntity(
     val language: String?,
     val buyLink: String?,
     val timestamp: Long
-) {
+)
 
-}
+
 

@@ -76,7 +76,6 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         // Inisialisasi RecyclerView dan Adapter
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-
         bookList = ArrayList()
         adapter = bookAdapter(bookList,this)
         recyclerView.adapter = adapter
