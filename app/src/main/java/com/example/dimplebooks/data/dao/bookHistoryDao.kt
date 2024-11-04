@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface bookHistoryDao {
 
     @Query("SELECT * FROM book_history WHERE userid = :userid ORDER BY timestamp DESC")
-    fun getAllHistorySortedByDate(userid: Int): Flow<List<bookHistoryEntity>>
+    fun getAllHistorySortedByDate(userid: String): Flow<List<bookHistoryEntity>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

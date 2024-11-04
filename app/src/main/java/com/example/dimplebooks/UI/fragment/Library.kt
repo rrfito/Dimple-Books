@@ -26,6 +26,9 @@ import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.viewModel.BookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -123,9 +126,15 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         val factory = historyBookViewModelFactory(bookHistoryDao)
         viewModelHistory = ViewModelProvider(this, factory).get(historyBookViewModel::class.java)
 
-
-        val shared = requireActivity().getSharedPreferences("userpref",Context.MODE_PRIVATE)
-        viewModelHistory.addBookToHistory(book,shared.getInt("activeUserId",-1))
+        val firebase = FirebaseAuth.getInstance()
+        val userid = firebase.currentUser?.uid
+        val shared = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
+        if (userid != null) {
+            viewModelHistory.addBookToHistory(book,userid)
+            val editor = shared.edit()
+            editor.putString("userid",userid)
+            editor.apply()
+        }
 
 
 

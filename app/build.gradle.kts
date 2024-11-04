@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -53,6 +54,14 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
+
+    //firebase database and authentication
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.database)
+    //google
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
+
 
     // Lifecycle
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "772631280683",
+    "project_id": "dimplebooks-ca88e",
+    "storage_bucket": "dimplebooks-ca88e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772631280683:android:c61e4f618787e9d9fe3e6e",
+        "android_client_info": {
+          "package_name": "com.example.dimplebooks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU5jUWzY6doOMwrLrmPqaQ5RNAyCoWOlg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

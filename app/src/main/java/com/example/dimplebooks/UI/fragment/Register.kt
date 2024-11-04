@@ -17,8 +17,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.entity.UserEntity
+
+import com.example.dimplebooks.model.userModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +52,7 @@ class Register : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
+
         regisUser = view.findViewById(R.id.InputUsernameRegister)
         regisPas = view.findViewById(R.id.inputpassword)
         regisEmail = view.findViewById(R.id.inputemail)
@@ -65,19 +69,33 @@ class Register : Fragment() {
         }
 
 
+        val auth = FirebaseAuth.getInstance()
+        val databaseFire = FirebaseDatabase.getInstance().getReference("users")
         buttRegis.setOnClickListener { view ->
             val inputUsername = regisUser.text.toString()
             val inputPassword = regisPas.text.toString()
             val inputEmail = regisEmail.text.toString()
             if (inputPassword.isNotEmpty() && inputUsername.isNotEmpty()) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    addUser(inputUsername,inputPassword,inputEmail)
+                auth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val user = auth.currentUser?.uid
+                        val userModel = userModel(user, inputUsername, inputEmail,null)
+                        databaseFire.child(user!!).setValue(userModel)
+
+                    } else {
+
+
+                    }
                 }
 
-                val editor = sharedPreferences.edit()
-                editor.putString("isLogin", "1")
-                editor.putString("username", inputUsername)
-                editor.putString("password", inputPassword)
+//                viewLifecycleOwner.lifecycleScope.launch {
+//                    addUser(inputUsername,inputPassword,inputEmail)
+//                }
+
+//                val editor = sharedPreferences.edit()
+//                editor.putString("isLogin", "1")
+//                editor.putString("username", inputUsername)
+//                editor.putString("password", inputPassword)
 
 
                 val loginfragment = Login()
@@ -110,11 +128,7 @@ class Register : Fragment() {
         Log.d("LoginFragmentt", "Username: $username")
 
     }
-     suspend fun addUser(userName: String, password: String, email: String) {
-         val db = AppDatabase.getDatabase(requireContext())
-        val user = UserEntity(username = userName,password = password, email = email)
-        val userId = db.userEntitiyDao().insertUser(user)
-    }
+
 
 }
 

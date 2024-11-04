@@ -25,59 +25,47 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign In"
+                    android:text="Welcome back"
                     android:fontFamily="@font/quicksandbold"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
                     android:textColor="@color/black"
                      />
-
                 <TextView
-                    android:id="@+id/Username"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:text="Username"
+                    android:text="Please enter your details to login"
+                    android:fontFamily="@font/poppinsmedium"
                     android:textSize="15sp"
 
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.11"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
+                    />
+
+
 
                 <EditText
-                    android:id="@+id/InputUsernamee"
+                    android:id="@+id/inputemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:textSize="13sp"
-                    android:inputType="text"
+
+                    android:textSize="18sp"
+                    android:hint="email"
+                    android:backgroundTint="@color/grey"
+                    android:inputType="textEmailAddress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.194"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/username" />
-                <TextView
-                    android:id="@+id/Password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/quicksandregular"
-                    android:text="Password"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.11"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/InputUsernamee" />
 
                 <EditText
                     android:id="@+id/InputPasswordd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:hint="password"
+                    android:backgroundTint="@color/grey"
                     android:layout_marginTop="4dp"
 
                     android:ems="10"
-                    android:textSize="13sp"
+                    android:textSize="18sp"
 
                     android:inputType="textPassword"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -89,10 +77,12 @@
                     android:id="@+id/Loginn"
                     android:layout_width="match_parent"
                     android:layout_height="58dp"
-                    android:layout_marginTop="24dp"
+
+                    android:layout_marginTop="15dp"
                     android:backgroundTint="@color/blue_secondary"
                     android:fontFamily="@font/quicksandbold"
                     android:text="Login"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     app:cornerRadius="15dp"
                     android:layout_gravity="center"
@@ -101,8 +91,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/InputPasswordd"
                     app:layout_constraintVertical_bias="0.168" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,6 +121,43 @@
                         />
 
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+
+                    android:text="---------------------------------or---------------------------------"
+                    />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/google"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+
+                    android:textAllCaps="false"
+
+
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/quicksandbold"
+                    android:text="Login with Google"
+                    app:iconTint="@null"
+                    app:icon="@drawable/icongoogle"
+                    app:iconGravity="textStart"
+                    app:strokeColor="@color/grey"
+                    app:strokeWidth="1dp"
+                    android:textColor="@color/black"
+                    app:cornerRadius="15dp"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/InputPasswordd"
+                    app:layout_constraintVertical_bias="0.168" />
+
+
+
 
 
             </LinearLayout>

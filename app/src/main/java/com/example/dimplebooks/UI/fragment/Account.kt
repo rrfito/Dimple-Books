@@ -27,7 +27,15 @@ import com.example.dimplebooks.model.ListModel
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +46,7 @@ class Account : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var viewModelHistory: historyBookViewModel
+    private lateinit var googleSignInClient: GoogleSignInClient
 
    
 
@@ -64,6 +73,26 @@ class Account : Fragment() {
         val bookHistoryDao = database.bookHistoryDao()
         viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
 
+
+        //email and username text view
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val databaseReference = FirebaseDatabase.getInstance().getReference("users")
+        val usernamefire = accountView.findViewById<TextView>(R.id.usernamefire)
+        val emailfire = accountView.findViewById<TextView>(R.id.emailfire)
+        userId?.let {
+            databaseReference.child(it).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val email = snapshot.child("email").getValue(String::class.java)
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    emailfire.text = email ?: "Email tidak ditemukan"
+                    usernamefire.text = username ?: "Username tidak ditemukan"
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(), "Gagal mengambil data: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
 
 
         maxbook.text = "${viewModelHistory.maxbookCount} left"
@@ -135,26 +164,38 @@ class Account : Fragment() {
             }.show()
     }
     private fun showLogoutDialog() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // ID klien web Anda
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+        val FirebaseAuth = FirebaseAuth.getInstance()
+        FirebaseAuth.signOut()
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Log Out")
         builder.setMessage("Are you sure you want to log out?")
 
         builder.setPositiveButton("Yes") { dialog, _ ->
-            val intent = Intent(requireContext(), Auth::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            googleSignInClient.signOut().addOnCompleteListener {
+                val intent = Intent(requireContext(), Auth::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
+            }
+
             dialog.dismiss()
         }
 
-        builder.setNegativeButton("No") { dialog, _ ->
-            dialog.dismiss()
+
+            builder.setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            val alertDialog = builder.create()
+            alertDialog.show()
         }
 
-        val alertDialog = builder.create()
-        alertDialog.show()
     }
 
 
-
-
-}

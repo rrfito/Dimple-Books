@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel(),
     bookHistoryDao {
         var maxbookCount = 1800
-    fun addBookToHistory(bookModel: bookModel,userid : Int) {
+    fun addBookToHistory(bookModel: bookModel,userid : String) {
         val bookHistoryEntity = bookHistoryEntity(
             bookId = bookModel.id,
             title = bookModel.title,
@@ -43,7 +43,7 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
         }
     }
 
-    override fun getAllHistorySortedByDate(userid: Int): Flow<List<bookHistoryEntity>> {
+    override fun getAllHistorySortedByDate(userid: String): Flow<List<bookHistoryEntity>> {
         return bookHistoryDao.getAllHistorySortedByDate(userid)
     }
 

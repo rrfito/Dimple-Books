@@ -6,13 +6,12 @@ import androidx.room.RoomDatabase
 import android.content.Context
 import androidx.room.TypeConverters
 import com.example.dimplebooks.data.dao.bookHistoryDao
-import com.example.dimplebooks.data.dao.userEntitiyDao
-import com.example.dimplebooks.data.entity.UserEntity
+
 import com.example.dimplebooks.data.entity.bookHistoryEntity
-@Database(entities = [bookHistoryEntity::class, UserEntity::class], version = 3, exportSchema = false)
+@Database(entities = [bookHistoryEntity::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookHistoryDao(): bookHistoryDao
-    abstract fun userEntitiyDao(): userEntitiyDao
+
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

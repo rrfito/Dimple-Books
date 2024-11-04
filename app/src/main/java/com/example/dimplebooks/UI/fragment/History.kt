@@ -26,6 +26,8 @@ import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.viewModel.BookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.coroutines.launch
 
@@ -108,9 +110,9 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         val bookHistoryDao = database.bookHistoryDao()
         viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
         val sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getInt("activeUserId", -1)
+        val userId = sharedPreferences.getString("userid", null)
 
-        if (userId != -1) {
+        if (userId!=null) {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
                     historyBookList.clear()
@@ -150,8 +152,11 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         bookHistoryDao = database.bookHistoryDao()
         val factory = historyBookViewModelFactory(bookHistoryDao)
         viewModelHistory = ViewModelProvider(this, factory).get(historyBookViewModel::class.java)
-        val shared = requireActivity().getSharedPreferences("userpref",Context.MODE_PRIVATE)
-        viewModelHistory.addBookToHistory(book,shared.getInt("activeUserId",-1))
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val userid = firebaseAuth.currentUser?.uid
+        if (userid != null) {
+            viewModelHistory.addBookToHistory(book,userid)
+        }
 
         val intent = Intent(requireContext(), detailBook::class.java)
         intent.putExtra("book_title", book.title)

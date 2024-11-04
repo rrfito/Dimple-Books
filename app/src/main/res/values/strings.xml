@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">refitoo</string>
     <string name="next">Next</string>
+    <string name="default_web_client_id">772631280683-jp87vrqjv228omaqkrrd0i1vq7qbhvll.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
