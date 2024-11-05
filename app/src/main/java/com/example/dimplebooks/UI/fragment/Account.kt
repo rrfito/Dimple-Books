@@ -96,15 +96,17 @@ class Account : Fragment() {
 
 
         maxbook.text = "${viewModelHistory.maxbookCount} left"
-        viewModelHistory.getHistorybookCount()?.observe(viewLifecycleOwner) { count ->
-            val currentcount = count ?: 0
-            countbook.text = currentcount.toString() ?: "0"
-            progressBar.progress = currentcount
-            viewModelHistory.maxbookCount -= 1
-            maxbook.text = "${viewModelHistory.maxbookCount} left"
+        if (userId != null) {
+            viewModelHistory.getHistorybookCount(userId)?.observe(viewLifecycleOwner) { count ->
+                val currentcount = count ?: 0
+                countbook.text = currentcount.toString() ?: "0"
+                progressBar.progress = currentcount
+                viewModelHistory.maxbookCount -= 1
+                maxbook.text = "${viewModelHistory.maxbookCount} left"
 
 
-            Log.d("HistoryFragment", "Current count: ${viewModelHistory.maxbookCount} and progress bar : ${progressBar.progress}")
+                Log.d("HistoryFragment", "Current count: ${viewModelHistory.maxbookCount} and progress bar : ${progressBar.progress}")
+            }
         }
 
 //        (bookHistoryDao as historyBookViewModel).getHistorybookCount()

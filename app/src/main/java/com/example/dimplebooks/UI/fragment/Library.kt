@@ -131,9 +131,6 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         val shared = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
         if (userid != null) {
             viewModelHistory.addBookToHistory(book,userid)
-            val editor = shared.edit()
-            editor.putString("userid",userid)
-            editor.apply()
         }
 
 

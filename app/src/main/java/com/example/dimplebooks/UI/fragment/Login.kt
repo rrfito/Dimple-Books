@@ -68,8 +68,11 @@ class Login : Fragment() {
         //cek login
         val firebaseAuth = FirebaseAuth.getInstance()
         val user = firebaseAuth.currentUser
+        val id = firebaseAuth.currentUser?.uid
         if (user != null) {
-
+            val editor = sharedPreferences.edit()
+            editor.putString("userid",id)
+            editor.apply()
             navigateTo(MainNavigasi::class.java)
         } else {
 
@@ -84,6 +87,10 @@ class Login : Fragment() {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(inputEmail, inputPassword)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
+                            val id = firebaseAuth.currentUser?.uid
+                            val editor = sharedPreferences.edit()
+                            editor.putString("userid",id)
+                            editor.apply()
                             navigateTo(MainNavigasi::class.java)
                         } else {
                             Toast.makeText(requireContext(), "Login Gagal: ${it.exception?.message}", Toast.LENGTH_SHORT).show()

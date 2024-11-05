@@ -51,9 +51,9 @@ class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewMode
         TODO("Not yet implemented")
     }
 
-    override fun getHistorybookCount(): LiveData<Int?>? {
+    override fun getHistorybookCount(userid: String): LiveData<Int?>? {
 
-        return bookHistoryDao.getHistorybookCount()
+        return bookHistoryDao.getHistorybookCount(userid)
     }
 
 }

@@ -22,8 +22,8 @@ interface bookHistoryDao {
     @Query("DELETE FROM book_history")
     suspend fun deleteAllBooks()
 
-    @Query("SELECT COUNT(*) FROM book_history")
-    fun getHistorybookCount(): LiveData<Int?>?
+    @Query("SELECT COUNT(*) FROM book_history WHERE userid = :userid")
+    fun getHistorybookCount(userid: String): LiveData<Int?>?
 
 
     }

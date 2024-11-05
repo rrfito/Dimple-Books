@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,7 +65,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,18 +112,19 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
         val sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("userid", null)
+        Log.d("useridddddd","user id : $userId")
 
-        if (userId!=null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
-                    historyBookList.clear()
-                    historyBookList.addAll(books)
-                    historyAdapter.notifyDataSetChanged()
+                    if (userId != null) {
+                        viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
+                            historyBookList.clear()
+                            historyBookList.addAll(books)
+                            historyAdapter.notifyDataSetChanged()
+                        }
+
                 }
             }
-        } else {
-           //
-        }
+
 
         return view
     }

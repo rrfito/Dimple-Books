@@ -22,7 +22,9 @@ class BookViewModel : ViewModel() {
     private val _categoriesBooks = MutableLiveData<List<bookModel>>()
     val categoriesBooks: LiveData<List<bookModel>> get() = _categoriesBooks
 
+
     fun searchBooks(query: String) {
+
         val call = apiService.bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxResults = 40)
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
@@ -59,8 +61,10 @@ class BookViewModel : ViewModel() {
             }
         })
     }
-
+    private var hasLoadedNewestBooks = false
     fun getNewestBooks() {
+        if (hasLoadedNewestBooks) return
+        hasLoadedNewestBooks = true
         val randomLetter = getRandomLetter()
         val call = apiService.bookApi.newestBooks(randomLetter, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
         call.enqueue(object : Callback<BookResponse> {
