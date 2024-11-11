@@ -6,9 +6,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BannerAdapter(private val bannerList: List<Int>) : RecyclerView.Adapter<BannerAdapter.ImageViewHolder>() {
 
+    private var currentPosition = 0
+    private val autoSlideScope = CoroutineScope(Dispatchers.Main + Job())
+
+    init {
+        startAutoSlide()
+    }
     // ViewHolder class to hold the ImageView reference
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
@@ -27,6 +40,21 @@ class BannerAdapter(private val bannerList: List<Int>) : RecyclerView.Adapter<Ba
 
     // getItemCount to return the size of the list
     override fun getItemCount(): Int {
-        return bannerList.size
+        return if (bannerList.isEmpty()) 0 else 1
+    }
+    private fun startAutoSlide() {
+        autoSlideScope.launch {
+            while (true) {
+                delay(3000)
+                currentPosition = (currentPosition + 1) % bannerList.size
+                withContext(Dispatchers.Main) {
+                    notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    fun stopAutoSlide() {
+        autoSlideScope.cancel()
     }
 }
