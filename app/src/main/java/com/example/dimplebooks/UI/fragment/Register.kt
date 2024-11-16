@@ -1,6 +1,7 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,8 +10,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +23,7 @@ import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.data.AppDatabase
 
 import com.example.dimplebooks.model.userModel
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -81,7 +86,7 @@ class Register : Fragment() {
                         val user = auth.currentUser?.uid
                         val userModel = userModel(user, inputUsername, inputEmail,null)
                         databaseFire.child(user!!).setValue(userModel)
-                        Toast.makeText(requireContext(), "Success Register : ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                        success("account created successfully")
                         val loginfragment = Login()
                         val bundle = Bundle().apply {
                             putString("email", inputEmail)
@@ -93,7 +98,7 @@ class Register : Fragment() {
 
                         (activity as? Auth)?.ReplaceFragment(loginfragment)
                     } else {
-                        Toast.makeText(requireContext(), "Failed Register  : ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Fail(it.exception?.message.toString())
 
 
                     }
@@ -128,6 +133,49 @@ class Register : Fragment() {
         val username = arguments?.getString("username")
         Log.d("LoginFragmentt", "Username: $username")
 
+    }
+    private fun Fail(messagee : String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_notforsale_item)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val message = dialog.findViewById<TextView>(R.id.textDialog)
+        message.setText(messagee)
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.9).toInt(),
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.findViewById<MaterialButton>(R.id.btnNotForSaleYes).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+    private fun success(messagee : String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_notforsale_item)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val message = dialog.findViewById<TextView>(R.id.textDialog)
+        message.setText(messagee)
+
+        val image = dialog.findViewById<ImageView>(R.id.imagesucces)
+        image.setImageResource(R.drawable.succes_create_account)
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.9).toInt(),
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.findViewById<MaterialButton>(R.id.btnNotForSaleYes).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.dimplebooks.UI.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -9,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -25,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
@@ -101,7 +105,7 @@ class Login : Fragment() {
                             editor.apply()
                             navigateTo(MainNavigasi::class.java)
                         } else {
-                            Toast.makeText(requireContext(), "Login Gagal: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                            Fail(it.exception?.message.toString())
                         }
                     }
             }
@@ -171,5 +175,25 @@ class Login : Fragment() {
                     Toast.makeText(requireContext(), "Login gagal: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+    private fun Fail(messagee : String) {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_notforsale_item)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val message = dialog.findViewById<TextView>(R.id.textDialog)
+        message.setText(messagee)
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.9).toInt(),
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog.findViewById<MaterialButton>(R.id.btnNotForSaleYes).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }
