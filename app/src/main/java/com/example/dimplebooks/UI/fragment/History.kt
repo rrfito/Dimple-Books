@@ -231,7 +231,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         intent.putExtra("book_publishedDate", book.publishedDate)
         intent.putExtra("book_pageCount", book.pageCount)
         intent.putExtra("book_language", book.language)
-        intent.putExtra("book_categories", book.categories.joinToString { "," })
+        intent.putExtra("book_categories", book.categories.joinToString(", "))
         intent.putExtra("book_description", book.description)
         intent.putExtra("book_price", book.price)
         intent.putExtra("book_saleability", book.saleability)

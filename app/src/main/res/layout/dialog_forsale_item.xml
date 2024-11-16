@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/dialog_forsale"/>
+        <TextView
+            android:id="@+id/priceForsale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksandbold"
+            android:textSize="15sp"
+            android:gravity="start"
+            android:textColor="@color/orange_white"
+            android:text="Price : Rp 2503123 "/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksandbold"
+            android:textSize="20dp"
+            android:gravity="start"
+            android:text="Are you sure you want to buy?"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnYesForSale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Yes"
+                android:fontFamily="@font/quicksandbold"
+                android:backgroundTint="@color/navy_blue_white"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNoForSale"
+                android:layout_width="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No"
+                android:textColor="@color/navy_blue_white"
+
+                app:strokeWidth="1dp"
+                android:fontFamily="@font/quicksandbold"
+                android:backgroundTint="@color/white"
+                app:strokeColor="@color/navy_blue_white"/>
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
