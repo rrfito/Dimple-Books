@@ -44,6 +44,7 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewCategories: RecyclerView
     private lateinit var bookList: ArrayList<bookModel>
+
     private lateinit var adapter: bookAdapter
     private lateinit var searchView: SearchView
     private lateinit var viewModel: BookViewModel

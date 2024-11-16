@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UI.fragment.History">
+    tools:context=".UI.fragment.History"
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,29 +15,28 @@
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="16dp"
+            android:layout_height="280dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
                 android:id="@+id/dotsbanner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="65dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="250dp"
                 android:elevation="4dp"
 
-                app:dotsColor="@color/navy_blue_white"
+                app:dotsColor="@color/black"
                 app:dotsSize="10dp"
                 app:dotsSpacing="1dp"
                 app:selectedDotColor="#6270FD" />
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:background="@drawable/navbar"
+                android:layout_height="match_parent"
                  />
 
 
@@ -75,26 +75,147 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/quicksandbold"
-            android:text="History"
+            android:text="Daily Picks"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Released" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleviewHistory"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:text="Check out the best books of the day"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="419dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"/>
+
+        <GridLayout
+            android:id="@+id/gridDaily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="2"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="388dp"
+
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/quicksandbold"
+            android:text="To win at work"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridDaily" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get More Done Every Day"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="419dp"
+
+            app:layout_constraintTop_toBottomOf="@id/textView4"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycleviewBusiness"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/textView5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/quicksandbold"
+            android:text="To provide your entertainment"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycleviewBusiness" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Ready to Enjoy an Exciting Story"
+            android:textSize="12sp"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="419dp"
+
+            app:layout_constraintTop_toBottomOf="@id/textView6"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycleviewEntertaiment"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/textView7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+           />
+
+        <TextView
+            android:id="@+id/texview9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/quicksandbold"
+            android:text="Good For You"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycleviewEntertaiment" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleviewRecom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/texview9"
             app:layout_constraintVertical_bias="0.0" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

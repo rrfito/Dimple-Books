@@ -62,7 +62,15 @@ class Login : Fragment() {
         passwordEditText = view.findViewById(R.id.InputPasswordd)
         loginButton = view.findViewById(R.id.Loginn)
         createAccountTextView = view.findViewById(R.id.buatAccount)
+
+
+
+        //isi otomatis setelah register
         sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email", "")
+        val password = sharedPreferences.getString("password", "")
+        emailEditText.setText(email)
+        passwordEditText.setText(password)
 
 
         //cek login

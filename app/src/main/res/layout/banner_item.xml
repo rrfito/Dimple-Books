@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:cardCornerRadius="10dp"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Background ImageView -->
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/book1"
+           />
+
+        <!-- Transparent overlay -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_overlay"
+
+            />
+
+        <!-- Content Layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/authorbanner">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardimage"
+                    android:layout_width="120dp"
+                    android:layout_height="180dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    cardElevation="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/authorbanner">
+
+                    <ImageView
+                        android:id="@+id/imagesbanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/book1" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                    <TextView
+                        android:id="@+id/description_banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/quicksandregular"
+                        android:maxLines="5"
+
+                        android:text="Fifty years have passed since dungeons first appeared on Earth. Dungeon exploration and live streaming are considered the norm for the people. Kuga, who became a dungeon explorer alongside his close friends, ends up being banished from his party due to him being a supposed 'jack of all trades, master of none' hero. Amidst his despair, Kuga finds himself thrown into the hidden boss room, famous for making explorers unable to step foot into a dungeon ever again. There, he encounters a beautiful female vampire named Alicia. Though he’s prepared to meet his end, Alicia, captivated by the so-called streaming, has other plans and asks him, 'Could you teach me how to stream?'"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+
+                        app:layout_constraintTop_toBottomOf="@+id/authorbanner" />
+
+
+            </LinearLayout>
+
+
+
+            <!-- Title TextView -->
+            <TextView
+                android:id="@+id/namebanner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Yamiochi Yuusha no Haishin Haishin~Tsuihousare, Kakushi Boss Beya ni Hourikomareta Kekka, Boss to..."
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/quicksandbold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Subtitle TextView -->
+            <TextView
+                android:id="@+id/authorbanner"
+                android:layout_width="0dp"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="Kouji Nayuru , Yukiji"
+                android:textStyle="italic"
+                android:fontFamily="@font/quicksandbold"
+
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/namebanner"
+                app:layout_constraintStart_toStartOf="@+id/namebanner"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp" />
+
+            <!-- Description TextView -->
+
+            <!-- Tags TextView -->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.cardview.widget.CardView>

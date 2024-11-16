@@ -81,8 +81,19 @@ class Register : Fragment() {
                         val user = auth.currentUser?.uid
                         val userModel = userModel(user, inputUsername, inputEmail,null)
                         databaseFire.child(user!!).setValue(userModel)
+                        Toast.makeText(requireContext(), "Success Register : ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                        val loginfragment = Login()
+                        val bundle = Bundle().apply {
+                            putString("email", inputEmail)
+                            putString("password", inputPassword)
+                        }
+                        loginfragment.arguments = bundle
+                        Log.d("RegisterFragment", "$bundle")
+                        auth.signOut()
 
+                        (activity as? Auth)?.ReplaceFragment(loginfragment)
                     } else {
+                        Toast.makeText(requireContext(), "Failed Register  : ${it.exception?.message}", Toast.LENGTH_SHORT).show()
 
 
                     }
@@ -97,16 +108,6 @@ class Register : Fragment() {
 //                editor.putString("username", inputUsername)
 //                editor.putString("password", inputPassword)
 
-
-                val loginfragment = Login()
-                val bundle = Bundle().apply {
-                    putString("username", inputUsername)
-                    putString("password", inputPassword)
-                }
-                loginfragment.arguments = bundle
-                Log.d("RegisterFragment", "$bundle")
-
-                (activity as? Auth)?.ReplaceFragment(loginfragment)
 
 
             } else {

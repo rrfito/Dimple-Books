@@ -5,6 +5,7 @@ package com.example.dimplebooks.model
 data class bookModel(
     val id : String,
     val title: String,
+    val subtitle: String? = null,
     val authors: List<String>,
     val publisher: String,
     val price: Int?,

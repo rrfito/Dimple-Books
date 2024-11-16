@@ -11,6 +11,7 @@ data class BookItem(
 
 data class VolumeInfo(
     val title: String,
+    val subtitle: String?,
     val authors: List<String>?,
     val publisher: String?,
     val imageLinks: ImageLinks?,

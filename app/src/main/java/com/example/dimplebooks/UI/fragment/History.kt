@@ -8,17 +8,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.UI.adapters.newestBookAdapter
 import com.example.dimplebooks.UI.activity.detailBook
+import com.example.dimplebooks.UI.adapters.businessBooksAdapter
+import com.example.dimplebooks.UI.adapters.dailyBookGridAdapter
+import com.example.dimplebooks.UI.adapters.entertaimentBookAdapter
+import com.example.dimplebooks.UI.adapters.goodBooksAdapter
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.data.entity.bookHistoryEntity
@@ -30,6 +39,7 @@ import com.example.dimplebooks.viewModel.historyBookViewModelFactory
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,19 +52,16 @@ private const val ARG_PARAM2 = "param2"
  * Use the [History.newInstance] factory method to
  * create an instance of this fragment.
  */
-class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdapter.OnItemClickListener {
+class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdapter.OnItemClickListener,businessBooksAdapter.OnItemClickListener,entertaimentBookAdapter.OnItemClickListener,BannerAdapter.OnItemClickListener,goodBooksAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private lateinit var newestBookList: ArrayList<bookModel>
-    private lateinit var historyBookList: ArrayList<bookHistoryEntity>
     private lateinit var adapterr : newestBookAdapter
-    private lateinit var historyAdapter: bookHistoryAdapter
     private lateinit var viewModel: BookViewModel
     private lateinit var viewModelHistory: historyBookViewModel
     private lateinit var bookHistoryDao : bookHistoryDao
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,26 +78,32 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         savedInstanceState: Bundle?
     ): View? {
 
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         //image banner
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
-        val dotsBanner = view.findViewById<DotsIndicator>(R.id.dotsbanner)
-        val imageList = listOf(R.drawable.banner, R.drawable.banner, R.drawable.banner)
-        val adapterrr = BannerAdapter(imageList)
+        val dotsBanner = view.findViewById<SpringDotsIndicator>(R.id.dotsbanner)
+        val bannerList = ArrayList<bookModel>()
+        val adapterrr = BannerAdapter(bannerList,this)
         viewPager.adapter = adapterrr
         dotsBanner.attachTo(viewPager)
-
-
+        viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+        viewModel.getNewestBooks()
+        viewModel.bannerBooks.observe(viewLifecycleOwner) { books ->
+            adapterrr.updateBookList(books)
+            if (books.isNotEmpty()) {
+                adapterrr.startAutoSlide(viewPager)
+            }
+        }
+        viewModel.GetBannerBooks()
+        Log.d("test banner list","adalh : ${bannerList.size}")
         //newest book recycleview
         val recycleViewNew = view.findViewById<RecyclerView>(R.id.Released)
         recycleViewNew.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
          newestBookList = ArrayList()
-
-
          adapterr = newestBookAdapter(newestBookList,this)
         recycleViewNew.adapter = adapterr
-
         //viewmodel newewst book
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
         viewModel.newestBooks.observe(viewLifecycleOwner) { books ->
@@ -98,32 +111,82 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         }
         viewModel.getNewestBooks()
 
-
-       // History RecyclerView
-        val recycleViewHistory = view.findViewById<RecyclerView>(R.id.recycleviewHistory)
-        recycleViewHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        historyBookList = ArrayList()
-        historyAdapter = bookHistoryAdapter(historyBookList,this)
-        recycleViewHistory.adapter = historyAdapter
-
-
-        val database = AppDatabase.getDatabase(requireContext())
-        val bookHistoryDao = database.bookHistoryDao()
-        viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
-        val sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userid", null)
-        Log.d("useridddddd","user id : $userId")
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                    if (userId != null) {
-                        viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
-                            historyBookList.clear()
-                            historyBookList.addAll(books)
-                            historyAdapter.notifyDataSetChanged()
-                        }
-
+        //dailypics grid
+        val gridView = view.findViewById<GridLayout>(R.id.gridDaily)
+        gridView.rowCount = 2
+        gridView.columnCount = 3
+        viewModel.GetdailyGetBooks()
+        viewModel.dailyBooks.observe(viewLifecycleOwner) { books ->
+            gridView.removeAllViews()
+            books.forEach { book ->
+                val itemView = LayoutInflater.from(requireContext()).inflate(R.layout.daily_pics_item, gridView, false)
+                val imageView = itemView.findViewById<ImageView>(R.id.dailypics1)
+                val textView = itemView.findViewById<TextView>(R.id.textDailypics1)
+                textView.text = if (book.title.length > 10) {
+                    book.title.take(10) + "..."
+                } else {
+                    book.title
                 }
+                Glide.with(imageView.context)
+                    .load(book.imageUrl)
+                    .fitCenter()
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.error)
+                    .into(imageView)
+
+                gridView.addView(itemView)
+                itemView.setOnClickListener {
+                    onItemClick(book)
+                }
+
             }
+            Log.d("GridLayout", "Jumlah buku yang diterima: ${books.size}")
+
+
+        }
+        //recycle view business
+        val recycleViewBusiness = view.findViewById<RecyclerView>(R.id.recycleviewBusiness)
+        recycleViewBusiness.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val businessBookList = ArrayList<bookModel>()
+        val adapter = businessBooksAdapter(businessBookList,this)
+        recycleViewBusiness.adapter = adapter
+        //viewmodel business book
+        viewModel.businessBooks.observe(viewLifecycleOwner){books ->
+           adapter.updateBookList(books)
+        }
+        viewModel.GetBusinessBooks()
+
+        //recycle view entertaiment
+        val recyclerViewEntertaiment = view.findViewById<RecyclerView>(R.id.recycleviewEntertaiment)
+        recyclerViewEntertaiment.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val entertaimentBookList = ArrayList<bookModel>()
+        val adapterEntertaiment = entertaimentBookAdapter(entertaimentBookList,this)
+        recyclerViewEntertaiment.adapter = adapterEntertaiment
+        //viewmodel entertaiment book
+        viewModel.entertainmentBooks.observe(viewLifecycleOwner){books ->
+            adapterEntertaiment.updateBookList(books)
+        }
+        viewModel.GetEntertainmentBooks()
+
+        //recycle view recomm
+        val recycleViewRecom = view.findViewById<RecyclerView>(R.id.recycleviewRecom)
+        val recomBookList = ArrayList<bookModel>()
+        val recomAdapter = goodBooksAdapter(recomBookList,this)
+        recycleViewRecom.adapter = recomAdapter
+        recycleViewRecom.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        viewModel.recommBooks.observe(viewLifecycleOwner){ books ->
+            recomAdapter.updateBookList(books)
+        }
+        viewModel.GetRecommendBooks()
+        Log.d("liat jumlah","jumlah : ${recomBookList.size}")
+
+
+
+
+
+
+
+
 
 
         return view

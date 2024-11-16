@@ -1,6 +1,7 @@
 package com.example.dimplebooks.UI.activity
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -17,17 +18,17 @@ class MainNavigasi : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContentView(R.layout.activity_main_navigasi)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom)
             insets
 
 
         }
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-        window.statusBarColor = ContextCompat.getColor(this,R.color.navy_blue_white)
+        window.statusBarColor = ContextCompat.getColor(this,R.color.white)
 
 
 

@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
-import com.example.dimplebooks.UI.adapters.bookAdapter.OnItemClickListener
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
 
@@ -39,7 +38,11 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: bookHistoryAdapter.ViewHolder, position: Int) {
         val currentBook = HistorybookList[position]
-        holder.historyBookName.text = currentBook.title
+        holder.historyBookName.text = if (currentBook.title.length > 20) {
+            currentBook.title.take(20)+"..."
+        }else{
+            currentBook.title
+        }
         holder.historyAuthorName.text = currentBook.authors
         holder.historyGenre.text = currentBook.categories
         holder.historyRead.text = formatTimestamp(currentBook.timestamp)

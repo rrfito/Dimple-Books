@@ -4,21 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/white"
     tools:context=".UI.fragment.Account">
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:scaleType="fitXY"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -30,13 +19,13 @@
 
 
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/profile"
         app:civ_border_color="@color/white_grey"
 
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,7 +51,7 @@
             android:fontFamily="@font/poppinsextrabold"
             android:text="REFITO RIESMAN"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/emailfire"
@@ -70,7 +59,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksandbold"
             android:text="refitoriesman@gmail.com"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
     </LinearLayout>
 
@@ -144,11 +133,9 @@
                     android:layout_height="wrap_content"
                     android:textSize="13dp"
                     android:gravity="end"
-
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/quicksandregular"
                     android:text=" 1789 left" />
-
 
             </LinearLayout>
 
@@ -162,12 +149,38 @@
         android:dividerHeight="10dp"
         android:id="@+id/ListAccountMenu"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+    <TextView
+        android:id="@+id/historytextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:fontFamily="@font/poppinsextrabold"
+        android:textColor="@color/black"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ListAccountMenu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleviewHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historytextview"
+       />
 
 
 
