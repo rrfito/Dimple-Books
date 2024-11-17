@@ -7,8 +7,8 @@
 
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_width="wrap_content"
+        android:gravity="bottom"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="vertical"
@@ -17,21 +17,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            app:cardUseCompatPadding="true"
-            cardElevation="4dp"
-            app:cardCornerRadius="10dp">
+        <FrameLayout
+            android:id="@+id/framelayoutzoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                app:cardUseCompatPadding="true"
 
-            <ImageView
-                android:id="@+id/dailypics1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                 />
+                app:cardCornerRadius="10dp">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/dailypics1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/book1"
+                    />
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardbuynowDaily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="45"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="70dp"
+                app:cardCornerRadius="2dp"
+                android:backgroundTint="@color/orange_white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FOR SALE"
+                    android:layout_margin="5dp"
+                    android:textSize="5dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/quicksandbold"/>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/textDailypics1"
@@ -40,6 +72,7 @@
             android:fontFamily="@font/quicksandbold"
             android:gravity="center"
             android:text="MEPIHSTO"
+            android:layout_marginEnd="9dp"
             android:textSize="10sp" />
     </LinearLayout>
 

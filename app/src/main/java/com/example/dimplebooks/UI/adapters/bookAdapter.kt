@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -30,6 +31,7 @@ class bookAdapter(
         val bookName: TextView = itemView.findViewById(R.id.bookName)
         val authorName: TextView = itemView.findViewById(R.id.author)
         val price: TextView = itemView.findViewById(R.id.price)
+        val card : CardView = itemView.findViewById(R.id.card)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -80,23 +82,23 @@ class bookAdapter(
                 return true
             }
             override fun onDown(e: MotionEvent): Boolean {
-                zoomIn(holder.bookImage)
+                zoomIn(holder.card)
                 return true
             }
             override fun onSingleTapUp(e: MotionEvent): Boolean {
-                zoomOut(holder.bookImage)
+                zoomOut(holder.card)
                 return super.onSingleTapUp(e)
             }
         })
 
-        holder.bookImage.setOnTouchListener { v, event ->
+        holder.card.setOnTouchListener { v, event ->
             gestureDetector.onTouchEvent(event)
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    zoomIn(holder.bookImage)
+                    zoomIn(holder.card)
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    zoomOut(holder.bookImage)
+                    zoomOut(holder.card)
                 }
             }
             true
@@ -118,8 +120,8 @@ class bookAdapter(
     }
     private fun zoomIn(view: View) {
         val zoomIn = ScaleAnimation(
-            1.0f, 1.5f,
-            1.0f, 1.5f,
+            1.0f, 1.08f,
+            1.0f, 1.08f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f
         )
@@ -130,8 +132,8 @@ class bookAdapter(
 
     private fun zoomOut(view: View) {
         val zoomOut = ScaleAnimation(
-            1.5f, 1.0f,
-            1.5f, 1.0f,
+            1.08f, 1.0f,
+            1.08f, 1.0f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f
         )

@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -52,7 +53,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [History.newInstance] factory method to
  * create an instance of this fragment.
  */
-class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdapter.OnItemClickListener,businessBooksAdapter.OnItemClickListener,entertaimentBookAdapter.OnItemClickListener,BannerAdapter.OnItemClickListener,goodBooksAdapter.OnItemClickListener {
+class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdapter.OnItemClickListener,businessBooksAdapter.OnItemClickListener,entertaimentBookAdapter.OnItemClickListener,BannerAdapter.OnItemClickListener,goodBooksAdapter.OnItemClickListener,dailyBookGridAdapter.OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -112,38 +113,16 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         viewModel.getNewestBooks()
 
         //dailypics grid
-        val gridView = view.findViewById<GridLayout>(R.id.gridDaily)
-        gridView.rowCount = 2
-        gridView.columnCount = 3
-        viewModel.GetdailyGetBooks()
-        viewModel.dailyBooks.observe(viewLifecycleOwner) { books ->
-            gridView.removeAllViews()
-            books.forEach { book ->
-                val itemView = LayoutInflater.from(requireContext()).inflate(R.layout.daily_pics_item, gridView, false)
-                val imageView = itemView.findViewById<ImageView>(R.id.dailypics1)
-                val textView = itemView.findViewById<TextView>(R.id.textDailypics1)
-                textView.text = if (book.title.length > 10) {
-                    book.title.take(10) + "..."
-                } else {
-                    book.title
-                }
-                Glide.with(imageView.context)
-                    .load(book.imageUrl)
-                    .fitCenter()
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.error)
-                    .into(imageView)
-
-                gridView.addView(itemView)
-                itemView.setOnClickListener {
-                    onItemClick(book)
-                }
-
-            }
-            Log.d("GridLayout", "Jumlah buku yang diterima: ${books.size}")
-
-
+        val recycleGrid = view.findViewById<RecyclerView>(R.id.gridDaily)
+        val GridList = ArrayList<bookModel>()
+        val adapterGrid = dailyBookGridAdapter(GridList,this)
+        recycleGrid.layoutManager= GridLayoutManager(requireContext(),3)
+        recycleGrid.adapter = adapterGrid
+        //viewmodel dailypics
+        viewModel.dailyBooks.observe(viewLifecycleOwner){books ->
+            adapterGrid.updateBookList(books)
         }
+        viewModel.GetdailyGetBooks()
         //recycle view business
         val recycleViewBusiness = view.findViewById<RecyclerView>(R.id.recycleviewBusiness)
         recycleViewBusiness.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

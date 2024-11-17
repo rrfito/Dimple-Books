@@ -29,6 +29,8 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val businessImage = itemView.findViewById<ImageView>(R.id.businessimages)
         val businessAuthoer = itemView.findViewById<TextView>(R.id.businessAuthoer)
+        val cardbusiness = itemView.findViewById<CardView>(R.id.cardBusiness)
+        val price = itemView.findViewById<TextView>(R.id.pricebusiness)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): businessBooksAdapter.ViewHolder {
@@ -49,6 +51,16 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
         }else{
             currentBook.authors.joinToString()
         }
+        val priceText = when (currentBook.saleability) {
+            "FOR_SALE" -> "Rp ${currentBook.price}"
+            else -> "NOT FOR SALE"
+        }
+        if(priceText == "NOT FOR SALE"){
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.red))
+        }else{
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
+        }
+        holder.price.text = priceText
         holder.itemView.setOnClickListener {
             itemclick.onItemClick(currentBook)
         }
@@ -59,23 +71,23 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
                 return true
             }
             override fun onDown(e: MotionEvent): Boolean {
-                zoomIn(holder.businessImage)
+                zoomIn(holder.cardbusiness)
                 return true
             }
             override fun onSingleTapUp(e: MotionEvent): Boolean {
-                zoomOut(holder.businessImage)
+                zoomOut(holder.cardbusiness)
                 return super.onSingleTapUp(e)
             }
         })
 
-        holder.businessImage.setOnTouchListener { v, event ->
+        holder.cardbusiness.setOnTouchListener { v, event ->
             gestureDetector.onTouchEvent(event)
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    zoomIn(holder.businessImage)
+                    zoomIn(holder.cardbusiness)
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    zoomOut(holder.businessImage)
+                    zoomOut(holder.cardbusiness)
                 }
             }
             true
@@ -93,8 +105,8 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
     }
     private fun zoomIn(view: View) {
         val zoomIn = ScaleAnimation(
-            1.0f, 1.5f,
-            1.0f, 1.5f,
+            1.0f, 1.08f,
+            1.0f, 1.08f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f
         )
@@ -105,8 +117,8 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
 
     private fun zoomOut(view: View) {
         val zoomOut = ScaleAnimation(
-            1.5f, 1.0f,
-            1.5f, 1.0f,
+            1.08f, 1.0f,
+            1.08f, 1.0f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
             ScaleAnimation.RELATIVE_TO_SELF, 0.5f
         )

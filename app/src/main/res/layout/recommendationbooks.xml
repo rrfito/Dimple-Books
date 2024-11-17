@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="2dp"
     android:layout_height="wrap_content"
   >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/navi_blue_white_accent"
+
 
         app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
@@ -40,23 +40,55 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="75dp"
-                    android:layout_height="112dp"
-                    android:layout_marginTop="4dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="4dp">
+                <FrameLayout
 
-                    <ImageView
-                        android:id="@+id/imagerecommendation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="85dp"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="4dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/imagerecommendation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/book1" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardbuynow"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/book1" />
+                        android:layout_height="wrap_content"
+                        android:rotation="45"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="55dp"
+                        app:cardCornerRadius="2dp"
+                        android:backgroundTint="@color/orange_white">
 
-                </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FOR SALE"
+                            android:layout_margin="5dp"
+                            android:textSize="5dp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/quicksandbold"/>
+                    </androidx.cardview.widget.CardView>
+
+
+                </FrameLayout>
+
+
+
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -91,6 +123,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
+
                             android:layout_width="15dp"
                             android:layout_height="20dp"
                             android:src="@drawable/pagebooks" />
@@ -101,6 +134,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="5dp"
                             android:gravity="center"
+
                             android:text="awodadadadawd"
                             android:textSize="8sp" />
 

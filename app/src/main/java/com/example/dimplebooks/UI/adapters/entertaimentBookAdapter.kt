@@ -29,6 +29,7 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val businessImage = itemView.findViewById<ImageView>(R.id.businessimages)
         val businessAuthoer = itemView.findViewById<TextView>(R.id.businessAuthoer)
+        val price = itemView.findViewById<TextView>(R.id.pricebusiness)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): entertaimentBookAdapter.ViewHolder {
@@ -49,6 +50,20 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
         }else{
             currentBook.authors.joinToString()
         }
+        val pricetext = when(currentBook.saleability){
+            "FOR_SALE" -> "Rp ${currentBook.price}"
+            else -> "NOT FOR SALE"
+        }
+        if(pricetext == "NOT FOR SALE"){
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.red))
+        }else{
+            holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
+        }
+        holder.price.text = pricetext
+        holder.itemView.setOnClickListener {
+            itemclick.onItemClick(currentBook)
+        }
+
         holder.itemView.setOnClickListener {
             itemclick.onItemClick(currentBook)
         }

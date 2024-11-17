@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -32,6 +33,7 @@ class goodBooksAdapter(
         val descriptionRecom = itemView.findViewById<TextView>(R.id.descriptionRecommendation)
         val page = itemView.findViewById<TextView>(R.id.pageRecommendation)
         val date = itemView.findViewById<TextView>(R.id.dateRecommendation)
+        val cardbuynow = itemView.findViewById<CardView>(R.id.cardbuynow)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -55,14 +57,20 @@ class goodBooksAdapter(
             .error(R.drawable.error)
             .placeholder(R.drawable.loading)
             .into(holder.image)
-        holder.descriptionRecom.text = if (currentBook.description.length > 50){
-                currentBook.description.take(50) + "..."
+        holder.descriptionRecom.text = if (currentBook.description.length > 130){
+                currentBook.description.take(130) + "..."
 
             }else{
                 currentBook.description
         }
         holder.page.text = currentBook.pageCount.toString() + " pages"
         holder.date.text = currentBook.publishedDate
+        val seasibility = currentBook.saleability
+        if(seasibility == "FOR_SALE"){
+            holder.cardbuynow.visibility = View.VISIBLE
+        }else{
+            holder.cardbuynow.visibility = View.GONE
+        }
 
         holder.itemView.setOnClickListener {
             listener.onItemClick(currentBook)

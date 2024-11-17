@@ -45,12 +45,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Yes"
+                android:textAllCaps="false"
                 android:fontFamily="@font/quicksandbold"
                 android:backgroundTint="@color/navy_blue_white"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNoForSale"
                 android:layout_width="0dp"
+                android:textAllCaps="false"
                 android:layout_marginStart="5dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
