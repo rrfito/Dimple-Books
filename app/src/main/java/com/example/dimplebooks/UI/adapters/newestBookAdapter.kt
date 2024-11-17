@@ -81,6 +81,7 @@ class newestBookAdapter(private val newestBookList: ArrayList<bookModel>,
             }
         })
 
+
         holder.newImage.setOnTouchListener { v, event ->
             gestureDetector.onTouchEvent(event)
             when (event.action) {
@@ -98,6 +99,7 @@ class newestBookAdapter(private val newestBookList: ArrayList<bookModel>,
     override fun getItemCount(): Int {
         return newestBookList.size
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBookList(newBookList: List<bookModel>) {
         newestBookList.clear()
         newestBookList.addAll(newBookList)

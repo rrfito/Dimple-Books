@@ -105,6 +105,7 @@ class goodBooksAdapter(
     override fun getItemCount(): Int {
         return goodbooksList.size
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBookList(newBooks: List<bookModel>) {
         goodbooksList.clear()
         goodbooksList.addAll(newBooks)

@@ -85,6 +85,7 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
     override fun getItemCount(): Int {
         return EntertaimentBookList.size
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBookList(newBookList: List<bookModel>) {
         EntertaimentBookList.clear()
         EntertaimentBookList.addAll(newBookList)

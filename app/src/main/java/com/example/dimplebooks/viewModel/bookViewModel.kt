@@ -400,6 +400,14 @@ class BookViewModel : ViewModel() {
         val chars = ('a'..'z') + ('A'..'Z')
         return chars.random().toString()
     }
+    fun refreshAPI(){
+       hasLoadedNewestBooks = false
+        hasLoadedDailyBooks = false
+        hasLoadBannerBooks = false
+        hasLoadedBusinesBooks = false
+        hasLoadedEntertainmentBooks = false
+        hasLoadRecommend = false
+    }
 
 
 

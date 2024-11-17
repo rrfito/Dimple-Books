@@ -1,5 +1,6 @@
 package com.example.dimplebooks.UI.adapters
 
+import android.annotation.SuppressLint
 import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -107,6 +108,7 @@ class BannerAdapter(
             true
         }
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBookList(newBooks: List<bookModel>) {
         bannerList.clear()
         bannerList.addAll(newBooks)
@@ -117,12 +119,12 @@ class BannerAdapter(
     fun startAutoSlide(viewPager: ViewPager2) {
         autoSlideScope.launch {
             while (bannerList.isNotEmpty()) {
-                delay(3000)  // Delay setiap 3 detik
-                currentPosition = (currentPosition + 1) % bannerList.size  // Menghitung posisi berikutnya
+                delay(3000)
+                currentPosition = (currentPosition + 1) % bannerList.size
 
-                // Menggunakan ViewPager2 untuk berpindah ke item berikutnya
+
                 withContext(Dispatchers.Main) {
-                    viewPager.setCurrentItem(currentPosition, true) // Pindah dengan smooth scroll
+                    viewPager.setCurrentItem(currentPosition, true)
                 }
             }
         }

@@ -78,7 +78,7 @@
                         android:fontFamily="@font/quicksandregular"
                         android:maxLines="5"
 
-                        android:text="Fifty years have passed since dungeons first appeared on Earth. Dungeon exploration and live streaming are considered the norm for the people. Kuga, who became a dungeon explorer alongside his close friends, ends up being banished from his party due to him being a supposed 'jack of all trades, master of none' hero. Amidst his despair, Kuga finds himself thrown into the hidden boss room, famous for making explorers unable to step foot into a dungeon ever again. There, he encounters a beautiful female vampire named Alicia. Though he’s prepared to meet his end, Alicia, captivated by the so-called streaming, has other plans and asks him, 'Could you teach me how to stream?'"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
 
@@ -95,7 +95,7 @@
                 android:id="@+id/namebanner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Yamiochi Yuusha no Haishin Haishin~Tsuihousare, Kakushi Boss Beya ni Hourikomareta Kekka, Boss to..."
+                android:text="Monster hunter world"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/black"
@@ -112,7 +112,7 @@
                 android:layout_width="0dp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
-                android:text="Kouji Nayuru , Yukiji"
+                android:text="Elon Musk"
                 android:textStyle="italic"
                 android:fontFamily="@font/quicksandbold"
 

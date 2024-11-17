@@ -85,6 +85,7 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
     override fun getItemCount(): Int {
         return businessBookList.size
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun updateBookList(newBookList: List<bookModel>) {
         businessBookList.clear()
         businessBookList.addAll(newBookList)
