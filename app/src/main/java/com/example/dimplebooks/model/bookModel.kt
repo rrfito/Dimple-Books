@@ -16,7 +16,9 @@ data class bookModel(
     val publishedDate: String? = null,
     val pageCount: Int? = null,
     val language: String? = null,
-    val buyLink : String? = null
+    val buyLink : String? = null,
+    val previewLink : String? = null,
+    val rating : Double
 
 
 

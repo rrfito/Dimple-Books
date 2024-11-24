@@ -1,0 +1,15 @@
+<resources>
+    <!-- Custom Text Appearance for Active State -->
+    <style name="ActiveTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">@color/navy_blue_white</item>
+    </style>
+
+    <!-- Custom Text Appearance for Inactive State -->
+    <style name="InactiveTextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/poppinsmedium</item>
+        <item name="android:textColor">#BDBDBD</item>
+    </style>
+</resources>

@@ -22,7 +22,7 @@
             android:layout_height="120.0dp"
             app:cardCornerRadius="8dp"
             android:layout_gravity="center"
-            app:cardElevation="8dp">
+           >
 
             <ImageView
                 android:id="@+id/newestBookImage"

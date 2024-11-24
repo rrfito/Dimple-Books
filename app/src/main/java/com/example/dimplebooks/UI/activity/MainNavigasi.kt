@@ -58,8 +58,9 @@ class MainNavigasi : AppCompatActivity() {
             insets
         }
 
+
         window.navigationBarColor = ContextCompat.getColor(this, R.color.white)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frameLayout, History())

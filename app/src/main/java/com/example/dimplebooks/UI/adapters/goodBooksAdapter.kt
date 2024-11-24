@@ -45,7 +45,11 @@ class goodBooksAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentBook = goodbooksList[position]
 
-        holder.subtitleRecom.text = currentBook.subtitle ?: "Brave Yourself"
+        holder.subtitleRecom.text = if (currentBook.subtitle?.length!! > 50){
+            currentBook.subtitle?.take(50) + "..."
+        }else{
+            currentBook.subtitle
+        }
         holder.bookName.text = if (currentBook.title.length > 20) {
             currentBook.title.take(20) + "..."
         } else {

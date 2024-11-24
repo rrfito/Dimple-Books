@@ -1,80 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.fragment.Library"
+    android:fillViewport="true"
     >
 
 
-    <SearchView
-
-        android:id="@+id/search"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/search_bar"
-        android:backgroundTint="#F6F6F6"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleviewCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        <LinearLayout
 
-    <ImageView
+            android:id="@+id/qqwq"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        android:id="@+id/findbookimage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/iconsearchn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Hi, Refito Riesman"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView2"
+                tools:layout_editor_absoluteY="419dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
 
-    <TextView
-        android:id="@+id/findbook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/quicksandregular"
-        android:gravity="center"
-        android:text="find the book you want "
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/findbookimage"
-        app:layout_constraintVertical_bias="0.0" />
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Find your best book"
+
+                android:textColor="@color/black"
+
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Released" />
+
+
+
+
+
+
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginTop="8dp"
+
+
+            android:src="@drawable/profile"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.844"
+            app:layout_constraintStart_toEndOf="@+id/qqwq"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SearchView
+
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/search_bar"
+            android:backgroundTint="#efefef"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/qqwq" />
+
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/quicksandbold"
+            android:text="Populer Categories"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/linearrrr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+android:layout_marginStart="5dp"
+
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ComicsNovel"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Comics &amp; Novel"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/comic"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+            <!-- Tombol 2 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Science"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Science"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/science"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+            <!-- Tombol 3 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Fiction"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Fiction"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/fiction"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+            <!-- Tombol 4 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Biography"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Biography"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/biograpy"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+            <!-- Tombol 5 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/history"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="History"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/historyicon"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+            <!-- Tombol 6 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Economics"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Economics"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/business"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/Health"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:backgroundTint="#efefef"
+                android:fontFamily="@font/quicksandsemibold"
+                android:text="Health &amp; Fitness"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                app:cornerRadius="15dp"
+                app:icon="@drawable/health"
+                app:iconSize="15dp"
+                app:iconTint="@null" />
+
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+
+        <ImageView
+
+            android:id="@+id/findbookimage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/iconsearchn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearrrr"
+            app:layout_constraintVertical_bias="0.176" />
+
+        <TextView
+            android:id="@+id/findbook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksandregular"
+            android:gravity="center"
+            android:text="find the book you want "
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/findbookimage"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="15dp"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycleviewCategories" />
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearrrr" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,6 +27,7 @@ import com.example.dimplebooks.model.bookModel
 import com.example.dimplebooks.viewModel.BookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModel
 import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -42,7 +44,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnCategoryClickListener {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerViewCategories: RecyclerView
+    private lateinit var buttonMap : Map<Int,String>
+
     private lateinit var bookList: ArrayList<bookModel>
 
     private lateinit var adapter: bookAdapter
@@ -50,9 +53,8 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
     private lateinit var viewModel: BookViewModel
     private lateinit var viewModelHistory: historyBookViewModel
     private lateinit var bookHistoryDao: bookHistoryDao
-    private val categories = listOf("Science", "Comics",
-        "Fantasy", "Biography", "Finance", "Education", "Art",
-        "Literature", "Travel", "Cooking", "Politics", "Sociology")
+    private val categories = listOf("Business & Economics", "cartoons",
+        "Science", "Fiction","Biography","History" ,"Business & Economics")
     private lateinit var findbookText : TextView
     private lateinit var findbookImage : ImageView
 
@@ -62,16 +64,28 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_library, container, false)
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.greyy)
         findbookText = view.findViewById(R.id.findbook)
         findbookImage  = view.findViewById(R.id.findbookimage)
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
 
+         buttonMap = mapOf(
+            R.id.ComicsNovel to "cartoons",
+            R.id.Science to "Science",
+            R.id.Fiction to "Fiction",
+            R.id.Biography to "Biography",
+            R.id.history to "History",
+            R.id.Economics to "Business & Economics",
+            R.id.Health to "Health & Fitness"
+        )
+        buttonMap.forEach { (buttonId, category) ->
+            val button = view.findViewById<MaterialButton>(buttonId)
+            button.setOnClickListener {
+                // Call the function to handle category selection
+                handleCategorySelection(button, category)
+            }
+        }
 
-        //recycle view categories
-        recyclerViewCategories = view.findViewById(R.id.recycleviewCategories)
-        recyclerViewCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapterCategories = categoriesAdapter(categories,this)
-        recyclerViewCategories.adapter = adapterCategories
         viewModel.categoriesBooks.observe(viewLifecycleOwner) { books ->
             adapter.updateBookList(books)
         }
@@ -133,22 +147,25 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         if (userid != null) {
             viewModelHistory.addBookToHistory(book,userid)
         }
-
-
+        val sharedPreferences = requireActivity().getSharedPreferences("book", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString("book_title", book.title)
+            .putString("book_image", book.imageUrl)
+            .putString("book_authors", book.authors.joinToString(", "))
+            .putString("book_publisher", book.publisher)
+            .putString("book_publishedDate", book.publishedDate)
+            .putString("book_pageCount", book.pageCount.toString())
+            .putString("book_language", book.language)
+            .putString("book_categories", book.categories.joinToString(", "))
+            .putString("book_description", book.description)
+            .putString("book_price", book.price.toString())
+            .putString("book_saleability", book.saleability)
+            .putString("buyLink", book.buyLink)
+            .putString("book_previewLink", book.previewLink)
+            .putFloat("book_rating", book.rating.toFloat())
+            .apply()
 
         val intent = Intent(requireContext(), detailBook::class.java)
-        intent.putExtra("book_title", book.title)
-        intent.putExtra("book_image", book.imageUrl)
-        intent.putExtra("book_authors", book.authors.joinToString(", "))
-        intent.putExtra("book_publisher", book.publisher)
-        intent.putExtra("book_publishedDate", book.publishedDate)
-        intent.putExtra("book_pageCount", book.pageCount)
-        intent.putExtra("book_language", book.language)
-        intent.putExtra("book_categories", book.categories.joinToString(", "))
-        intent.putExtra("book_description", book.description)
-        intent.putExtra("book_price", book.price)
-        intent.putExtra("book_saleability", book.saleability)
-        intent.putExtra("buyLink", book.buyLink)
         Log.d("IntentData", " Title: ${book.title}, price : ${book.price}, buylink : ${book.buyLink}")
 
 
@@ -160,6 +177,27 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         viewModel.setVisibility(false, false)
         findbookText.visibility = View.GONE
         findbookImage.visibility = View.GONE
+    }
+    private fun handleCategorySelection(button: MaterialButton, category: String) {
+        // Set the selected button's appearance
+        resetButtonStyles()
+        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.navy_blue_white))
+        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+        // Update the ViewModel and visibility
+        viewModel.CategoriesBooks(category)
+        viewModel.setVisibility(false, false)
+        findbookText.visibility = View.GONE
+        findbookImage.visibility = View.GONE
+    }
+
+    private fun resetButtonStyles() {
+        // Reset styles for all buttons
+        buttonMap.keys.forEach { buttonId ->
+            val button = view?.findViewById<MaterialButton>(buttonId)
+            button?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.greyybutton))
+            button?.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        }
     }
 
 

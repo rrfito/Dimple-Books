@@ -1,0 +1,8 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background untuk item yang dipilih -->
+    <item
+        android:drawable="@drawable/stroke"
+        android:state_checked="true" />
+    <!-- Tidak ada background untuk item lain -->
+    <item android:drawable="@android:color/transparent" />
+</selector>

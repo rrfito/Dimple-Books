@@ -1,6 +1,7 @@
 package com.example.dimplebooks.UI.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.GestureDetector
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -28,8 +29,9 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val businessImage = itemView.findViewById<ImageView>(R.id.businessimages)
-        val businessAuthoer = itemView.findViewById<TextView>(R.id.businessAuthoer)
-        val price = itemView.findViewById<TextView>(R.id.pricebusiness)
+        val businesstittle = itemView.findViewById<TextView>(R.id.businessTittle)
+        val price = itemView.findViewById<TextView>(R.id.price)
+        val rating = itemView.findViewById<TextView>(R.id.rating)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): entertaimentBookAdapter.ViewHolder {
@@ -45,10 +47,10 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
             .placeholder(R.drawable.loading)
             .error(R.drawable.error)
             .into(holder.businessImage)
-        holder.businessAuthoer.text = if(currentBook.authors.joinToString().length > 10){
-            currentBook.authors.joinToString().take(10) + "..."
+        holder.businesstittle.text = if(currentBook.title.length > 30){
+            currentBook.title.take(30) + "..."
         }else{
-            currentBook.authors.joinToString()
+            currentBook.title
         }
         val pricetext = when(currentBook.saleability){
             "FOR_SALE" -> "Rp ${currentBook.price}"
@@ -60,6 +62,8 @@ class entertaimentBookAdapter(private val EntertaimentBookList: ArrayList<bookMo
             holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
         }
         holder.price.text = pricetext
+        holder.rating.text = currentBook.rating.toString()
+        Log.d("wwwwwwwwwwwww","rating : ${currentBook.rating}")
         holder.itemView.setOnClickListener {
             itemclick.onItemClick(currentBook)
         }

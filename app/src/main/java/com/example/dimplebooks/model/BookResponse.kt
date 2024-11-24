@@ -19,7 +19,9 @@ data class VolumeInfo(
     val publishedDate: String?,
     val pageCount: Int?,
     val language: String?,
-    val categories: List<String>?
+    val categories: List<String>?,
+    val previewLink : String?,
+    val rating : String?
 )
 data class SaleInfo(
     val listPrice: Price?,

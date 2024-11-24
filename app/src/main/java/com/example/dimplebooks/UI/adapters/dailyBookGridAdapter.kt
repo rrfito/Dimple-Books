@@ -42,8 +42,8 @@ class dailyBookGridAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentBook = bookList[position]
-        holder.textView.text = if (currentBook.title.length > 10) {
-            currentBook.title.take(15) + "..."
+        holder.textView.text = if (currentBook.title.length > 20) {
+            currentBook.title.take(20) + "..."
         } else {
             currentBook.title
         }

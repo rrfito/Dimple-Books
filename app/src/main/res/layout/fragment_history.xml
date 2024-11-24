@@ -12,6 +12,8 @@
         android:layout_height="match_parent">
 
 
+
+
         <FrameLayout
             android:id="@+id/frame"
             android:layout_width="match_parent"
@@ -33,11 +35,11 @@
                 app:dotsSize="10dp"
                 app:dotsSpacing="1dp"
                 app:selectedDotColor="#6270FD" />
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 />
+                android:layout_height="match_parent" />
 
 
         </FrameLayout>
@@ -90,6 +92,7 @@
             android:layout_height="wrap_content"
             android:text="Check out the best books of the day"
             android:textSize="12sp"
+            android:fontFamily="@font/poppinsmedium"
             android:layout_marginStart="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +135,7 @@
             android:layout_height="wrap_content"
             android:text="Get More Done Every Day"
             android:textSize="12sp"
+            android:fontFamily="@font/poppinsmedium"
             android:layout_marginStart="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,6 +173,7 @@
             android:layout_height="wrap_content"
             android:text="Get Ready to Enjoy an Exciting Story"
             android:textSize="12sp"
+            android:fontFamily="@font/poppinsmedium"
             android:layout_marginStart="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -205,8 +210,8 @@
             android:id="@+id/recycleviewRecom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+
+
             android:layout_marginBottom="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

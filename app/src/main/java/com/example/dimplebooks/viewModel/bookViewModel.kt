@@ -10,6 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
 import com.example.dimplebooks.model.BookResponse
+import kotlin.random.Random
 
 class BookViewModel : ViewModel() {
     var isImageVisible: Boolean = true
@@ -33,9 +34,17 @@ class BookViewModel : ViewModel() {
     val recommBooks: LiveData<List<bookModel>> get() = _recommBooks
 
 
-    fun searchBooks(query: String) {
 
-        val call = apiService.bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxResults = 40)
+
+    var hasloadData = false
+    private fun fetchData(query: String,liveData: MutableLiveData<List<bookModel>>,maxBooks : Int) {
+        hasloadData = false
+        if (hasloadData) {
+            return
+        }
+        hasloadData = true
+        val call = apiService.bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxBooks
+        )
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
                 if (response.isSuccessful) {
@@ -43,7 +52,7 @@ class BookViewModel : ViewModel() {
                         bookModel(
                             id = item.id,
                             title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
+                            subtitle = item.volumeInfo.subtitle ?: "Brave Yourself",
                             authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
                             publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
                             price = item.saleInfo.listPrice?.amount?.toInt(),
@@ -59,11 +68,12 @@ class BookViewModel : ViewModel() {
                             language = (item.volumeInfo.language ?: "Unknown")
                                 .replace("en", "English")
                                 .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
+                            buyLink = item.saleInfo.buyLink ?: "No buy link",
+                            previewLink = (item.volumeInfo.previewLink ?: "No preview link").replace("http:","https:").replace(Regex("pg=PA\\d+"), "printsec=frontcover") + "#v=onepage&q&f=true",
+                            rating = (Random.nextDouble(3.0, 5.0) * 10).toInt() / 10.0
                         )
                     } ?: emptyList()
-
-                    _searchBooks.postValue(books)
+                    liveData.postValue(books)
                 }
             }
 
@@ -72,348 +82,37 @@ class BookViewModel : ViewModel() {
             }
         })
     }
-    private var hasLoadedNewestBooks = false
-    fun getNewestBooks() {
-        if (hasLoadedNewestBooks) return
-        hasLoadedNewestBooks = true
-        val randomLetter = getRandomLetter()
-        val call = apiService.bookApi.newestBooks(randomLetter, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", "newest", maxResults = 40)
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _newestBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching newest books", t)
-            }
-        })
+    fun searchBooks(query: String) {
+        fetchData(query, _searchBooks, 40)
     }
-
 
     fun setVisibility(imageVisible: Boolean, textVisible: Boolean) {
         isImageVisible = imageVisible
         isTextVisible = textVisible
     }
-    fun CategoriesBooks(query: String) {
-        val call = apiService.bookApi.searchBooks("Subject: $query","AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxResults = 40)
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _categoriesBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching search books", t)
-            }
-        })
+    fun CategoriesBooks(category: String) {
+        fetchData("subject:$category", _categoriesBooks,40)
     }
-    private var hasLoadedDailyBooks = false
     fun GetdailyGetBooks() {
-        if(hasLoadedDailyBooks) return
-        hasLoadedDailyBooks = true
-        val randomLetter = getRandomLetter()
-        val call = apiService.bookApi.searchBooks(
-            query = randomLetter,
-            apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",
-            maxResults = 6
-        )
-
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _dailyBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching daily books", t)
-            }
-        })
+        val randomLetter = ('A'..'Z').random()
+        fetchData("$randomLetter", _dailyBooks,6)
     }
-    private var hasLoadBannerBooks = false
-    fun GetBannerBooks() {
-        if(hasLoadBannerBooks) return
-        hasLoadBannerBooks = true
-        val call = apiService.bookApi.searchBooks(
-            query = "quantum",
-            apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",
-            maxResults = 6
-        )
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful){
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _bannerBooks.postValue(books)
-
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching daily books", t)
-            }
-
-
-        })
-        
-
-        
-    }
-    private var hasLoadedBusinesBooks = false
     fun GetBusinessBooks() {
-        if(hasLoadedBusinesBooks) return
-        hasLoadedBusinesBooks = true
-        val call = apiService.bookApi.searchBooks(
-            query = "business",
-            apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",
-            maxResults = 40
-        )
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _businessBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching daily books", t)
-            }
-        })
+        fetchData("Subject:Business", _businessBooks,40)
     }
-    private var hasLoadedEntertainmentBooks = false
     fun GetEntertainmentBooks() {
-        if(hasLoadedEntertainmentBooks) return
-        hasLoadedEntertainmentBooks = true
-
-        val call = apiService.bookApi.searchBooks(
-            query = "Subject: entertainment",
-            apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",
-            maxResults = 40
-        )
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _entertainmentBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching daily books", t)
-            }
-        })
+        fetchData("Subject:entertainment", _entertainmentBooks,40)
     }
-    private var hasLoadRecommend = false
+    fun GetBannerBooks() {
+        fetchData("quantum", _bannerBooks,6)
+    }
     fun GetRecommendBooks() {
-        if(hasLoadRecommend) return
-        hasLoadRecommend = true
-        val randomLetter = getRandomLetter()
-        val call = apiService.bookApi.searchBooks(
-            query = randomLetter,
-            apiKey = "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU",
-            maxResults = 40
-        )
-        call.enqueue(object : Callback<BookResponse> {
-            override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {
-                if (response.isSuccessful) {
-                    val books = response.body()?.items?.map { item ->
-                        bookModel(
-                            id = item.id,
-                            title = item.volumeInfo.title,
-                            subtitle = item.volumeInfo.subtitle,
-                            authors = item.volumeInfo.authors?.take(1) ?: listOf("Unknown Author"),
-                            publisher = item.volumeInfo.publisher ?: "Unknown Publisher",
-                            price = item.saleInfo.listPrice?.amount?.toInt(),
-                            imageUrl = (item.volumeInfo.imageLinks?.thumbnail ?: "")
-                                .replace("http:", "https:")
-                                .replace("&edge=curl", "")
-                                .replace("zoom=1", "zoom=0"),
-                            description = item.volumeInfo.description ?: "No description",
-                            categories = item.volumeInfo.categories?.take(1) ?: listOf("Unknown"),
-                            saleability = item.saleInfo.saleability,
-                            publishedDate = item.volumeInfo.publishedDate ?: "Unknown",
-                            pageCount = item.volumeInfo.pageCount ?: 0,
-                            language = (item.volumeInfo.language ?: "Unknown")
-                                .replace("en", "English")
-                                .replace("id", "Indonesia"),
-                            buyLink = item.saleInfo.buyLink ?: "No buy link"
-                        )
-                    } ?: emptyList()
-
-                    _recommBooks.postValue(books)
-                }
-            }
-
-            override fun onFailure(call: Call<BookResponse>, t: Throwable) {
-                Log.e("BookViewModel", "Error fetching daily books", t)
-            }
-        })
+        fetchData("school", _recommBooks,40)
     }
-
-
-    fun getRandomLetter(): String {
-        val chars = ('a'..'z') + ('A'..'Z')
-        return chars.random().toString()
+    fun getNewestBooks() {
+        fetchData("orderBy=newest", _newestBooks,40)
     }
     fun refreshAPI(){
-       hasLoadedNewestBooks = false
-        hasLoadedDailyBooks = false
-        hasLoadBannerBooks = false
-        hasLoadedBusinesBooks = false
-        hasLoadedEntertainmentBooks = false
-        hasLoadRecommend = false
+        hasloadData = false
     }
-
-
-
-
 }
-
-
-
-

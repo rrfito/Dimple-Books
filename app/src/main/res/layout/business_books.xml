@@ -6,7 +6,7 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="10dp"
     android:layout_margin="5dp"
-    app:cardElevation="4dp"
+
 
     android:id="@+id/cardBusiness">
 
@@ -22,8 +22,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="225dp"
+            android:layout_width="160dp"
+            android:layout_height="215dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
            >
@@ -38,26 +38,74 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-
-            android:layout_marginTop="2dp"
-            android:id="@+id/businessAuthoer"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/businessTittle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksandbold"
-            android:gravity="center"
-            android:text="MEPIHSTO"
-            android:textSize="13sp" />
-        <TextView
 
-            android:id="@+id/pricebusiness"
+            android:text="MEPIHSTO"
+            android:textSize="12sp" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:orientation="horizontal">
 
-            android:fontFamily="@font/poppinsblack"
-            android:text="Rp2500,000"
-            android:textColor="@color/orange_white"
-            android:textSize="12sp" />
+            <TextView
+
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/poppinsextrabold"
+                android:text="Rp2500,000"
+                android:textColor="@color/orange_white"
+                android:textSize="10sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffefc6"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+                <LinearLayout
+
+                    android:layout_margin="2dp"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/rating"/>
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.4"
+                        android:textSize="10dp"
+                        android:textColor="#ffaf20"
+                        android:fontFamily="@font/quicksandbold"/>
+
+
+                </LinearLayout>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

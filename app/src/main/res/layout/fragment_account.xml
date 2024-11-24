@@ -7,72 +7,108 @@
     android:background="@color/white"
     tools:context=".UI.fragment.Account">
 
-
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-
-
-        android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-
-
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/profile"
-        app:civ_border_color="@color/white_grey"
-
-        app:civ_border_width="2dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:backgroundTint="@color/navy_blue_white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CustomCard">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:gravity="center"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image"
-        app:layout_constraintVertical_bias="0.019">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView"
+                android:layout_width="100dp"
 
-        <TextView
-            android:id="@+id/usernamefire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppinsextrabold"
-            android:text="REFITO RIESMAN"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/profile"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
 
-        <TextView
-            android:id="@+id/emailfire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksandbold"
-            android:text="refitoriesman@gmail.com"
-            android:textSize="11sp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/usernamefire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/quicksandbold"
+                    android:text="Dimple books user"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/baseline_email_24" />
+
+                    <TextView
+                        android:id="@+id/emailfire"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:fontFamily="@font/quicksandregular"
+                        android:text="dimplebooks@gmail.com"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="Tinjau Profile"
+                    android:textColor="@color/navy_blue_white"
+                    android:textSize="10sp"
+                    app:cornerRadius="15dp" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/card"
+        android:backgroundTint="@color/navi_blue_white_accent"
         app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,39 +139,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:textSize="13dp"
                     android:fontFamily="@font/quicksandregular"
-                    android:text="You've read" />
+                    android:paddingStart="8dp"
+                    android:text="You've read"
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/countbook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="4dp"
-                    android:textSize="13dp"
                     android:fontFamily="@font/quicksandbold"
-                    android:text="9" />
+                    android:paddingStart="4dp"
+                    android:text="9"
+                    android:textSize="13dp" />
 
                 <TextView
                     android:id="@+id/upgradeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="4dp"
-                    android:textSize="13dp"
                     android:fontFamily="@font/quicksandregular"
-                    android:text="books" />
+                    android:paddingStart="4dp"
+                    android:text="books"
+                    android:textSize="13dp" />
 
 
                 <TextView
                     android:id="@+id/maxbook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:gravity="end"
                     android:layout_marginEnd="20dp"
                     android:fontFamily="@font/quicksandregular"
-                    android:text=" 1789 left" />
+                    android:gravity="end"
+                    android:text=" 1789 left"
+                    android:textSize="13dp" />
 
             </LinearLayout>
 
@@ -143,46 +179,152 @@
 
 
     </androidx.cardview.widget.CardView>
-
-    <ListView
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"
-        android:id="@+id/ListAccountMenu"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-
+        android:padding="20dp"
+        app:flexWrap="wrap"
+        app:justifyContent="space_between"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/historytextview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:fontFamily="@font/poppinsextrabold"
-        android:textColor="@color/black"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:textSize="16sp"
+        <!-- History -->
+        <LinearLayout
+            android:id="@+id/History"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ListAccountMenu" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/navi_blue_white_accent"
+                app:cardElevation="0dp"
+                app:shapeAppearance="@style/circle">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleviewHistory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/historytextview"
-       />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/historyaccount" />
+            </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="History"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
 
+        <!-- About Us -->
+        <LinearLayout
+            android:id="@+id/aboutUs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/navi_blue_white_accent"
+                app:cardElevation="0dp"
+                app:shapeAppearance="@style/circle">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/baseline_handshake_24" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="About Us"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Version -->
+        <LinearLayout
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/navi_blue_white_accent"
+                app:cardElevation="0dp"
+                app:shapeAppearance="@style/circle">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/baseline_security_24" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Version"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Log Out -->
+        <LinearLayout
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/navi_blue_white_accent"
+                app:cardElevation="0dp"
+                app:shapeAppearance="@style/circle">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/baseline_logout_24" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Log Out"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

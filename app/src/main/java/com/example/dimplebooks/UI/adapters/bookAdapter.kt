@@ -32,6 +32,7 @@ class bookAdapter(
         val authorName: TextView = itemView.findViewById(R.id.author)
         val price: TextView = itemView.findViewById(R.id.price)
         val card : CardView = itemView.findViewById(R.id.card)
+        val rating : TextView = itemView.findViewById(R.id.rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -62,6 +63,7 @@ class bookAdapter(
             holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
         }
         holder.price.text = priceText
+        holder.rating.text = currentBook.rating.toString()
 
 
         Log.d("BookAdapter", "Image URL: ${currentBook.imageUrl}")

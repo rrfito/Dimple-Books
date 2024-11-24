@@ -28,7 +28,6 @@ class buyItem : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this,R.color.navy_blue_white)
 
         val buyitem = intent.getStringExtra("buylinkk")
-        Log.d("IntentData", " Title: ${buyitem}")
 
         toolbar = findViewById(R.id.toolbarbuy)
         setSupportActionBar(toolbar)

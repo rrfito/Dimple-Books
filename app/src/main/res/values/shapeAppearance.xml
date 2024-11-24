@@ -1,0 +1,10 @@
+<resources>
+    <!-- Other styles -->
+
+    <!-- Style untuk shape appearance -->
+    <style name="CustomCard">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">50dp</item>
+        <item name="cornerSizeBottomRight">50dp</item>
+    </style>
+</resources>

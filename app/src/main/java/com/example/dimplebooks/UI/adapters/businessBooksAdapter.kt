@@ -28,9 +28,10 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val businessImage = itemView.findViewById<ImageView>(R.id.businessimages)
-        val businessAuthoer = itemView.findViewById<TextView>(R.id.businessAuthoer)
+        val businessTittle = itemView.findViewById<TextView>(R.id.businessTittle)
         val cardbusiness = itemView.findViewById<CardView>(R.id.cardBusiness)
-        val price = itemView.findViewById<TextView>(R.id.pricebusiness)
+        val price = itemView.findViewById<TextView>(R.id.price)
+        val rating = itemView.findViewById<TextView>(R.id.rating)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): businessBooksAdapter.ViewHolder {
@@ -46,10 +47,10 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
             .placeholder(R.drawable.loading)
             .error(R.drawable.error)
             .into(holder.businessImage)
-        holder.businessAuthoer.text = if(currentBook.authors.joinToString().length > 10){
-            currentBook.authors.joinToString().take(10) + "..."
+        holder.businessTittle.text = if(currentBook.title.length > 30){
+            currentBook.title.take(30) + "..."
         }else{
-            currentBook.authors.joinToString()
+            currentBook.title
         }
         val priceText = when (currentBook.saleability) {
             "FOR_SALE" -> "Rp ${currentBook.price}"
@@ -61,6 +62,7 @@ class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
             holder.price.setTextColor(holder.itemView.context.getColor(R.color.orange_white))
         }
         holder.price.text = priceText
+        holder.rating.text = currentBook.rating.toString()
         holder.itemView.setOnClickListener {
             itemclick.onItemClick(currentBook)
         }

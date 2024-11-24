@@ -12,6 +12,7 @@ import android.widget.GridLayout
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -59,7 +60,6 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
     private var param2: String? = null
 
     private lateinit var newestBookList: ArrayList<bookModel>
-    private lateinit var adapterr : newestBookAdapter
     private lateinit var viewModel: BookViewModel
     private lateinit var viewModelHistory: historyBookViewModel
     private lateinit var bookHistoryDao : bookHistoryDao
@@ -82,6 +82,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_history, container, false)
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.greyy)
         //image banner
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
         val dotsBanner = view.findViewById<SpringDotsIndicator>(R.id.dotsbanner)
@@ -103,7 +104,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
         val recycleViewNew = view.findViewById<RecyclerView>(R.id.Released)
         recycleViewNew.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
          newestBookList = ArrayList()
-         adapterr = newestBookAdapter(newestBookList,this)
+        val  adapterr = newestBookAdapter(newestBookList,this)
         recycleViewNew.adapter = adapterr
         //viewmodel newewst book
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
@@ -188,6 +189,7 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
 
 
 
+
         startActivity(intent)
     }
 
@@ -202,21 +204,26 @@ class History : Fragment(),bookHistoryAdapter.OnItemClickListener,newestBookAdap
             viewModelHistory.addBookToHistory(book,userid)
         }
 
+        val sharedPreferences = requireActivity().getSharedPreferences("book", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString("book_title", book.title)
+            .putString("book_image", book.imageUrl)
+            .putString("book_authors", book.authors.joinToString(", "))
+            .putString("book_publisher", book.publisher)
+            .putString("book_publishedDate", book.publishedDate)
+            .putString("book_pageCount", book.pageCount.toString())
+            .putString("book_language", book.language)
+            .putString("book_categories", book.categories.joinToString(", "))
+            .putString("book_description", book.description)
+            .putString("book_price", book.price.toString())
+            .putString("book_saleability", book.saleability)
+            .putString("buyLink", book.buyLink)
+            .putString("book_previewLink", book.previewLink)
+            .putFloat("book_rating", book.rating.toFloat())
+            .apply()
+
         val intent = Intent(requireContext(), detailBook::class.java)
-        intent.putExtra("book_title", book.title)
-        intent.putExtra("book_image", book.imageUrl)
-        intent.putExtra("book_authors", book.authors.joinToString(", "))
-        intent.putExtra("book_publisher", book.publisher)
-        intent.putExtra("book_publishedDate", book.publishedDate)
-        intent.putExtra("book_pageCount", book.pageCount)
-        intent.putExtra("book_language", book.language)
-        intent.putExtra("book_categories", book.categories.joinToString(", "))
-        intent.putExtra("book_description", book.description)
-        intent.putExtra("book_price", book.price)
-        intent.putExtra("book_saleability", book.saleability)
-        intent.putExtra("buyLink", book.buyLink)
-
-
+        Log.d("IntentData", " Title: ${book.title}, price : ${book.price}, buylink : ${book.buyLink}")
 
         startActivity(intent)
     }

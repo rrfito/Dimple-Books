@@ -11,10 +11,15 @@
     <color name="navy_blue">#091057</color>
     <color name="blue">#024CAA</color>
     <color name="orange">#EC8305</color>
-    <color name="greyy">#DBD3D3</color>
+    <color name="greyybutton">#efefef</color>
+    <color name="greyy">#fafafb</color>
     <color name="author_color">#DBD3D3</color>
 
     <color name="navy_blue_white">#a7aef6</color>
+
+    <color name="secondary_navy">#c3b3c0</color>
+    <color name="accent_navy">#a79197</color>
+    <color name="navy_blue_navigation">#5641c1</color>
 
     <color name="navi_blue_white_accent">#eff2fe</color>
     <color name="blue_white">#539dfd</color>

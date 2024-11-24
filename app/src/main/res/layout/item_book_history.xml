@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="5dp"
-    android:layout_marginStart="15dp"
-    android:layout_marginBottom="5dp"
+
+
     app:cardCornerRadius="10dp"
-    app:cardElevation="4dp"
+
     app:cardUseCompatPadding="true"
+    app:cardElevation="0dp"
     >
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_card">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
         <LinearLayout
-            android:layout_margin="10dp"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             >
+            <TextView
+                android:textColor="@color/black"
+                android:fontFamily="@font/quicksandbold"
+                android:id="@+id/urutanHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:gravity="center"
+                android:layout_margin="20dp"/>
             <androidx.cardview.widget.CardView
-                android:layout_width="85dp"
-                android:layout_height="110dp"
+                android:layout_width="120dp"
+                android:layout_height="150dp"
                 app:cardCornerRadius="10dp"
                 android:layout_marginEnd="15dp"
                 app:cardElevation="4dp"
@@ -57,7 +68,7 @@
                     android:text="The Prominence"
                     android:textStyle="bold"
                     android:fontFamily="@font/quicksandbold"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black" />
 
                 <!-- Author and Publisher Information -->
@@ -69,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/quicksandbold"
                     android:text="Lazarus"
-                    android:textSize="8sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/darker_gray" />
 
 
@@ -84,7 +95,7 @@
 
                     android:fontFamily="@font/quicksandbold"
                     android:text="Action"
-                    android:textSize="8sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/darker_gray" />
 
                 <!-- Number of Pages -->
@@ -95,7 +106,7 @@
 
                     android:fontFamily="@font/quicksandbold"
                     android:text="2 hari yang lalu"
-                    android:textSize="8sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>
@@ -104,10 +115,21 @@
 
         </LinearLayout>
 
-
-
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            app:strokeColor="#333333"-->
+<!--            app:strokeWidth="1dp"/>-->
 
     </LinearLayout>
+
+
+
+
+
+
+
 
 
 

@@ -75,7 +75,10 @@ dependencies {
     //dot
     implementation("com.tbuonomo:dotsindicator:4.3")
 
-    
+
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
+
+
 
 
     implementation(libs.androidx.core.ktx)

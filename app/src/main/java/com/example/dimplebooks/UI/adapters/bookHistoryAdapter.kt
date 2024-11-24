@@ -25,6 +25,7 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
         val historyAuthorName: TextView = itemView.findViewById(R.id.authorHistory)
         val historyGenre: TextView = itemView.findViewById(R.id.genreHistory)
         var historyRead: TextView = itemView.findViewById(R.id.readHistory)
+        val index : TextView = itemView.findViewById(R.id.urutanHistory)
     }
     interface OnItemClickListener {
         fun onItemClick(book: bookHistoryEntity)
@@ -43,6 +44,7 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
         }else{
             currentBook.title
         }
+        holder.index.text = (position+1).toString()
         holder.historyAuthorName.text = currentBook.authors
         holder.historyGenre.text = currentBook.categories
         holder.historyRead.text = formatTimestamp(currentBook.timestamp)

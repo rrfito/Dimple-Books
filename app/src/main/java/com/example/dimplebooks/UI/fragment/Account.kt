@@ -10,10 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
+import com.example.dimplebooks.UI.activity.HistoryBooks
 import com.example.dimplebooks.UI.activity.accountActivity.aboutUs
 import com.example.dimplebooks.UI.activity.accountActivity.settings
 import com.example.dimplebooks.UI.activity.accountActivity.versionInformation
@@ -35,6 +38,7 @@ import com.example.dimplebooks.viewModel.historyBookViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -66,8 +70,10 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val accountView = inflater.inflate(R.layout.fragment_account, container, false)
 
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.navy_blue_white)
         val progressBar = accountView.findViewById<ProgressBar>(R.id.customProgressBar)
         val countbook = accountView.findViewById<TextView>(R.id.countbook)
         val maxbook = accountView.findViewById<TextView>(R.id.maxbook)
@@ -119,55 +125,18 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
 //            }
 
 
-
-
-
-        val listview : ListView = accountView.findViewById(R.id.ListAccountMenu)
-        val menulist = listOf(
-//            ListModel("Settings",R.drawable.baseline_settings_24),
-            ListModel("Version Information",R.drawable.baseline_security_24),
-            ListModel("About Us",R.drawable.baseline_handshake_24),
-            ListModel("Log Out",R.drawable.baseline_logout_24),
-
-            )
-
-        val adapter = ListAdapter(requireContext(),menulist)
-        listview.adapter = adapter
-
-        listview.setOnItemClickListener{ parent,view,position,id ->
-            val selectedItem = menulist[position]
-            if(selectedItem.name == "Log Out"){
-                showLogoutDialog()
-
-
-//            }else if(selectedItem.name == "Settings"){
-//                val intent = Intent(requireContext(), settings::class.java)
-//                startActivity(intent)
-            }else if(selectedItem.name == "Version Information"){
-                val intent = Intent(requireContext(), versionInformation::class.java)
-                startActivity(intent)
-            }else if(selectedItem.name == "About Us"){
-                val intent = Intent(requireContext(), aboutUs::class.java)
-                startActivity(intent)
-            }
+        val historybutton : LinearLayout = accountView.findViewById(R.id.History)
+        historybutton.setOnClickListener(){
+            val intent = Intent(requireContext(), HistoryBooks::class.java)
+            startActivity(intent)
 
         }
-        // History RecyclerView
-        val recycleViewHistory = accountView.findViewById<RecyclerView>(R.id.recycleviewHistory)
-        recycleViewHistory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        historyBookList = ArrayList()
-        historyAdapter = bookHistoryAdapter(historyBookList,this)
-        recycleViewHistory.adapter = historyAdapter
-        viewLifecycleOwner.lifecycleScope.launch {
-            if (userId != null) {
-                viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->
-                    historyBookList.clear()
-                    historyBookList.addAll(books)
-                    historyAdapter.notifyDataSetChanged()
-                }
 
-            }
-        }
+
+
+
+
+
 
 
 
