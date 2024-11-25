@@ -22,7 +22,7 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.data.AppDatabase
 
-import com.example.dimplebooks.model.userModel
+import com.example.dimplebooks.data.model.userModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth

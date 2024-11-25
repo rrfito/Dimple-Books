@@ -21,7 +21,7 @@ import com.example.dimplebooks.UI.fragment.Account
 import com.example.dimplebooks.UI.fragment.Library
 import com.example.dimplebooks.UI.fragment.History
 import com.example.dimplebooks.data.NetworkChangeReceiver
-import com.example.dimplebooks.viewModel.BookViewModel
+import com.example.dimplebooks.UI.viewModel.BookViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 

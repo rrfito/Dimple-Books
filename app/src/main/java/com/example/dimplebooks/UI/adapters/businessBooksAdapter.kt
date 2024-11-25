@@ -15,10 +15,10 @@ import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.fragment.History
 
-import com.example.dimplebooks.model.bookModel
+import com.example.dimplebooks.data.model.bookModel
 
 class businessBooksAdapter(private val businessBookList: ArrayList<bookModel>,
-                        private val itemclick: OnItemClickListener
+                           private val itemclick: OnItemClickListener
 )
     : RecyclerView.Adapter<businessBooksAdapter.ViewHolder>() {
 

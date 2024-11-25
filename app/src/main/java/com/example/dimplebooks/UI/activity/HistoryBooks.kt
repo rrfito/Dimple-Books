@@ -14,8 +14,8 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.entity.bookHistoryEntity
-import com.example.dimplebooks.viewModel.historyBookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.launch

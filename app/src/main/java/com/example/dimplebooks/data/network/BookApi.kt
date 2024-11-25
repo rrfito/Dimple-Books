@@ -1,8 +1,8 @@
-package com.example.dimplebooks.retrofit
+package com.example.dimplebooks.data.network
 
 import retrofit2.http.GET
 import retrofit2.Call
-import com.example.dimplebooks.model.BookResponse
+import com.example.dimplebooks.data.model.BookResponse
 import retrofit2.http.Query
 
 interface bookApi {

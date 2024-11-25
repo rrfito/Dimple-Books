@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.dimplebooks.R
-import com.example.dimplebooks.model.bookModel
+import com.example.dimplebooks.data.model.bookModel
 
 class dailyBookGridAdapter(
     private val bookList: ArrayList<bookModel>,

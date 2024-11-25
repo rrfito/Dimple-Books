@@ -2,7 +2,6 @@ package com.example.dimplebooks.UI.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
@@ -23,14 +21,12 @@ import com.example.dimplebooks.UI.adapters.categoriesAdapter
 import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
-import com.example.dimplebooks.model.bookModel
-import com.example.dimplebooks.viewModel.BookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.example.dimplebooks.data.model.bookModel
+import com.example.dimplebooks.UI.viewModel.BookViewModel
+import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.android.material.button.MaterialButton
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

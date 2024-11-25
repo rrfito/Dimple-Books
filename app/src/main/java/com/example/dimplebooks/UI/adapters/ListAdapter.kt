@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.dimplebooks.R
-import com.example.dimplebooks.model.ListModel
+import com.example.dimplebooks.data.model.ListModel
 
 class ListAdapter(
     context: Context,

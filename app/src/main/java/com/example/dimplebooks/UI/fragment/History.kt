@@ -8,19 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.BannerAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
@@ -34,15 +28,12 @@ import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.data.entity.bookHistoryEntity
 
-import com.example.dimplebooks.model.bookModel
-import com.example.dimplebooks.viewModel.BookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModelFactory
-import com.google.firebase.Firebase
+import com.example.dimplebooks.data.model.bookModel
+import com.example.dimplebooks.UI.viewModel.BookViewModel
+import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

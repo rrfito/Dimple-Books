@@ -1,4 +1,4 @@
-package com.example.dimplebooks.model
+package com.example.dimplebooks.data.model
 
 data class userModel(
     var userId : String? = null,

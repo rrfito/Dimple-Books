@@ -24,7 +24,7 @@ import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.reviewAdapter
 import com.example.dimplebooks.UI.adapters.topAppbarAdapter
-import com.example.dimplebooks.model.reviewModel
+import com.example.dimplebooks.data.model.reviewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,15 +32,15 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class detailBook : AppCompatActivity() {
-//    private lateinit var recyclerView: RecyclerView
-//    private lateinit var commentAdapter: reviewAdapter
-//    private val commentList = listOf(
-//        reviewModel(R.drawable.profile, "John Doe", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "22 hours ago"),
-//        reviewModel(R.drawable.profile, "Jane Smith", "Lorem Ipsum has been the industry's standard dummy text.", "3 days ago"),
-//        reviewModel(R.drawable.profile, "Alice Brown", "It is a long established fact that a reader will be distracted.", "1 week ago"),
-//        reviewModel(R.drawable.profile, "Kanap Brown", "It is a long established fact that a reader will be distracted.", "2 week ago")
-//
-//    )
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var commentAdapter: reviewAdapter
+    private val commentList = listOf(
+        reviewModel(R.drawable.profile, "John Doe", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "22 hours ago"),
+        reviewModel(R.drawable.profile, "Jane Smith", "Lorem Ipsum has been the industry's standard dummy text.", "3 days ago"),
+        reviewModel(R.drawable.profile, "Alice Brown", "It is a long established fact that a reader will be distracted.", "1 week ago"),
+        reviewModel(R.drawable.profile, "Kanap Brown", "It is a long established fact that a reader will be distracted.", "2 week ago")
+
+    )
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -63,7 +63,6 @@ class detailBook : AppCompatActivity() {
     Log.d("sharedwdqdqwqq","$price buy link : $buyLink $preview $imageUrl")
     val backgroundView = findViewById<ImageView>(R.id.backgrounddetail)
     Glide.with(this).load(imageUrl).into(backgroundView)
-    // Menangani klik pada tombol kembali
     val toolbar = findViewById<MaterialToolbar>(R.id.topAppbarDetail)
     toolbar.setNavigationOnClickListener {
         this.onBackPressed()

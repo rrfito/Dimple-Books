@@ -1,15 +1,15 @@
-package com.example.dimplebooks.viewModel
+package com.example.dimplebooks.UI.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dimplebooks.model.bookModel
-import com.example.dimplebooks.retrofit.apiService
+import com.example.dimplebooks.data.model.bookModel
+import com.example.dimplebooks.data.network.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
-import com.example.dimplebooks.model.BookResponse
+import com.example.dimplebooks.data.model.BookResponse
 import kotlin.random.Random
 
 class BookViewModel : ViewModel() {
@@ -37,13 +37,13 @@ class BookViewModel : ViewModel() {
 
 
     var hasloadData = false
-    private fun fetchData(query: String,liveData: MutableLiveData<List<bookModel>>,maxBooks : Int) {
+    private fun fetchData(query: String, liveData: MutableLiveData<List<bookModel>>, maxBooks : Int) {
         hasloadData = false
         if (hasloadData) {
             return
         }
         hasloadData = true
-        val call = apiService.bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxBooks
+        val call = RetrofitInstance.bookApi.searchBooks(query, "AIzaSyDKJRBAPtyxNKAW2lJx-LY6169BlIg_lqU", maxBooks
         )
         call.enqueue(object : Callback<BookResponse> {
             override fun onResponse(call: Call<BookResponse>, response: Response<BookResponse>) {

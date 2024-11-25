@@ -4,48 +4,37 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.icu.util.VersionInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.UI.activity.HistoryBooks
-import com.example.dimplebooks.UI.activity.accountActivity.aboutUs
-import com.example.dimplebooks.UI.activity.accountActivity.settings
-import com.example.dimplebooks.UI.activity.accountActivity.versionInformation
 import com.example.dimplebooks.UI.activity.detailBook
-import com.example.dimplebooks.UI.adapters.ListAdapter
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
-import com.example.dimplebooks.model.ListModel
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.entity.bookHistoryEntity
-import com.example.dimplebooks.viewModel.historyBookViewModel
-import com.example.dimplebooks.viewModel.historyBookViewModelFactory
+import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.databinding.FragmentHistoryBinding
+import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.launch
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +48,13 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
     private lateinit var historyBookList: ArrayList<bookHistoryEntity>
     private lateinit var historyAdapter: bookHistoryAdapter
 
+
+//    private val uservidemodel : userviewmodel by lazy {
+//        va; repository = userRepository(Retrofitinstance.getJsonPlaceholder())
+//        viewmodelprovider(
+//            this,viewmodelFactory(userViewmodel::class.java){(uservidemodel(repository))}
+//        )(userviewmodel::class.java)
+//    }
 
 
    
@@ -80,7 +76,8 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
 
         val database = AppDatabase.getDatabase(requireContext())
         val bookHistoryDao = database.bookHistoryDao()
-        viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(historyBookViewModel::class.java)
+        viewModelHistory = ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao)).get(
+            historyBookViewModel::class.java)
 
 
         //email and username text view
@@ -206,6 +203,18 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
         startActivity(intent)
     }
 
+//    fun setupnewhorizontalApi(binding : FragmentHistoryBinding) {
+//        val adapter = newhorizontaladapter(emptylist())
+//        userviewmodel.getUsers().observe(requireActivity()) { resp ->
+//            if (resp != null) {
+//                val newsitem = resp.mapIndexed(index, data)->
+//                newhorizontalmodel(data.name, "hteqqwq")
+//
+//            } adapter . updatedata (newsitem)
+//        }
+//    }binding.newhorlist.adapter = adapter
+//    binding.newhorlist.layoutmanager = "intinya masukin layout"
+//    }
 
     }
 

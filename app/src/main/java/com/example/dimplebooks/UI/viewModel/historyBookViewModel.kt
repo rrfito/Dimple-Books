@@ -1,4 +1,4 @@
-package com.example.dimplebooks.viewModel
+package com.example.dimplebooks.UI.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -6,14 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.dimplebooks.data.AppDatabase
 import com.example.dimplebooks.data.dao.bookHistoryDao
 import com.example.dimplebooks.data.entity.bookHistoryEntity
-import com.example.dimplebooks.model.bookModel
+import com.example.dimplebooks.data.model.bookModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class historyBookViewModel(private val bookHistoryDao: bookHistoryDao): ViewModel(),
     bookHistoryDao {
         var maxbookCount = 1800
-    fun addBookToHistory(bookModel: bookModel,userid : String) {
+    fun addBookToHistory(bookModel: bookModel, userid : String) {
         val bookHistoryEntity = bookHistoryEntity(
             bookId = bookModel.id,
             title = bookModel.title,

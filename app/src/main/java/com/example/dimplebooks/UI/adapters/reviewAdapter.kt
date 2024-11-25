@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import android.widget.TextView
 import com.example.dimplebooks.R
-import com.example.dimplebooks.model.reviewModel
+import com.example.dimplebooks.data.model.reviewModel
 
 class reviewAdapter(private val commentList: List<reviewModel>) : RecyclerView.Adapter<reviewAdapter.CommentViewHolder>() {
 

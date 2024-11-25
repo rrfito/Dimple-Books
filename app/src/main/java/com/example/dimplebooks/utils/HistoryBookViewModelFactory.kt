@@ -1,7 +1,8 @@
-package com.example.dimplebooks.viewModel
+package com.example.dimplebooks.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.dimplebooks.UI.viewModel.historyBookViewModel
 import com.example.dimplebooks.data.dao.bookHistoryDao
 
 class historyBookViewModelFactory(private val bookHistoryDao: bookHistoryDao) : ViewModelProvider.Factory {
