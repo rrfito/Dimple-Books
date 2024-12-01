@@ -1,4 +1,4 @@
-package com.example.dimplebooks.data
+package com.example.dimplebooks.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context

@@ -39,4 +39,5 @@ class Auth : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }

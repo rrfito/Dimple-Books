@@ -1,3 +1,4 @@
+import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -9,17 +10,23 @@ android {
     namespace = "com.example.dimplebooks"
     compileSdk = 34
 
+    val file = rootProject.file("local.properties")
+    val properties = Properties()
+    properties.load(file.inputStream())
     defaultConfig {
+
         applicationId = "com.example.dimplebooks"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String","API_KEY",properties.getProperty("API_KEY"))
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 buildFeatures{
     viewBinding = true
+    buildConfig = true
 }
     buildTypes {
         release {
@@ -37,6 +44,7 @@ buildFeatures{
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {

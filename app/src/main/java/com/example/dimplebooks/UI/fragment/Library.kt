@@ -19,11 +19,14 @@ import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookAdapter
 import com.example.dimplebooks.UI.adapters.categoriesAdapter
 import com.example.dimplebooks.UI.activity.detailBook
-import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.dao.bookHistoryDao
+import com.example.dimplebooks.UI.utils.ViewModelFactory
+import com.example.dimplebooks.data.database.AppDatabase
+import com.example.dimplebooks.data.database.dao.bookHistoryDao
 import com.example.dimplebooks.data.model.bookModel
 import com.example.dimplebooks.UI.viewModel.BookViewModel
 import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.data.network.RetrofitInstance
+import com.example.dimplebooks.data.repository.ApiRepository
 import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
@@ -55,15 +58,18 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
     private lateinit var findbookImage : ImageView
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val factory = ViewModelFactory(ApiRepository(RetrofitInstance.bookApi))
+        viewModel = ViewModelProvider(requireActivity(),factory).get(BookViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_library, container, false)
         requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.greyy)
         findbookText = view.findViewById(R.id.findbook)
         findbookImage  = view.findViewById(R.id.findbookimage)
-        viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+
 
          buttonMap = mapOf(
             R.id.ComicsNovel to "cartoons",
@@ -93,6 +99,9 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         bookList = ArrayList()
         adapter = bookAdapter(bookList,this)
         recyclerView.adapter = adapter
+
+
+
 
 
 

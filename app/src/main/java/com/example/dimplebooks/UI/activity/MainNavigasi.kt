@@ -1,27 +1,20 @@
 package com.example.dimplebooks.UI.activity
 
 import android.app.Dialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.fragment.Account
 import com.example.dimplebooks.UI.fragment.Library
-import com.example.dimplebooks.UI.fragment.History
-import com.example.dimplebooks.data.NetworkChangeReceiver
-import com.example.dimplebooks.UI.viewModel.BookViewModel
+import com.example.dimplebooks.UI.fragment.Home
+import com.example.dimplebooks.utils.NetworkChangeReceiver
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 
@@ -63,13 +56,13 @@ class MainNavigasi : AppCompatActivity() {
 
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.frameLayout, History())
+            .replace(R.id.frameLayout, Home())
             .commit()
 
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.historyButton -> {
-                    loadHFragment(History())
+                    loadHFragment(Home())
                     true
                 }
                 R.id.libraryButton -> {
@@ -108,22 +101,22 @@ class MainNavigasi : AppCompatActivity() {
             (resources.displayMetrics.widthPixels * 0.9).toInt(),
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        button.setOnClickListener {
-            if (isConnected) {
-                val viewModel = ViewModelProvider(this).get(BookViewModel::class.java)
-                viewModel.refreshAPI()
-                viewModel.getNewestBooks()
-                viewModel.GetBannerBooks()
-                viewModel.GetdailyGetBooks()
-                viewModel.GetBusinessBooks()
-                viewModel.GetEntertainmentBooks()
-                viewModel.GetRecommendBooks()
-                Toast.makeText(this, "Successfully connected to the internet", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            } else {
-                Toast.makeText(this, "No internet connection. Please try again later.", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        button.setOnClickListener {
+//            if (isConnected) {
+//                val viewModel = ViewModelProvider(this).get(BookViewModel::class.java)
+//                viewModel.refreshAPI()
+//                viewModel.getNewestBooks()
+//                viewModel.GetBannerBooks()
+//                viewModel.GetdailyGetBooks()
+//                viewModel.GetBusinessBooks()
+//                viewModel.GetEntertainmentBooks()
+//                viewModel.GetRecommendBooks()
+//                Toast.makeText(this, "Successfully connected to the internet", Toast.LENGTH_SHORT).show()
+//                dialog.dismiss()
+//            } else {
+//                Toast.makeText(this, "No internet connection. Please try again later.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         dialog.show()
     }

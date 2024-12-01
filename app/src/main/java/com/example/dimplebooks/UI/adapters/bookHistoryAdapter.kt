@@ -13,11 +13,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
+import com.example.dimplebooks.data.model.bookModel
 
 
 class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntity>,
-    private val listener: OnItemClickListener)
+                         private val listener: OnItemClickListener)
     : RecyclerView.Adapter<bookHistoryAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val historyBookImage: ImageView = itemView.findViewById(R.id.bookImageHistory)
@@ -84,6 +85,12 @@ class bookHistoryAdapter(private val HistorybookList: ArrayList<bookHistoryEntit
             true
         }
     }
+    fun updateBookList(historybooklist: List<bookHistoryEntity>) {
+        HistorybookList.clear()
+        HistorybookList.addAll(historybooklist)
+        notifyDataSetChanged()
+    }
+
 
     override fun getItemCount(): Int {
         return HistorybookList.size

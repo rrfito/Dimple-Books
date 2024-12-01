@@ -3,9 +3,8 @@ package com.example.dimplebooks.UI.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.dao.bookHistoryDao
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.dao.bookHistoryDao
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 import com.example.dimplebooks.data.model.bookModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

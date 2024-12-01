@@ -1,11 +1,11 @@
-package com.example.dimplebooks.data.dao
+package com.example.dimplebooks.data.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 import kotlinx.coroutines.flow.Flow
 
 

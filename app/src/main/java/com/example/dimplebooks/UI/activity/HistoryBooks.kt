@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
-import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.AppDatabase
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 import com.example.dimplebooks.UI.viewModel.historyBookViewModel
 import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -30,21 +30,18 @@ class HistoryBooks : AppCompatActivity(), bookHistoryAdapter.OnItemClickListener
         enableEdgeToEdge()
         setContentView(R.layout.activity_history_books)
 
-        // Mengatur padding untuk edge-to-edge display
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Inisialisasi database dan ViewModel
         val database = AppDatabase.getDatabase(this)
         val bookHistoryDao = database.bookHistoryDao()
         viewModelHistory =
             ViewModelProvider(this, historyBookViewModelFactory(bookHistoryDao))
                 .get(historyBookViewModel::class.java)
 
-        // Mengatur RecyclerView
         val recycleViewHistory = findViewById<RecyclerView>(R.id.recycleviewHistory)
         recycleViewHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -53,11 +50,9 @@ class HistoryBooks : AppCompatActivity(), bookHistoryAdapter.OnItemClickListener
         historyAdapter = bookHistoryAdapter(historyBookList, this)
         recycleViewHistory.adapter = historyAdapter
 
-        // Firebase Auth dan Database Reference
         val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-        // Mengambil data dari ViewModel
+
         lifecycleScope.launch {
             if (userId != null) {
                 viewModelHistory.getAllHistorySortedByDate(userId).collect { books ->

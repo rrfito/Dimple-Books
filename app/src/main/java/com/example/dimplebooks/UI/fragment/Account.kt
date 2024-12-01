@@ -21,10 +21,9 @@ import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.UI.activity.HistoryBooks
 import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
-import com.example.dimplebooks.data.AppDatabase
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.AppDatabase
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 import com.example.dimplebooks.UI.viewModel.historyBookViewModel
-import com.example.dimplebooks.databinding.FragmentHistoryBinding
 import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

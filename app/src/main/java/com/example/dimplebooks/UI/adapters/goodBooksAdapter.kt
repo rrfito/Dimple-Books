@@ -16,136 +16,64 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.dimplebooks.R
 import com.example.dimplebooks.data.model.bookModel
+import com.example.dimplebooks.databinding.RecommendationbooksBinding
+import com.example.dimplebooks.utils.baseAdapter
+import com.example.dimplebooks.utils.baseAdapter.OnItemClickListener
 
 class goodBooksAdapter(
-    private val goodbooksList: ArrayList<bookModel>,
-    private val listener: OnItemClickListener) : RecyclerView.Adapter<goodBooksAdapter.ViewHolder>() {
+    goodbooksList: ArrayList<bookModel>,
+    listener: OnItemClickListener<bookModel>) : baseAdapter<bookModel>(goodbooksList,listener) {
 
-
-
-    interface OnItemClickListener {
-        fun onItemClick(book: bookModel)
-    }
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val subtitleRecom = itemView.findViewById<TextView>(R.id.subtitleRecommendation)
-        val image = itemView.findViewById<ImageView>(R.id.imagerecommendation)
-        val bookName = itemView.findViewById<TextView>(R.id.titleRecommendation)
-        val descriptionRecom = itemView.findViewById<TextView>(R.id.descriptionRecommendation)
-        val page = itemView.findViewById<TextView>(R.id.pageRecommendation)
-        val date = itemView.findViewById<TextView>(R.id.dateRecommendation)
-        val cardbuynow = itemView.findViewById<CardView>(R.id.cardbuynow)
-    }
+    class ViewHolder(val binding : RecommendationbooksBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recommendationbooks, parent, false)
-        return ViewHolder(view)
+        val binding = RecommendationbooksBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ViewHolder(binding)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentBook = goodbooksList[position]
-
-        holder.subtitleRecom.text = if (currentBook.subtitle?.length!! > 50){
-            currentBook.subtitle?.take(50) + "..."
-        }else{
-            currentBook.subtitle
-        }
-        holder.bookName.text = if (currentBook.title.length > 20) {
-            currentBook.title.take(20) + "..."
-        } else {
-            currentBook.title
-        }
-        Glide.with(holder.itemView.context)
-            .load(currentBook.imageUrl)
-            .fitCenter()
-            .error(R.drawable.error)
-            .placeholder(R.drawable.loading)
-            .into(holder.image)
-        holder.descriptionRecom.text = if (currentBook.description.length > 130){
-                currentBook.description.take(130) + "..."
-
-            }else{
-                currentBook.description
-        }
-        holder.page.text = currentBook.pageCount.toString() + " pages"
-        holder.date.text = currentBook.publishedDate
-        val seasibility = currentBook.saleability
-        if(seasibility == "FOR_SALE"){
-            holder.cardbuynow.visibility = View.VISIBLE
-        }else{
-            holder.cardbuynow.visibility = View.GONE
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(currentBook)
-        }
-
-        val gestureDetector = GestureDetector(holder.itemView.context, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                listener.onItemClick(currentBook)
-                return true
-            }
-            override fun onDown(e: MotionEvent): Boolean {
-                zoomIn(holder.image)
-                return true
-            }
-            override fun onSingleTapUp(e: MotionEvent): Boolean {
-                zoomOut(holder.image)
-                return super.onSingleTapUp(e)
-            }
-        })
-
-        holder.image.setOnTouchListener { v, event ->
-            gestureDetector.onTouchEvent(event)
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    zoomIn(holder.image)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(holder is ViewHolder){
+            val currentBook = items[position]
+            with(holder.binding){
+                subtitleRecommendation.text = if (currentBook.subtitle?.length!! > 50){
+                    currentBook.subtitle?.take(50) + "..."
+                }else{
+                    currentBook.subtitle
                 }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    zoomOut(holder.image)
+                titleRecommendation.text = if (currentBook.title.length > 20) {
+                    currentBook.title.take(20) + "..."
+                } else {
+                    currentBook.title
                 }
+                Glide.with(root.context)
+                    .load(currentBook.imageUrl)
+                    .fitCenter()
+                    .error(R.drawable.error)
+                    .placeholder(R.drawable.loading)
+                    .into(imagerecommendation)
+                descriptionRecommendation.text = if (currentBook.description.length > 130){
+                    currentBook.description.take(130) + "..."
+
+                }else{
+                    currentBook.description
+                }
+                pageRecommendation.text = currentBook.pageCount.toString() + " pages"
+                dateRecommendation.text = currentBook.publishedDate
+                val seasibility = currentBook.saleability
+                if(seasibility == "FOR_SALE"){
+                    cardbuynow.visibility = View.VISIBLE
+                }else{
+                    cardbuynow.visibility = View.GONE
+                }
+                setupGesture(imagerecommendation, currentBook)
+
+
             }
-            true
+
         }
-
-
-
-
-
     }
 
-    override fun getItemCount(): Int {
-        return goodbooksList.size
-    }
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateBookList(newBooks: List<bookModel>) {
-        goodbooksList.clear()
-        goodbooksList.addAll(newBooks)
-        notifyDataSetChanged()
-    }
-    private fun zoomIn(view: View) {
-        val zoomIn = ScaleAnimation(
-            1.0f, 1.5f,
-            1.0f, 1.5f,
-            ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-            ScaleAnimation.RELATIVE_TO_SELF, 0.5f
-        )
-        zoomIn.fillAfter = true
-        zoomIn.duration = 300
-        view.startAnimation(zoomIn)
-    }
 
-    private fun zoomOut(view: View) {
-        val zoomOut = ScaleAnimation(
-            1.5f, 1.0f,
-            1.5f, 1.0f,
-            ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-            ScaleAnimation.RELATIVE_TO_SELF, 0.5f
-        )
-        zoomOut.fillAfter = true
-        zoomOut.duration = 300
-        view.startAnimation(zoomOut)
-    }
 }
 
 

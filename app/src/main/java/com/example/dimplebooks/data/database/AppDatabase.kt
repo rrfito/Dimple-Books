@@ -1,13 +1,12 @@
-package com.example.dimplebooks.data
+package com.example.dimplebooks.data.database
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import android.content.Context
-import androidx.room.TypeConverters
-import com.example.dimplebooks.data.dao.bookHistoryDao
+import com.example.dimplebooks.data.database.dao.bookHistoryDao
 
-import com.example.dimplebooks.data.entity.bookHistoryEntity
+import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 @Database(entities = [bookHistoryEntity::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun bookHistoryDao(): bookHistoryDao

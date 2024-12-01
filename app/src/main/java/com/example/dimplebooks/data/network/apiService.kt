@@ -5,20 +5,12 @@ import retrofit2.Call
 import com.example.dimplebooks.data.model.BookResponse
 import retrofit2.http.Query
 
-interface bookApi {
+interface apiService {
 
     @GET("volumes")
-    fun searchBooks(
-    @Query("q") query: String,
-    @Query("key") apiKey: String,
-        @Query("maxResults") maxResults: Int
-    ): Call<BookResponse>
-
-    @GET("volumes")
-    fun newestBooks(
+    fun fetchBooks(
         @Query("q") query: String,
         @Query("key") apiKey: String,
-        @Query("orderBy") orderBy: String,
         @Query("maxResults") maxResults: Int
     ): Call<BookResponse>
 
