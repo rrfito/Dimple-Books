@@ -73,8 +73,8 @@ dependencies {
 
     // Lifecycle
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
+    implementation ("androidx.fragment:fragment-ktx:1.6.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
 
     // Coroutine
@@ -83,8 +83,12 @@ dependencies {
     //dot
     implementation("com.tbuonomo:dotsindicator:4.3")
 
-
+    //flexbox
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    //shimmer facebook
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+
 
 
 

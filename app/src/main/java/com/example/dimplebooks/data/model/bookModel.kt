@@ -18,8 +18,4 @@ data class bookModel(
     val language: String? = null,
     val buyLink : String? = null,
     val previewLink : String? = null,
-    val rating : Double
-
-
-
-)
+    val rating : Double)

@@ -2,6 +2,7 @@ package com.example.dimplebooks.UI.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.example.dimplebooks.data.model.bookModel
 import com.example.dimplebooks.data.network.RetrofitInstance
 import com.example.dimplebooks.data.repository.ApiRepository
 import com.example.dimplebooks.databinding.FragmentHistoryBinding
+import com.example.dimplebooks.utils.Resource
 import com.example.dimplebooks.utils.baseAdapter
 import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -62,6 +64,38 @@ class Home : Fragment(),
         requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.greyy)
         setupBanner()
         setupRecyclerViews()
+
+        // inisialisasi
+//        private val userviewmodel : Userviewmodel by activityviewmodels{
+//            ViewModelProviderFactory(userviewmodel::class.java){
+//                val repository = UserRepository(RetrofitInstance.getJSONplaceholderapi)
+//                userviewmodel(repository)
+//            }
+//        }
+        //pemanggilan
+
+//        userviewmodel.getUsers(requireContext())
+//        userviewmodel.data.observe(viewLifecycleOwner){}
+//        resources ->
+//        when(resources){
+//            is Resource.Empty ->{
+//                Log.d("Data user", "data kosong : ${resources.message}")
+//            }
+//            is Resource.Error ->{
+//                Log.d("Data user",  ${resources.message.toString()})
+//            }
+//            is Resource.Loading ->{
+//                Log.d("Data user", "mohon tunggu")
+//            }
+//            is Resource.Success ->{
+//                Log.d("Data user", "data berhasi; didapatkan")
+//
+//                val newsitem = resources.data!!.mapindexed { index, data ->
+//                    Newhorizontalmodel("""""")
+//                }
+//
+//            }
+//        }
     }
 
     private fun setupBanner() {

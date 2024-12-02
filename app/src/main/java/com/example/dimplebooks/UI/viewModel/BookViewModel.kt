@@ -1,14 +1,48 @@
 package com.example.dimplebooks.UI.viewModel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.dimplebooks.data.model.bookModel
 
 import com.example.dimplebooks.data.repository.ApiRepository
+import com.example.dimplebooks.utils.NetworkUtils
+import com.example.dimplebooks.utils.Resource
+import kotlinx.coroutines.launch
+
 class BookViewModel(private val repository: ApiRepository) : ViewModel() {
     var isImageVisible: Boolean = true
     var isTextVisible: Boolean = true
+
+//    private val _data = MutableLiveData<Resource<List<bookModel>>>()
+//     val data : LiveData<Resource<List<bookModel>>> = _data
+//
+//    fun getNewest(context: Context,forceRefresh : Boolean = false){
+//        if (_data.value == null || forceRefresh){
+//            if (NetworkUtils.isNetworkAvailable(context)){
+//                viewModelScope.launch {
+//                    try {
+//                        _data.value = Resource.Loading()
+//                        val response = repository.fetchBooks()
+//                        if (response.isEmpty()){
+//                            _data.postValue(Resource.Empty("No data found"))
+//                        }else{
+//                            _data.postValue(Resource.Success(response))
+//                        }
+//                    }catch (e: Exception){
+//                        _data.postValue(Resource.Error("UNKNOWN ERROR : ${e.message}"))
+//                    }
+//                }
+//
+//            }else{
+//                _data.postValue(Resource.Error("No internet connection"))
+//            }
+//        }
+//    }
+
+
 
     private val _searchBooks = MutableLiveData<List<bookModel>>()
     val searchBooks: LiveData<List<bookModel>> get() = _searchBooks

@@ -37,7 +37,6 @@ class MainNavigasi : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        // Unregister the receiver to prevent memory leaks
         unregisterReceiver(networkChangeReceiver)
     }
 
