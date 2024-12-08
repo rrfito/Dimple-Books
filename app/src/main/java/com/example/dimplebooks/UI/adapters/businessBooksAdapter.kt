@@ -1,5 +1,6 @@
 package com.example.dimplebooks.UI.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,7 @@ class businessBooksAdapter(
                 }
                 rating.text = currentBook.rating.toString()
                 setupGesture(cardBusiness, currentBook)
+
             }
         }
     }

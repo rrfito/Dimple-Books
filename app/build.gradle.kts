@@ -21,7 +21,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String","API_KEY",properties.getProperty("API_KEY"))
-
+        buildConfigField("String","API_KEY_REVIEW",properties.getProperty("API_KEY_REVIEW"))
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 buildFeatures{
@@ -62,19 +62,19 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
-
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
     //firebase database and authentication
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.database)
     //google
     implementation ("com.google.android.gms:play-services-auth:21.2.0")
-
+    implementation ("androidx.fragment:fragment-ktx:1.8.5")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
 
     // Lifecycle
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
 
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
 
     // Coroutine

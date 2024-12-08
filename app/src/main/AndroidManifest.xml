@@ -22,6 +22,9 @@
         android:theme="@style/Theme.Refitoo"
         tools:targetApi="31">
         <activity
+            android:name=".UI.activity.RatingBook"
+            android:exported="false" />
+        <activity
             android:name=".UI.activity.HistoryBooks"
             android:exported="false" />
         <activity

@@ -9,11 +9,29 @@
 
     app:cardCornerRadius="15dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="15dp"
-        android:id="@+id/recycleviewRecom"
+    <LinearLayout
+        android:id="@+id/LinearLayouttt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <include android:id="@+id/loadingstate"
+            layout="@layout/shimmer_review"
+            android:visibility="gone"/>
+        <include
+            android:id="@+id/state"
+            layout="@layout/state_review"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="15dp"
+            android:id="@+id/recycleviewRecom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+
 
 
 

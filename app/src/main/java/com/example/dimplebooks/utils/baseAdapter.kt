@@ -1,12 +1,12 @@
 package com.example.dimplebooks.utils
 
-import android.annotation.SuppressLint
+
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dimplebooks.data.model.bookModel
+
 
 abstract class baseAdapter<T>(
     val items: ArrayList<T>,
@@ -16,6 +16,7 @@ abstract class baseAdapter<T>(
     interface OnItemClickListener<T> {
         fun onItemClick(item: T)
     }
+
 
     fun updateBookList(newItems: List<T>) {
         items.clear()

@@ -63,6 +63,9 @@ class entertaimentBookAdapter( EntertaimentBookList: ArrayList<bookModel>,
                 price.text = pricetext
                 rating.text = currentBook.rating.toString()
                 setupGesture(businessimages, currentBook)
+                root.setOnClickListener {
+                    listener.onItemClick(currentBook)
+                }
 
             }
         }

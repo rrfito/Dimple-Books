@@ -67,6 +67,7 @@ class newestBookAdapter(newestBookList: ArrayList<bookModel>,
                 }
                 newestBookPrice.text = priceText
                 setupGesture(newestBookImage, currentBook)
+
             }
 
         }

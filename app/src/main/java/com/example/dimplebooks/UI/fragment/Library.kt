@@ -154,6 +154,7 @@ class Library : Fragment(),bookAdapter.OnItemClickListener,categoriesAdapter.OnC
         }
         val sharedPreferences = requireActivity().getSharedPreferences("book", Context.MODE_PRIVATE)
         sharedPreferences.edit()
+            .putString("book_id", book.id)
             .putString("book_title", book.title)
             .putString("book_image", book.imageUrl)
             .putString("book_authors", book.authors.joinToString(", "))

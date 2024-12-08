@@ -1,7 +1,9 @@
 package com.example.dimplebooks.UI.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -141,20 +143,28 @@ class Home : Fragment(),
     }
 
     private fun navigateToDetail(book: bookModel) {
-        val intent = Intent(requireContext(), detailBook::class.java).apply {
-            putExtra("book_title", book.title)
-            putExtra("book_image", book.imageUrl)
-            putExtra("book_authors", book.authors.joinToString(", "))
-            putExtra("book_publisher", book.publisher)
-            putExtra("book_publishedDate", book.publishedDate)
-            putExtra("book_pageCount", book.pageCount.toString())
-            putExtra("book_language", book.language)
-            putExtra("book_categories", book.categories.joinToString(", "))
-            putExtra("book_description", book.description)
-            putExtra("book_price", book.price.toString())
-            putExtra("book_saleability", book.saleability)
-            putExtra("buyLink", book.buyLink)
-        }
+        Log.d("navigateToDetail", "Navigating with book: $book")
+        val intent = Intent(requireContext(), detailBook::class.java)
+        val sharedPreferences = requireActivity().getSharedPreferences("book", Context.MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString("book_id", book.id)
+            .putString("book_title", book.title)
+            .putString("book_image", book.imageUrl)
+            .putString("book_authors", book.authors.joinToString(", "))
+            .putString("book_publisher", book.publisher)
+            .putString("book_publishedDate", book.publishedDate)
+            .putString("book_pageCount", book.pageCount.toString())
+            .putString("book_language", book.language)
+            .putString("book_categories", book.categories.joinToString(", "))
+            .putString("book_description", book.description)
+            .putString("book_price", book.price.toString())
+            .putString("book_saleability", book.saleability)
+            .putString("buyLink", book.buyLink)
+            .putString("book_previewLink", book.previewLink)
+            .putFloat("book_rating", book.rating.toFloat())
+            .apply()
+        Log.d("navigateToDetail", "Intent extras: ${sharedPreferences.getString("book_id", "")}")
+
         startActivity(intent)
     }
 

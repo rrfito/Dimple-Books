@@ -62,9 +62,67 @@
                 android:text="Antonio Montana"
                 android:textSize="12sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="100dp"
+
+                    android:layout_height="40dp"
+
+                    android:backgroundTint="#ffefc6"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="0dp">
+                    <LinearLayout
+
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/rating"/>
+                        <TextView
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.4"
+
+                            android:textColor="#ffaf20"
+                            android:fontFamily="@font/quicksandbold"/>
+
+
+                    </LinearLayout>
+
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/rateButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                  android:layout_marginStart="10dp"
+                    android:text="Rate"
+                    app:cornerRadius="10dp"
+
+                    app:icon="@drawable/rate_review"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/quicksandbold"
+                    android:backgroundTint="@color/navy_blue_white"/>
+
+
+            </LinearLayout>
 
 
             <androidx.cardview.widget.CardView
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

@@ -56,6 +56,7 @@ class dailyBookGridAdapter(
                     .into(dailypics1)
 
                 setupGesture(framelayoutzoom, currentBook)
+
             }
 
 
