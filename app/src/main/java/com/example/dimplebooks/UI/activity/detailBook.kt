@@ -17,30 +17,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.adapters.reviewAdapter
 import com.example.dimplebooks.UI.adapters.topAppbarAdapter
-import com.example.dimplebooks.data.model.reviewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class detailBook : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var commentAdapter: reviewAdapter
-    private val commentList = listOf(
-        reviewModel(R.drawable.profile, "John Doe", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "22 hours ago"),
-        reviewModel(R.drawable.profile, "Jane Smith", "Lorem Ipsum has been the industry's standard dummy text.", "3 days ago"),
-        reviewModel(R.drawable.profile, "Alice Brown", "It is a long established fact that a reader will be distracted.", "1 week ago"),
-        reviewModel(R.drawable.profile, "Kanap Brown", "It is a long established fact that a reader will be distracted.", "2 week ago")
-
-    )
+//    private val commentList = listOf(
+//        reviewModel(R.drawable.profile, "John Doe", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "22 hours ago"),
+//        reviewModel(R.drawable.profile, "Jane Smith", "Lorem Ipsum has been the industry's standard dummy text.", "3 days ago"),
+//        reviewModel(R.drawable.profile, "Alice Brown", "It is a long established fact that a reader will be distracted.", "1 week ago"),
+//        reviewModel(R.drawable.profile, "Kanap Brown", "It is a long established fact that a reader will be distracted.", "2 week ago")
+//
+//    )
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,7 +49,6 @@ class detailBook : AppCompatActivity() {
         insets
     }
     window.statusBarColor = ContextCompat.getColor(this, R.color.white)
-
 
     val shared = getSharedPreferences("book", MODE_PRIVATE)
     val price = shared.getString("book_price", "")

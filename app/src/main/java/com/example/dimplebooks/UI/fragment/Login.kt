@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.UI.activity.MainNavigasi
+import com.example.dimplebooks.UI.utils.ViewModelFactory
+import com.example.dimplebooks.UI.viewModel.FirebaseViewModel
+import com.example.dimplebooks.data.Firebase.FirebaseAuthService
+import com.example.dimplebooks.data.Firebase.FirebaseRepository
 import com.example.dimplebooks.data.database.AppDatabase
+import com.example.dimplebooks.utils.Resource
+import com.example.dimplebooks.utils.ViewModelFactoryFirebase
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -31,16 +39,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Login.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Login : Fragment() {
 
     private lateinit var emailEditText: EditText
@@ -50,7 +49,12 @@ class Login : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var db: AppDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
-
+    private val firebaseViewModel: FirebaseViewModel by viewModels {
+        ViewModelFactoryFirebase(FirebaseViewModel::class.java) {
+            val repository = FirebaseRepository(FirebaseAuthService())
+            FirebaseViewModel(repository)
+        }
+    }
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,48 +70,40 @@ class Login : Fragment() {
 
 
 
-        //isi otomatis setelah register
-        sharedPreferences = requireActivity().getSharedPreferences("userpref", Context.MODE_PRIVATE)
-        val email = sharedPreferences.getString("email", "")
-        val password = sharedPreferences.getString("password", "")
-        emailEditText.setText(email)
-        passwordEditText.setText(password)
-
-
-        //cek login
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val user = firebaseAuth.currentUser
-        val id = firebaseAuth.currentUser?.uid
-        if (user != null) {
-            val editor = sharedPreferences.edit()
-            editor.putString("userid",id)
-            editor.apply()
+        if(firebaseViewModel.getCurrentUser() != null){
             navigateTo(MainNavigasi::class.java)
-        } else {
-
-
-
-
         }
         loginButton.setOnClickListener {
             val inputEmail = emailEditText.text.toString()
             val inputPassword = passwordEditText.text.toString()
+
             if (inputEmail.isNotEmpty() && inputPassword.isNotEmpty()) {
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(inputEmail, inputPassword)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            val id = firebaseAuth.currentUser?.uid
-                            val editor = sharedPreferences.edit()
-                            editor.putString("userid",id)
-                            editor.apply()
-                            navigateTo(MainNavigasi::class.java)
-                        } else {
-                            Fail(it.exception?.message.toString())
-                        }
-                    }
+                firebaseViewModel.login(inputEmail, inputPassword)
+            } else {
+                Toast.makeText(requireContext(), "Username dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
         }
-
+        firebaseViewModel.loginState.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    Toast.makeText(requireContext(), "Mohon tunggu sebentar", Toast.LENGTH_SHORT).show()
+                    Log.d("Firebase User Authentication", "Mengirim Username Password...")
+                }
+                is Resource.Success -> {
+                    val user = resource.data
+                    Toast.makeText(requireContext(), "Halo ${user?.username}", Toast.LENGTH_SHORT).show()
+                    navigateTo(MainNavigasi::class.java)
+                }
+                is Resource.Error -> {
+                    val error = resource.message
+                    if (error != null) {
+                        Fail(error)
+                    }
+                }
+                else -> {}
+            }
+        }
         //  Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -136,6 +132,8 @@ class Login : Fragment() {
         val intent = Intent(requireActivity(), activityClass)
         startActivity(intent)
         requireActivity().finish()
+
+
     }
 
     companion object {

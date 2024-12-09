@@ -15,15 +15,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
 import com.example.dimplebooks.UI.activity.HistoryBooks
+import com.example.dimplebooks.UI.activity.MainNavigasi
 import com.example.dimplebooks.UI.activity.detailBook
 import com.example.dimplebooks.UI.adapters.bookHistoryAdapter
+
+import com.example.dimplebooks.UI.viewModel.FirebaseViewModel
 import com.example.dimplebooks.data.database.AppDatabase
 import com.example.dimplebooks.data.database.entity.bookHistoryEntity
 import com.example.dimplebooks.UI.viewModel.historyBookViewModel
+import com.example.dimplebooks.data.Firebase.FirebaseAuthService
+import com.example.dimplebooks.data.Firebase.FirebaseRepository
+import com.example.dimplebooks.utils.ViewModelFactoryFirebase
 import com.example.dimplebooks.utils.historyBookViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -46,14 +53,14 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var historyBookList: ArrayList<bookHistoryEntity>
     private lateinit var historyAdapter: bookHistoryAdapter
+    private val firebaseViewModel: FirebaseViewModel by viewModels {
+        ViewModelFactoryFirebase(FirebaseViewModel::class.java) {
+            val repository = FirebaseRepository(FirebaseAuthService())
+            FirebaseViewModel(repository)
+        }
+    }
 
 
-//    private val uservidemodel : userviewmodel by lazy {
-//        va; repository = userRepository(Retrofitinstance.getJsonPlaceholder())
-//        viewmodelprovider(
-//            this,viewmodelFactory(userViewmodel::class.java){(uservidemodel(repository))}
-//        )(userviewmodel::class.java)
-//    }
 
 
    
@@ -67,7 +74,6 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
     ): View? {
 
         val accountView = inflater.inflate(R.layout.fragment_account, container, false)
-
         requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.navy_blue_white)
         val progressBar = accountView.findViewById<ProgressBar>(R.id.customProgressBar)
         val countbook = accountView.findViewById<TextView>(R.id.countbook)
@@ -113,29 +119,18 @@ class Account : Fragment(),bookHistoryAdapter.OnItemClickListener {
                 Log.d("HistoryFragment", "Current count: ${viewModelHistory.maxbookCount} and progress bar : ${progressBar.progress}")
             }
         }
-
-//        (bookHistoryDao as historyBookViewModel).getHistorybookCount()
-//            ?.observe(viewLifecycleOwner) { count ->
-//                countbook.text = count.toString() ?: "0"
-//                progressBar.progress = count ?: 0
-//            }
-
-
+        val logoutbutton  : LinearLayout = accountView.findViewById(R.id.logout)
+        logoutbutton.setOnClickListener(){
+            firebaseViewModel.logout()
+            val intent = Intent(requireContext(),Auth::class.java)
+            startActivity(intent)
+        }
         val historybutton : LinearLayout = accountView.findViewById(R.id.History)
         historybutton.setOnClickListener(){
             val intent = Intent(requireContext(), HistoryBooks::class.java)
             startActivity(intent)
 
         }
-
-
-
-
-
-
-
-
-
         return accountView
     }
 
