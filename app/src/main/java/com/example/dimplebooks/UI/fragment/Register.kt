@@ -17,25 +17,21 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.dimplebooks.R
 import com.example.dimplebooks.UI.activity.Auth
+import com.example.dimplebooks.UI.viewModel.FirebaseViewModel
+import com.example.dimplebooks.data.Firebase.FirebaseAuthService
+import com.example.dimplebooks.data.Firebase.FirebaseRepository
 
 import com.example.dimplebooks.data.model.userModel
+import com.example.dimplebooks.utils.Resource
+import com.example.dimplebooks.utils.ViewModelFactoryFirebase
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Register.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Register : Fragment() {
 
     private lateinit var regisUser: EditText
@@ -44,6 +40,12 @@ class Register : Fragment() {
     private lateinit var buttRegis: Button
 //    private lateinit var backArrow: ImageView
     private lateinit var sharedPreferences: SharedPreferences
+    private val firebaseViewModel: FirebaseViewModel by viewModels {
+        ViewModelFactoryFirebase(FirebaseViewModel::class.java) {
+            val repository = FirebaseRepository(FirebaseAuthService())
+            FirebaseViewModel(repository)
+        }
+    }
 
 
     @SuppressLint("MissingInflatedId")
@@ -71,47 +73,16 @@ class Register : Fragment() {
         }
 
 
-        val auth = FirebaseAuth.getInstance()
-        val databaseFire = FirebaseDatabase.getInstance().getReference("users")
+
+
+
         buttRegis.setOnClickListener { view ->
             val inputUsername = regisUser.text.toString()
             val inputPassword = regisPas.text.toString()
             val inputEmail = regisEmail.text.toString()
             if (inputPassword.isNotEmpty() && inputUsername.isNotEmpty()) {
-                auth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val user = auth.currentUser?.uid
-                        val userModel = userModel(user, inputUsername, inputEmail,null)
-                        databaseFire.child(user!!).setValue(userModel)
-                        success("account created successfully")
-                        val loginfragment = Login()
-                        val bundle = Bundle().apply {
-                            putString("email", inputEmail)
-                            putString("password", inputPassword)
-                        }
-                        loginfragment.arguments = bundle
-                        Log.d("RegisterFragment", "$bundle")
-                        auth.signOut()
-
-                        (activity as? Auth)?.ReplaceFragment(loginfragment)
-                    } else {
-                        Fail(it.exception?.message.toString())
-
-
-                    }
-                }
-
-//                viewLifecycleOwner.lifecycleScope.launch {
-//                    addUser(inputUsername,inputPassword,inputEmail)
-//                }
-
-//                val editor = sharedPreferences.edit()
-//                editor.putString("isLogin", "1")
-//                editor.putString("username", inputUsername)
-//                editor.putString("password", inputPassword)
-
-
-
+                firebaseViewModel.register(inputEmail,inputPassword)
+                firebaseViewModel.updateUsername(inputUsername)
             } else {
                 Snackbar.make(view, "Username dan Password jangan kosong", Snackbar.LENGTH_LONG)
                     .setAction("Undo") {
@@ -119,18 +90,34 @@ class Register : Fragment() {
                     }
                     .show()
             }
+        }
+        firebaseViewModel.registerState.observe(viewLifecycleOwner){ resources ->
+            when(resources){
+                is Resource.Empty -> {
+                    Toast.makeText(requireContext(), "empty", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error ->{
+                    val error = resources.message
+                    if (error != null) {
+                        Fail(error)
+                    }
+                }
+                is Resource.Loading ->{
+                    Toast.makeText(requireContext(), "loading....", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success -> {
+                    val loginfragment = Login()
+                    success("account created successfully")
+                    firebaseViewModel.logout()
+                    (activity as? Auth)?.ReplaceFragment(loginfragment)
+                }
+            }
 
         }
 
         return view
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        val username = arguments?.getString("username")
-        Log.d("LoginFragmentt", "Username: $username")
-
-    }
     private fun Fail(messagee : String) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

@@ -1,10 +1,14 @@
 package com.example.dimplebooks.data.Firebase
 
+<<<<<<< HEAD
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.dimplebooks.data.model.userModel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+=======
+import com.example.dimplebooks.data.model.userModel
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 
 class FirebaseRepository(private val authService: FirebaseAuthService) {
     suspend fun login(email: String, password: String): userModel? {
@@ -14,6 +18,10 @@ class FirebaseRepository(private val authService: FirebaseAuthService) {
                 userId = null,
                 username = authResult.displayName ?: "Unknown",
                 email = authResult.email ?: "Unknown",
+<<<<<<< HEAD
+=======
+                profileImageUrl = (authResult.photoUrl ?: "https://i.ibb.co/wyhnHry/profile.png").toString()
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
             )
         }
         return null
@@ -24,6 +32,7 @@ class FirebaseRepository(private val authService: FirebaseAuthService) {
     }
 
     fun getCurrentUser() = authService.getCurrentUser()
+<<<<<<< HEAD
      fun Logout(context: Context){
         return authService.logout(context)
     }
@@ -53,4 +62,19 @@ class FirebaseRepository(private val authService: FirebaseAuthService) {
     }
 
 
+=======
+    fun Logout() = authService.logout()
+
+    suspend fun updatePhoto(photoUrl: String): Boolean {
+        return authService.updatePhotoUser(photoUrl)
+    }
+
+    suspend fun updateUsername(username: String): Boolean {
+        return authService.updateUsername(username)
+    }
+
+    suspend fun updateEmail(email: String): Boolean {
+        return authService.updateEmail(email)
+    }
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 }

@@ -1,5 +1,6 @@
 package com.example.dimplebooks.data.Firebase
 
+<<<<<<< HEAD
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -9,18 +10,26 @@ import android.util.Log
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+=======
+import android.content.ContentValues.TAG
+import android.net.Uri
+import android.util.Log
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+<<<<<<< HEAD
 import com.google.android.gms.auth.api.Auth
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
+=======
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 
 class FirebaseAuthService {
     private val firebaseAuth = FirebaseAuth.getInstance()
@@ -44,11 +53,16 @@ class FirebaseAuthService {
         }
     }
     fun getCurrentUser() = firebaseAuth.currentUser
+<<<<<<< HEAD
     fun logout(context: Context){
         firebaseAuth.signOut()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context, gso)
         googleSignInClient.signOut()
+=======
+    fun logout(){
+        firebaseAuth.signOut()
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
     }
     suspend fun updatePhotoUser(photoUrl: String): Boolean {
         val user = firebaseAuth.currentUser ?: return false
@@ -62,6 +76,7 @@ class FirebaseAuthService {
             false
         }
     }
+<<<<<<< HEAD
     @SuppressLint("SuspiciousIndentation")
     suspend fun checkpassword(password: String): Boolean{
         val user = firebaseAuth.currentUser ?: return false
@@ -117,4 +132,29 @@ class FirebaseAuthService {
 
 
 
+=======
+
+    suspend fun updateUsername(username: String): Boolean {
+        val user = firebaseAuth.currentUser ?: return false
+        return try {
+            val profileUpdates = userProfileChangeRequest {
+                displayName = username
+            }
+            user.updateProfile(profileUpdates).await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun updateEmail(email: String): Boolean {
+        val user = firebaseAuth.currentUser ?: return false
+        return try {
+            user.updateEmail(email).await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 }

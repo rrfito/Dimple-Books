@@ -1,8 +1,11 @@
 package com.example.dimplebooks.UI.viewModel
 
+<<<<<<< HEAD
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+=======
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +26,7 @@ class FirebaseViewModel(private val repository: FirebaseRepository) : ViewModel(
     private val _updateState = MutableLiveData<Resource<Boolean>>()
     val updateState: LiveData<Resource<Boolean>> get() = _updateState
 
+<<<<<<< HEAD
     private val _checkpassword = MutableLiveData<Resource<Boolean>>()
     val checkpassword: LiveData<Resource<Boolean>> get() = _checkpassword
 
@@ -31,6 +35,11 @@ class FirebaseViewModel(private val repository: FirebaseRepository) : ViewModel(
 
     fun login(email: String, password: String) {
         _loginState.value = Resource.Loading()
+=======
+    fun login(email: String, password: String) {
+        _loginState.value = Resource.Loading()
+
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
         viewModelScope.launch {
             try {
                 val user = repository.login(email, password)
@@ -62,6 +71,7 @@ class FirebaseViewModel(private val repository: FirebaseRepository) : ViewModel(
         }
     }
 
+<<<<<<< HEAD
 
 
     fun updateUsernameAndEmail(username: String, email: String) {
@@ -119,4 +129,47 @@ class FirebaseViewModel(private val repository: FirebaseRepository) : ViewModel(
         }
     }
 
+=======
+    fun updatePhoto(photoUrl: String) {
+        _updateState.value = Resource.Loading()
+
+        viewModelScope.launch {
+            try {
+                val result = repository.updatePhoto(photoUrl)
+                _updateState.value = Resource.Success(result)
+            } catch (e: Exception) {
+                _updateState.value = Resource.Error(e.message ?: "Terjadi kesalahan saat mengupdate foto.")
+            }
+        }
+    }
+
+    fun updateUsername(username: String) {
+        _updateState.value = Resource.Loading()
+
+        viewModelScope.launch {
+            try {
+                val result = repository.updateUsername(username)
+                _updateState.value = Resource.Success(result)
+            } catch (e: Exception) {
+                _updateState.value = Resource.Error(e.message ?: "Terjadi kesalahan saat mengupdate username.")
+            }
+        }
+    }
+
+    fun updateEmail(email: String) {
+        _updateState.value = Resource.Loading()
+
+        viewModelScope.launch {
+            try {
+                val result = repository.updateEmail(email)
+                _updateState.value = Resource.Success(result)
+            } catch (e: Exception) {
+                _updateState.value = Resource.Error(e.message ?: "Terjadi kesalahan saat mengupdate email.")
+            }
+        }
+    }
+
+    fun getCurrentUser() = repository.getCurrentUser()
+    fun logout() = repository.Logout()
+>>>>>>> 51469decd6173ef4653f6a6de1efb2ad7a85a8ad
 }

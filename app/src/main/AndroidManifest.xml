@@ -36,9 +36,7 @@
         <activity
             android:name=".UI.activity.accountActivity.settings"
             android:exported="false" />
-        <activity
-            android:name=".UI.basicListView.ListViewActivity"
-            android:exported="false" />
+
         <activity
             android:name=".UI.activity.Auth"
             android:exported="false" />
